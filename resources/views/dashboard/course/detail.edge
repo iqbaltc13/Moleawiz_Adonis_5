@@ -1,0 +1,472 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>Moleawiz|Course|Course| Detail Module</title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <!-- Plugins css -->
+  <!-- Plugins css -->
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <!-- third party css end -->
+  <style>
+     .add-button{
+      background-color: #FFFFFF!important;
+      border-color: #6D757D!important;
+    }
+    .add-button:hover {
+      border-color: #DF2333!important;
+      background-color: #DF2333!important;
+      color: white!important;
+    }
+  </style>
+  <script>
+    function calcDate(date1,date2) {
+      if (date1 > date2) {
+        var swap = date1;
+        date1 = date2;
+        date2 = swap;
+      }
+      var startYear = date1.getFullYear();
+      var february = (startYear % 4 === 0 && startYear % 100 !== 0) || startYear % 400 === 0 ? 29 : 28;
+      var daysInMonth = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+      var yearDiff = date2.getFullYear() - startYear;
+      var monthDiff = date2.getMonth() - date1.getMonth();
+      if (monthDiff < 0) {
+          yearDiff--;
+          monthDiff += 12;
+      }
+      var dayDiff = date2.getDate() - date1.getDate();
+      if (dayDiff < 0) {
+          if (monthDiff > 0) {
+              monthDiff--;
+          } else {
+              yearDiff--;
+              monthDiff = 11;
+          }
+          dayDiff += daysInMonth[date1.getMonth()];
+      }
+      let textDiffDate = '';
+      if(yearDiff > 0){
+        textDiffDate += yearDiff + ' years' + ' ';
+      }
+      if(monthDiff > 0){
+        textDiffDate += monthDiff + ' months' + ' ';
+      }
+      if(dayDiff > 0){
+        textDiffDate += dayDiff + ' days' + ' ';
+      }
+
+      return textDiffDate;
+    }
+  </script>
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+
+
+    <!-- Start Content-->
+    <div class="content">
+
+      <!-- Start Content-->
+      <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right" >
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme "  href="{{route('home')}}">HOME</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme "  href="{{route('dashboard.course-category.index-collapse-expand')}}">Manage Content and Categories</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme "  href="{{route('dashboard.course.index-by-category',{ category_id :  course.category })}}">Course</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link active"> {{course.fullname}}</li>
+
+                </ol>
+              </div>
+              <div class="row">
+                <div class="col-lg-2">
+                   <a href="{{route('dashboard.course.index-by-category',{ category_id : course.category })}}" ><h4 class="page-title back-button  text-hover-color-scheme"><i class="mdi mdi-arrow-left"></i> Back</h4> </a>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-7">
+            <div class="card card-outline">
+              <div class="card-body">
+                <div class="dropdown float-end">
+
+                  <div class="dropdown-menu dropdown-menu-end">
+
+                  </div>
+                </div>
+
+                <h4 class="header-title mb-0"><b style="color:#333333; ">{{course.fullname}}</b></h4>
+
+                <ul class="list-unstyled mb-0" style="padding-top: 30px;">
+                  <li>
+
+                                            <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Fullname</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{course.fullname ? course.fullname : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Short name</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{course.shortname ? course.shortname.toUpperCase() : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >ID number</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{course.idnumber ? course.idnumber : '-' }}</p>
+                      @if(course.getRelated('kategory'))
+                        <p class="mb-2" style="color:#DF2333;"><span class="fw-semibold me-2" style="color : #6D757D!important;">Category</span> <br/><a style="color:#DF2333;" class="text-color-scheme" href="{{route('dashboard.course.index-by-category',{ category_id : course.category })}}" > &nbsp;&nbsp;&nbsp;&nbsp;{{course.getRelated('kategory') ? course.getRelated('kategory').name : '-' }}</a></p>
+                      @else
+                        <p class="mb-2" style="color:#DF2333;"><span class="fw-semibold me-2" style="color : #6D757D!important;">Category</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{ '-' }}</p>
+                      @endif
+
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Groupings</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{course.defaultgroupingid ? course.defaultgroupingid : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Groups</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{course.groupmode ? course.groupmode : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Role assignments</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp; - </p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Enrolment methods</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;- </p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Format</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{course.format ? course.format : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Sections</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;-</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Modules used</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;SCORM package</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Number of attempts allowed</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;Unlimited</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Number of attempts you have made</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;1</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Grade for attempt 1</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;100%</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Grading method</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;Highest attempt</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Grade reported</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;0%</p>
+
+                  </li>
+                </ul>
+
+                <div class="widget-chart" dir="ltr">
+
+                  <div id="cardCollpase8" class="collapse pt-3 show" dir="ltr">
+                    <div id="completions-by-learning-program" class="apex-charts" style="padding-bottom: 20px;"></div>
+                  </div>
+                  <div class="button">
+
+                  </div>
+                </div>
+              </div>
+            </div> <!-- end card -->
+          </div> <!-- end col-->
+          <div class="col-md-5">
+
+
+            <div class="card">
+              <div class="card-body">
+                <div class="dropdown float-end">
+                  <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                     aria-expanded="false">
+
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end">
+                  </div>
+                </div>
+                <h4 class="header-title mb-3"><b style="color:#333333; ">Menu</b></h4>
+
+                <ul class="list-unstyled mb-0">
+                  <li>
+                      <p class="mb-2"><a href="{{ route('dashboard.course.edit', { id : course.id }) }}"  class="text-color-scheme" style="color: #DF2333;"><span class="fw-semibold me-2" >Edit Course</span> </a></p>
+                      <!--<p class="mb-2"><a href="javascript:void(0);"  style="color: #DF2333;"><span class="fw-semibold me-2" >Enrolled Users</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);"  style="color: #DF2333;"><span class="fw-semibold me-2" >Backup</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);"  style="color: #DF2333;"><span class="fw-semibold me-2" >Restore</span> </a></p>-->
+                      <p class="mb-2"><a href="javascript:void(0);"  fullname="{{ course.fullname  }}" class="btndelete text-color-scheme" dataid="{{course.id}}" style="color: #DF2333;"><span class="   fw-semibold me-2" >Delete</span> </a></p>
+
+
+
+                  </li>
+                </ul>
+
+
+              </div>
+            </div> <!-- end card -->
+
+
+            @each(item in course.getRelated('scorms').rows)
+            <div class="card">
+              <div class="card-body">
+                <div class="dropdown float-end">
+                  <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                     aria-expanded="false">
+
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end">
+                  </div>
+                </div>
+                <h4 class="header-title mb-3"><b style="color:#333333; ">{{item.name ? item.name : "-" }}</b></h4>
+
+                <ul class="list-unstyled mb-0">
+                  <li>
+                      <!--<p class="mb-2"><a href="javascript:void(0);" fullname="{{item.name}}" dataid="{{item.id}}" courseid="{{data.course}}" style="color: #DF2333;"><span class="fw-semibold me-2" >Enter Module</span> </a></p>-->
+                      <p class="mb-2"><a href="javascript:void(0);" fullname="{{item.name}}" dataid="{{item.id}}" courseid="{{data.course}}" class=" text-color-scheme delete-scorm-attempt" style="color: #DF2333;"><span class="fw-semibold me-2" >Delete All SCORM Attempts</span> </a></p>
+                      <p class="mb-2"><a href="{{route('dashboard.scorm.index-attempt',{scorm_id : item.id})}}" fullname="{{item.name}}" class="text-color-scheme" dataid="{{item.id}}" courseid="{{data.course}}" style="color: #DF2333;"><span class="fw-semibold me-2" >Report</span> </a></p>
+                      <!--<p class="mb-2"><a href="javascript:void(0);" fullname="{{item.name}}" dataid="{{item.id}}" courseid="{{data.course}}" style="color: #DF2333;"><span class="fw-semibold me-2" >Edit Settings</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);" fullname="{{item.name}}" dataid="{{item.id}}" courseid="{{data.course}}" style="color: #DF2333;"><span class="fw-semibold me-2" >Locally Assigned Roles</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);" fullname="{{item.name}}" dataid="{{item.id}}" courseid="{{data.course}}" style="color: #DF2333;"><span class="fw-semibold me-2" >Permissions</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);" fullname="{{item.name}}" dataid="{{item.id}}" courseid="{{data.course}}" style="color: #DF2333;"><span class="fw-semibold me-2" >Check Permissions</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);" fullname="{{item.name}}" dataid="{{item.id}}" courseid="{{data.course}}" style="color: #DF2333;"><span class="fw-semibold me-2" >Filters</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);" fullname="{{item.name}}" dataid="{{item.id}}" courseid="{{data.course}}" style="color: #DF2333;"><span class="fw-semibold me-2" >Logs</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);" fullname="{{item.name}}" dataid="{{item.id}}" courseid="{{data.course}}" style="color: #DF2333;"><span class="fw-semibold me-2" >Backup </span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);" fullname="{{item.name}}" dataid="{{item.id}}" courseid="{{data.course}}" style="color: #DF2333;"><span class="fw-semibold me-2" >Restore</span> </a></p>-->
+
+
+
+                  </li>
+                </ul>
+
+
+              </div>
+            </div> <!-- end card -->
+            @endeach
+
+
+          </div>
+
+        </div>
+
+
+        <!-- end page title -->
+
+
+        <!-- RADIOS -->
+
+
+      </div> <!-- container -->
+
+    </div> <!-- content -->
+
+    @include('layouts.modal_and_alert')
+    <!-- Footer Start -->
+    @include('layouts.footer')
+    <!-- end Footer -->
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Plugins js -->
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+
+  <script>
+    let dataId =  0;
+    let dataidExpandCollapse = 0;
+    let urlDelete = '';
+    let valSearchField = '';
+    let titleModalCategories = '';
+    let dataIdDelete = 0;
+    let fullName = '';
+    let urlDeleteAttempt = '';
+    $(document).ready(function () {
+      $(".mlw-li").hide()
+      $(".mlw-li-home").show()
+      $(".text-color-scheme").css("color",dataThemes.color_scheme);
+      @if(flashMessage('notification'))
+
+          /*Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: "{{flashMessage('notification')}}",
+
+          });*/
+
+          $("#title-paragraph-alert-modal-success").html("Success!");
+          $("#content-paragraph-alert-modal-success").html("{{flashMessage('notification')}}");
+          $("#continue-alert-modal-success").html("Continue");
+          $("#info-alert-modal-success").modal('show');
+
+      @endif
+
+
+
+      @if(flashMessage('failMessage'))
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed!',
+        text: "{{flashMessage('failMessage')}}",
+
+      })
+      @endif
+
+      @if(flashMessage('successMessage'))
+
+        /*Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: "{{flashMessage('successMessage')}}",
+
+        })*/
+        $("#title-paragraph-alert-modal-success").html("Success!");
+        $("#content-paragraph-alert-modal-success").html("{{flashMessage('successMessage')}}");
+        $("#continue-alert-modal-success").html("Continue");
+        $("#info-alert-modal-success").modal('show');
+      @endif
+
+      $('#btn_auto_generate_password').click(function () {
+        let randomstring = Math.random().toString(36).slice(-10);
+        $('#password').val(randomstring);
+      });
+
+      $('#submit_btn').click(function () {
+
+        $('#edit_user').submit();
+      });
+
+      let country = "{{user.country}}";
+      $('#country').val(country).change();
+      $('#country').selectize();
+
+      let maildisplay = "{{user.maildisplay}}";
+      $('#id_maildisplay').val(maildisplay).change();
+
+
+      var drEvent = $('#profpic').dropify();
+
+      drEvent.on('dropify.beforeClear', function (event, element) {
+        return confirm('Do you really want to delete ' + element.file.name + ' ?');
+      });
+
+      drEvent.on('dropify.afterClear', function (event, element) {
+        alert('File deleted');
+      });
+
+      drEvent.on('dropify.errors', function (event, element) {
+        console.log('Has Errors');
+      });
+
+      const fp = flatpickr("#joindate", {
+        dateFormat: "Y-m-d",
+      });
+    $(".delete-scorm-attempt").on('click', function () {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urldelete = "{{ route('dashboard.scorm.soft-delete-by-scorm-id',{ scorm_id : 'scorm.id' })}}";
+
+      urldelete = urldelete.replace('scorm.id', dataid);
+      $('#top-modal-delete').modal('show');
+      dataId =  dataid;
+      urlDelete = urldelete;
+      let labelDelete = 'Delete All SCORM Attempts';
+      let contentParagraphDelete = "Do you really want to completely delete all your attempts"+"?";
+      let yesDelete = "Delete SCORM Attempts";
+      let noDelete  = "Never Mind, Keep My Attempts";
+      $('#topModalLabelDelete').html(labelDelete);
+      $('#content-paragraph-delete').html(contentParagraphDelete);
+      $('#yes-delete').html(yesDelete);
+      $('#no-delete').html(noDelete);
+    });
+    $('.btndelete').on('click', function () {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urldelete = "{{ route('dashboard.course.soft-delete-redirect-index-by-category',{ id : 'course.id' })}}";
+
+      urldelete = urldelete.replace('course.id', dataid);
+      $('#top-modal-delete').modal('show');
+      dataId =  dataid;
+      urlDelete = urldelete;
+      let labelDelete = 'Delete Course';
+      let contentParagraphDelete = "Do you really want to delete this </br>" + "<b>"+"'"+fullname+"'"+"</b>"+" course and all the data it contains"+"?";
+      let yesDelete = "Delete Course";
+      let noDelete  = "Never Mind, Keep the Course";
+      $('#topModalLabelDelete').html(labelDelete);
+      $('#content-paragraph-delete').html(contentParagraphDelete);
+      $('#yes-delete').html(yesDelete);
+      $('#no-delete').html(noDelete);
+
+
+    });
+
+    $('#yes-delete').on('click', function() {
+      window.location.href = urlDelete;
+    });
+
+
+    });
+
+  </script>
+  <!-- third party js ends -->
+@endsection

@@ -1,0 +1,1020 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>Moleawiz|Course|Course Category| List Course Category</title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <!-- third party css end -->
+  <style>
+    btn-add:hover {
+
+      background-color: #DF2333 !important;
+      color: white !important;
+    }.dataTables_length_custom{
+      padding-bottom: 0px!important;
+    }
+    .dataTables_filter_custom{
+      padding-bottom: 0px !important;
+    }
+    .search-datatable {
+        border-radius: 30px!important;
+        padding-bottom: -5px!important;
+
+
+    }
+
+    .tr-odd{
+      border-color: transparent!important;
+      background-color: #F7F9FC!important;
+    }
+    .tr-even{
+      border-color: transparent!important;
+      background-color: #FFFFFF!important;
+    }
+    .pd-top-pagination{
+      padding-top: 16px!important;;
+    }
+    .red-button{
+      background-color: transparent!important;
+
+    }
+
+    .add-button{
+      background-color: #FFFFFF!important;
+      border-color: #6D757D!important;
+    }
+    .add-button:hover {
+      border-color: #DF2333!important;
+      background-color: #DF2333!important;
+      color: white!important;
+    }
+    .page-item.active .page-link {
+        /* z-index: 3; */
+        position: relative;
+        display: block;
+        color: #fff;
+        background-color: #DF2333;
+        border-color: #DF2333;
+    }
+
+
+    .bottom-wrapper {
+        margin-top: 0.5em;
+    }
+    .top-wrapper {
+      margin-bottom: 0.5em;
+    }
+    /* .card-drop:hover{
+      color: #DF2333!important;
+    } */
+
+    .label-uncheckded-choose-categories{
+      color: #333333;
+    }
+
+    .label-checkded-choose-categories{
+      color: #DF2333;
+    }
+  </style>
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+    <div class="content">
+      @loggedIn
+      <input type="hidden" value="{{authUser.firstname +' '+ authUser.lastname}}" id="auth_name">
+      @else
+        <script>
+          window.location.replace("{{route('login')}}");
+        </script>
+        @endloggedIn
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box">
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('home')}}">HOME</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link active">Manage Content and Categories</li>
+                  </ol>
+                </div>
+                <h4 class="page-title">Manage Content and Categories</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+
+
+                  <div class="btn-toolbar">
+
+                    <div class="btn-group dropdown-btn-group pull-right">
+
+
+                    </div>
+                  </div>
+
+
+                  <div class="responsive-table-plugin dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                      <div class="col align-self-start">
+
+                      </div>
+                      <!-- <div class="col align-self-center">
+                          <div class="dt-buttons btn-group flex-wrap">
+                              <button class="btn btn-secondary buttons-copy buttons-html5 btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Copy</span></button>
+                              <button class="btn btn-secondary buttons-print btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Print</span></button>
+                              <button class="btn btn-secondary buttons-pdf buttons-html5 btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
+                           </div>
+                      </div>  -->
+                      <div class="col align-self-end">
+
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="btn-toolbar" style="padding-bottom:8px">
+                          <div class="btn-group dropdown-btn-group pull-left" style="padding-bottom:20px;">
+                           <b ><h4 class="header-title" style="font-size: 1.25rem;"> Course Category</h4></b>
+                          </div>
+                          <div class="btn-group dropdown-btn-group pull-right" style="padding-bottom:20px;">
+                            <input type="search" class="form-control form-control-sm search-datatable" id="search-field" onkeyup="quickSearch(this)" placeholder="    Search course" aria-controls="datatable">
+
+
+                          </div>
+                          <form id="form_change_parent" action="{{ route('dashboard.course-category.change-parent') }}"
+                            enctype="multipart/form-data" method="POST">
+                            {{ csrfField() }}
+                          <br>
+                          <br>
+                          <div class="btn-group dropdown-btn-group pull-left" style="padding-bottom:10px;">
+                            <a href="javascript:void(0);" class="btn  button-hover-color-scheme expand-all"> &#160;  Expand All</a> &#160; &#160;
+                            <a href="javascript:void(0);" class="btn  button-hover-color-scheme collapse-all"> &#160;  Collapse All</a>
+                          </div>
+                          <div class="btn-group dropdown-btn-group pull-right" style="padding-bottom:10px;">
+
+                            <a href="javascript:void(0);" id="pop-up-move-course-category" class="btn  button-hover-color-scheme"> <i class="mdi mdi-folder-move mdi-18px "></i>&#160;  Move</a> &#160; &#160;
+                            <div class="dropdown float-end">
+                              <a href="javascript:void(0);" class="dropdown-toggle  btn  button-hover-color-scheme" data-bs-toggle="dropdown" aria-expanded="false"> <i class="mdi mdi-sort-variant mdi-18px "></i>&#160;  Sort By</a>
+                              <div class="dropdown-menu dropdown-menu-end">
+                                  <a  href="{{route('dashboard.course-category.index-collapse-expand')+'?'+'sort_by='+'name'+'&&'+'mode='+'asc'}}" class="dropdown-item"  dataid="{{data.id}}" style="float: none;"> Sort by Category name ascending</a>
+                                  <a  href="{{route('dashboard.course-category.index-collapse-expand')+'?'+'sort_by='+'name'+'&&'+'mode='+'desc'}}" class="dropdown-item"  dataid="{{data.id}}" style="float: none;"> Sort by Caegory name descending</a>
+                                  <a  href="{{route('dashboard.course-category.index-collapse-expand')+'?'+'sort_by='+'idnumber'+'&&'+'mode='+'asc'}}" class="dropdown-item"  dataid="{{data.id}}" style="float: none;"> Sort by Category ID number ascending</a>
+                                  <a  href="{{route('dashboard.course-category.index-collapse-expand')+'?'+'sort_by='+'idnumber'+'&&'+'mode='+'desc'}}" class="dropdown-item"  dataid="{{data.id}}" style="float: none;"> Sort by Caegory ID number descending</a>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      <div class="col-sm-12">
+                      <table id="add_category_table"
+                        class="table w-100 nowrap"
+                        role="grid" aria-describedby="datatable-buttons_info" style="width: 924px;">
+                        <thead></thead>
+                        <tbody>
+                          <tr style="color:#6D757D; border: 1px solid transparent" valign= "middle">
+                            <td style="background-color:#F5F7FB;">
+                            <a href="{{route('dashboard.course-category.create')}}" class="red-button" style="background-color:#6D757D;"  ><span class="red-button text-hover-color-scheme" style="font-size:16px; color:#6D757D"><i class="mdi mdi-plus-circle text-hover-color-scheme" ></i> Add new category</span></a>
+
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      @each(data in datas.rows)
+                        @if(data.getRelated('childCategory').rows.length > 0)
+                        <table id="datatable_{{data.id}}"
+                               class="table w-100 nowrap"
+                               role="grid" aria-describedby="datatable-buttons_info" style="width: 924px;">
+                          <thead style="color: white; background: #DF2333;">
+
+                          </thead>
+
+                          <tbody>
+
+
+                            <!--<tr style="border: 1px solid transparent; height: 20px; ">
+                            </tr>-->
+                            <tr style="color:#6D757D; border: 1px solid transparent" valign="middle" dataid="{{data.id}}" class="parent-category parent-category-{{data.id}} with-content">
+
+                              <td style="width:18px; background-color:#F5F7FB;" >
+                                <a class="red-button-minus red-button-minus-{{data.id}}" dataid="{{data.id}}" href="javascript:void(0);"><span class="red-button text-hover-color-scheme" style="color:#6D757D"><i class="mdi mdi-minus mdi-24px" title="Collapse" tabindex="0"
+                                  data-plugin="tippy" data-tippy-theme="translucent"></i></span></a>
+                                <a class="red-button-plus red-button-plus-{{data.id}}" dataid="{{data.id}}" href="javascript:void(0);"><span class="red-button text-hover-color-scheme" style="color:#6D757D"><i class="mdi mdi-plus mdi-24px" title="Expand" tabindex="0"
+                                  data-plugin="tippy" data-tippy-theme="translucent"></i></span></a>
+                              </td>
+
+                              <td style="width:18px; background-color:#F5F7FB;">
+                                 <input type="checkbox" id="category_id_{{data.id}}" class="choose-categories form-check-input" name="choose_categories[]" value="{{data.id}}">
+                              </td>
+
+                              <td style="width:950px; background-color:#F5F7FB; color:#333333  ">
+                                 @if(data.visible == 0 || data.visible == '0')
+                                  <b style="opacity: 0.4;">{{data.name}}</b>
+                                 @else
+                                  <b>{{data.name}}</b>
+                                 @endif
+                                 <br>
+                                 <span style="color:#99A6AD">{{data.sortorder}}</span>
+                              </td>
+                              <td style="background-color:#F5F7FB; text-align: right;">
+                                @if(data.visible == 0 || data.visible == '0')
+                                  <span style="opacity: 0.4;">{{data.courses_count}} Courses</span>
+                                @else
+                                  <span>{{data.courses_count}} Courses</span>
+                                @endif
+                              </td>
+                              <td style="background-color:#F5F7FB;">
+                                <div class="dropdown float-end">
+                                    <a href="#" class="dropdown-toggle arrow-none card-drop text-hover-color-scheme" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="mdi mdi-dots-horizontal"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                      <a  href="{{route('dashboard.course.index-by-category',{ category_id : data.id })}}" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">View Course</a>
+                                      <a  href="{{ route('dashboard.course-category.edit', { id : data.id }) }}" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Edit</a>
+                                      @if(data.visible==1 || data.visible=='1')
+                                      <a href="{{ route('dashboard.course-category.switch-visible', { id : data.id }) }}" class="dropdown-item"><!--<i class="fas fa-eye-slash"></i>--> Hide </a>
+                                      @else
+                                      <a href="{{ route('dashboard.course-category.switch-visible', { id : data.id }) }}" class="dropdown-item"><!--<i class="fas fa-eye"></i>--> Show</a>
+                                      @endif
+                                      <!--<a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Assign Roles</a>-->
+                                      <a  href="{{route('dashboard.course-category.create')+'?'+'parent='+data.id}}" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Create Subcategory</a>
+                                      <!--<a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Permissions</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Check Permissions</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Learners Grouping</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Filters</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Restore Course</a>-->
+                                      <div class="dropdown-divider"></div>
+                                      <a  href="javascript:void(0);" class="dropdown-item btndeleteormove" fullname="{{ data.name  }}" dataid="{{data.id}}" style="float: none;"><!--<span class="mdi mdi-delete"></span>--> Delete</a>
+
+                                    </div>
+                                </div>
+                              </td>
+                            </tr>
+                            @each(item in data.getRelated('childCategory').rows)
+                            <tr style="border: 1px solid transparent; height: 20px; " class="child-of-category child-of-category-{{item.parent}}" dataid="{{item.id}}">
+                            </tr>
+                            <tr style="color:#6D757D; border: 1px solid transparent; " valign= "middle" class="with-content child-of-category child-of-category-{{item.parent}}" dataid="{{item.id}}" parentid="{{item.parent}}" >
+                               <td style="border: 1px solid transparent; width:18px; "></td>
+                               <td style="width:18px; background-color:#F5F7FB;">
+                                 <input  type="checkbox" id="category_id_{{item.id}}" class="choose-categories form-check-input" name="choose_categories[]" value="{{item.id}}">
+                               </td>
+
+                              <td style="width:950px; background-color:#F5F7FB; color:#333333 ">
+                                @if(item.visible == 0 || item.visible == '0')
+                                  <b style="opacity: 0.4;">{{item.name}}</b>
+                                @else
+                                  <b>{{item.name}}</b>
+                                @endif
+                                 <br>
+                                 <span style="color:#99A6AD">{{item.sortorder}}</span>
+                              </td>
+                              <td style="background-color:#F5F7FB; text-align: right;">
+                                @if(item.visible == 0 || item.visible == '0')
+                                  <span style="opacity: 0.4;">{{item.courses_count}} Courses</span>
+                                @else
+                                  <span>{{item.courses_count}} Courses</span>
+                                @endif
+
+                              </td>
+                              <td style="background-color:#F5F7FB;">
+                                <div class="dropdown float-end">
+                                    <a href="#" class="dropdown-toggle arrow-none card-drop text-hover-color-scheme" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="mdi mdi-dots-horizontal"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                      <a  href="{{route('dashboard.course.index-by-category',{ category_id : item.id })}}" class="tabledit-edit-button dropdown-item btnedit-{{item.id}}"  dataid="{{item.id}}" style="float: none;">View Course</a>
+                                      <a  href="{{ route('dashboard.course-category.edit', { id : item.id }) }}" class="tabledit-edit-button dropdown-item btnedit-{{item.id}}"  dataid="{{item.id}}" style="float: none;">Edit</a>
+                                      @if(item.visible==1 || item.visible=='1')
+                                      <a href="{{ route('dashboard.course-category.switch-visible', { id : item.id }) }}" class="dropdown-item"><!--<i class="fas fa-eye-slash"></i>--> Hide </a>
+                                      @else
+                                      <a href="{{ route('dashboard.course-category.switch-visible', { id : item.id }) }}" class="dropdown-item"><!--<i class="fas fa-eye"></i>--> Show</a>
+                                      @endif
+                                      <!--<a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{item.id}}"  dataid="{{item.id}}" style="float: none;">Assign Roles</a>-->
+                                      <a  href="{{route('dashboard.course-category.create')+'?'+'parent='+item.id}}" class="tabledit-edit-button dropdown-item btnedit-{{item.id}}"  dataid="{{item.id}}" style="float: none;">Create Subcategory</a>
+                                      <!--<a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{item.id}}"  dataid="{{item.id}}" style="float: none;">Permissions</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{item.id}}"  dataid="{{item.id}}" style="float: none;">Check Permissions</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{item.id}}"  dataid="{{item.id}}" style="float: none;">Learners Grouping</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{item.id}}"  dataid="{{item.id}}" style="float: none;">Filters</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{item.id}}"  dataid="{{item.id}}" style="float: none;">Restore Course</a>-->
+                                      <div class="dropdown-divider"></div>
+                                      <a  href="javascript:void(0);" class="dropdown-item btndeleteormove" fullname="{{ item.name  }}" dataid="{{item.id}}" style="float: none;"><!--<span class="mdi mdi-delete"></span>--> Delete</a>
+
+                                    </div>
+                                </div>
+                              </td>
+                            </tr>
+                            @endeach
+
+                          </tbody>
+                        </table>
+                        @else
+                        <table id="datatable_{{data.id}}"
+                              class="table w-100 nowrap"
+                              role="grid" aria-describedby="datatable-buttons_info" style="width: 924px;">
+                          <thead style="color: white; background: #DF2333;">
+
+                          </thead>
+
+                          <tbody>
+
+
+
+                            <tr style="color:#6D757D; border: 1px solid transparent" valign= "middle" dataid="{{data.id}}" class="parent-category parent-category-{{data.id}} with-content">
+
+
+
+                              <td style="width:18px; background-color:#F5F7FB;">
+                                  <input type="checkbox" id="category_id_{{data.id}}" class="choose-categories form-check-input" name="choose_categories[]" value="{{data.id}}">
+                              </td>
+
+                              <td style="width:1000px; background-color:#F5F7FB; color:#333333  ">
+                                @if(data.visible == 0 || data.visible == '0')
+                                  <b style="opacity: 0.4;">{{data.name}}</b>
+                                @else
+                                  <b>{{data.name}}</b>
+                                @endif
+                              </td>
+                              <td style="background-color:#F5F7FB; text-align: right;">
+                                @if(data.visible == 0 || data.visible == '0')
+                                  <span style="opacity: 0.4;">{{data.courses_count}} Courses</span>
+                                @else
+                                  <span>{{data.courses_count}} Courses</span>
+                                @endif
+                              </td>
+                              <td style="background-color:#F5F7FB;">
+                                <div class="dropdown float-end">
+                                    <a href="#" class="dropdown-toggle arrow-none card-drop text-hover-color-scheme" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="mdi mdi-dots-horizontal"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                      <a  href="{{route('dashboard.course.index-by-category',{ category_id : data.id })}}" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">View Course</a>
+                                      <a  href="{{ route('dashboard.course-category.edit', { id : data.id }) }}" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Edit</a>
+                                      @if(data.visible==1 || data.visible=='1')
+                                      <a href="{{ route('dashboard.course-category.switch-visible', { id : data.id }) }}" class="dropdown-item"><!--<i class="fas fa-eye-slash"></i>--> Hide </a>
+                                      @else
+                                      <a href="{{ route('dashboard.course-category.switch-visible', { id : data.id }) }}" class="dropdown-item"><!--<i class="fas fa-eye"></i>--> Show</a>
+                                      @endif
+                                     <!-- <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Assign Roles</a>-->
+                                      <a  href="{{route('dashboard.course-category.create')+'?'+'parent='+data.id}}" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Create Subcategory</a>
+                                      <!--<a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Permissions</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Check Permissions</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Learners Grouping</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Filters</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Restore Course</a>-->
+                                      <div class="dropdown-divider"></div>
+                                      <a  href="javascript:void(0);" class="dropdown-item btndeleteormove" fullname="{{ data.name  }}" dataid="{{data.id}}" style="float: none;"><!--<span class="mdi mdi-delete"></span>--> Delete</a>
+
+                                    </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        @endif
+
+                        @endeach
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div> <!-- end card body-->
+              </div> <!-- end card -->
+            </div><!-- end col-->
+          </div>
+          <!-- end row-->
+
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+
+    <!-- Footer Start -->
+  @include('layouts.footer')
+  <!-- end Footer -->
+  <!-- Top modal content -->
+  <div id="top-modal-course-category" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="background-color: transparent; margin-top: 40px; margin-bottom: 150px; ">
+      <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+          <div class="modal-content" style="width: 100%; height: 50%;">
+              <div class="modal-header" style="padding-bottom: 0.5rem;">
+                  <h4 class="modal-title" id="topModalLabelCourseCategory" style="color: #333333; "></h4>
+
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" style="padding-top: 0.5rem;">
+                  <hr>
+                   @each(data in datas.rows)
+                      <input type="radio" dataid="{{data.id}}" class="form-check-input" id="choose-category-{{data.id}}"
+                            name="parent" value="{{data.id}}">
+                      <label  id="label-choose-category-{{data.id}}" class="label-uncheckded-choose-categories  form-check-label" for="choose_category-{{data.id}}">&#160; {{data.name}} </label>
+                      <hr>
+                      @if(data.getRelated('childCategory').rows.length > 0)
+                         @each(item in data.getRelated('childCategory').rows)
+                          <input type="radio" dataid="{{item.id}}" class="form-check-input" id="choose-category-{{item.id}}"
+                                 name="parent" value="{{item.id}}">
+                          <label  id="label-choose-category-{{item.id}}" class="label-uncheckded-choose-categories  form-check-label" for="choose_category-{{item.id}}">&#160; {{item.name}} </label>
+                          <hr>
+                          @endeach
+
+                      @else
+                          <input type="radio" dataid="{{data.id}}" class="form-check-input" id="choose-category-{{data.id}}"
+                                 name="parent" value="{{data.id}}">
+                          <label  id="label-choose-category-{{data.id}}" class="label-uncheckded-choose-categories  form-check-label" for="choose_category-{{data.id}}">&#160; {{data.name}} </label>
+                          <hr>
+                      @endif
+
+                   @endeach
+                  <h5 id="title-paragraph-course-category" class="title-paragraph-course-category" ></h5>
+                  <p id="content-paragraph-course-category" style="color: #6D757D;"></p>
+              </div>
+              <div class="modal-footer">
+
+                  <button type="button" id="yes-course-category"  class="btn btn-danger" style="background-color: #DF2333; color:#FFFFFF; padding-right: 0.45rem" > <i class="mdi mdi-folder-move mdi-18px"></i>&#160; Move</button>
+                  <button type="button" id="no-course-category" class="btn " data-bs-dismiss="modal" style="background-color:#F0F2F7; color: #6D757D; padding-right: 0.45rem" >Cancel</button>
+              </div>
+          </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+  </form>
+
+  <div id="top-modal-delete-course-category" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="background-color: transparent; margin-top: 40px; margin-bottom: 150px; ">
+    <div class="modal-dialog modal-dialog-centered modal-lg ">
+        <div class="modal-content" style="width: 100%; height: 50%;">
+            <div class="modal-header" style="padding-bottom: 0.5rem;">
+                <h4 class="modal-title" id="topModalLabelDeleteCourseCategory" style="color: #333333; "><b>Delete Category <br>
+                  <span style="color:#6D757D" id="topModalNameDeleteCourseCategory"></span></b></h4>
+
+
+
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" style="padding-top: 0.5rem;">
+              <h4 style="color:" ></h4>
+              <br>
+              <p class=" mt-n3" style="font-style: italic; color:#DF2333">This category contains subcategories and courses</p>
+            <div class="row mb-3">
+                  <label for="act" class="col-5 col-xl-4 form-label">What to do</label>
+                  <div class="col-8 col-xl-8">
+                      <select name="act" class="form-select form-select-custom" style="color:#333333;" id="act" >
+
+                              <option  value="move_to">Move contents to another category</option>
+
+                              <option  value="delete">Delete all - cannot be undone</option>
+
+                      </select>
+                    @if(hasErrorFor('act'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                           role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('act') }}
+                      </div>
+                    @endif
+                  </div>
+              </div>
+              <div class="row mb-3">
+                  <label for="parent" class="col-5 col-xl-4 form-label">Move into</label>
+                  <div class="col-8 col-xl-8">
+                      <select name="parent" class="" style="color:#333333;" id="parent" >
+                          @each(data in datas.rows)
+                              <option class="select-move-to-{{data.id}}" value="{{data.id}}">{{data.name}}</option>
+                              @if(data.getRelated('childCategory').rows.length > 0)
+                                  @each(item in data.getRelated('childCategory').rows)
+                                  <option class="select-move-to-{{item.id}}" value="{{item.id}}">{{item.name}}</option>
+                                  @endeach
+
+                              @endif
+                          @endeach
+                      </select>
+                    @if(hasErrorFor('parent'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                           role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('parent') }}
+                      </div>
+                    @endif
+                  </div>
+              </div>
+
+              <div class="row mb-3">
+                <label for="parent" class="col-5 col-xl-4 form-label"></label>
+                <div class="col-8 col-xl-8">
+
+                  <button type="button" id="yes-delete-move-to-course-category"  class="btn btn-danger waves-effect waves-light col-12 col-xl-8" style="background-color: #DF2333; color:#FFFFFF; padding-right: 0.45rem" ></button>
+                  <button type="button" id="no-delete-move-to-course-category" class="btn  waves-effect col-3 col-xl-3" data-bs-dismiss="modal" style="background-color:#F0F2F7; color: #6D757D; padding-right: 0.45rem; float: right;" >Cancel</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+  </div>
+  @include('layouts.modal_and_alert')
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Sweet Alerts js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+
+  <script>
+    let unhideParent =  [];
+    function quickSearch(input) {
+        var filter,  arrTr, i, j, k, txtValue;
+        filter = input.value.toUpperCase();
+        if(filter == ""){
+          // arrTr = document.querySelectorAll('tr');
+          // for (i = 0; i < arrTr.length; i++) {
+          //   arrTr[i].style.display = "";
+          // }
+          $("table").show();
+          $("tr").show();
+
+        }
+        else{
+          let arrTd = [];
+          let arrTdResult = [];
+
+          arrTr = document.querySelectorAll('.parent-category');
+
+          for (i = 0; i < arrTr.length; i++) {
+            arrTd = arrTr[i].querySelectorAll('td');
+            console.log(arrTd);
+            if(arrTd.length > 0){
+
+
+               arrTdResult =  [...arrTr[i].querySelectorAll('td')].filter(function(td) {
+                txtValue = td.textContent || td.innerText;
+                return txtValue.toUpperCase().indexOf(filter) >= 0 ;
+              });
+
+              if(arrTdResult.length > 0){
+                 arrTr[i].style.display = "";
+                 $("#datatable_"+arrTr[i].getAttribute("dataid")).show();
+              }
+              else{
+                arrTr[i].style.display = "none";
+                $("#datatable_"+arrTr[i].getAttribute("dataid")).hide();
+              }
+
+            }
+          }
+
+
+          arrTr = document.querySelectorAll('.child-of-category');
+
+          for (i = 0; i < arrTr.length; i++) {
+            arrTd = arrTr[i].querySelectorAll('td');
+            if(arrTd.length > 0){
+              unhideParent = [];
+
+
+              arrTdResult =  [...arrTr[i].querySelectorAll('td')].filter(function(td) {
+                txtValue = td.textContent || td.innerText;
+                return txtValue.toUpperCase().indexOf(filter) >= 0 ;
+              });
+
+              if(arrTdResult.length > 0){
+                arrTr[i-1].style.display = "";
+                arrTr[i].style.display = "";
+
+                $(".parent-category-"+arrTr[i].getAttribute("parentid")).show();
+                $("#datatable_"+arrTr[i].getAttribute("parentid")).show();
+                $(".red-button-minus-"+arrTr[i].getAttribute("parentid")).show();
+                $(".red-button-plus-"+arrTr[i].getAttribute("parentid")).hide();
+              }
+              else{
+                arrTr[i-1].style.display = "none";
+                arrTr[i].style.display = "none";
+              }
+            }
+          }
+
+
+
+        }
+
+    }
+    function checkShowHide(keyword, dataid){
+      var filter,  arrTr, i, j, k, txtValue;
+        filter = keyword.toUpperCase();
+        if(filter == ""){
+          $(".child-of-category-"+dataid).show();
+
+
+        }
+        else{
+          let arrTd = [];
+          arrTr = document.querySelectorAll(".child-of-category-"+dataid);
+
+          for (i = 0; i < arrTr.length; i++) {
+            arrTd = arrTr[i].querySelectorAll('td');
+            if(arrTd.length > 0){
+              unhideParent = [];
+
+              arrTdResult =  [...arrTr[i].querySelectorAll('td')].filter(function(td) {
+                txtValue = td.textContent || td.innerText;
+                return txtValue.toUpperCase().indexOf(filter) >= 0 ;
+              });
+
+              if(arrTdResult.length > 0){
+                arrTr[i-1].style.display = "";
+                arrTr[i].style.display = "";
+              }
+              else{
+                arrTr[i-1].style.display = "none";
+                arrTr[i].style.display = "none";
+
+              }
+            }
+          }
+
+
+
+        }
+
+
+    }
+    function checkShowHideAll(keyword){
+      var filter,  arrTr, i, j, k, txtValue;
+        filter = keyword.toUpperCase();
+        if(filter == ""){
+          $("table").show();
+          $("tr").show();
+
+
+        }
+        else{
+          let arrTd = [];
+
+          arrTr = document.querySelectorAll('.parent-category');
+
+          for (i = 0; i < arrTr.length; i++) {
+            arrTd = arrTr[i].querySelectorAll('td');
+            if(arrTd.length > 0){
+
+
+
+              arrTdResult =  [...arrTr[i].querySelectorAll('td')].filter(function(td) {
+                txtValue = td.textContent || td.innerText;
+                return txtValue.toUpperCase().indexOf(filter) >= 0 ;
+              });
+
+              if(arrTdResult.length > 0){
+                arrTr[i].style.display = "";
+                $("#datatable_"+arrTr[i].getAttribute("dataid")).show();
+              }
+              else{
+                arrTr[i].style.display = "none";
+                $("#datatable_"+arrTr[i].getAttribute("dataid")).hide();
+
+              }
+            }
+          }
+
+
+          arrTr = document.querySelectorAll('.child-of-category');
+
+          for (i = 0; i < arrTr.length; i++) {
+            arrTd = arrTr[i].querySelectorAll('td');
+            if(arrTd.length > 0){
+              unhideParent = [];
+
+
+              arrTdResult =  [...arrTr[i].querySelectorAll('td')].filter(function(td) {
+                txtValue = td.textContent || td.innerText;
+                return txtValue.toUpperCase().indexOf(filter) >= 0 ;
+              });
+
+              if(arrTdResult.length > 0){
+                $(".parent-category-"+arrTr[i].getAttribute("parentid")).show();
+                $("#datatable_"+arrTr[i].getAttribute("parentid")).show();
+                $(".red-button-minus-"+arrTr[i].getAttribute("parentid")).show();
+                $(".red-button-plus-"+arrTr[i].getAttribute("parentid")).hide();
+              }
+              else{
+                arrTr[i-1].style.display = "none";
+                arrTr[i].style.display = "none";
+
+              }
+            }
+          }
+        }
+    }
+  </script>
+  <script>
+    let dataId =  0;
+    let dataidExpandCollapse = 0;
+    let urlDelete = '';
+    let valSearchField = '';
+    let titleModalCategories = '';
+    let dataIdDelete = 0;
+    let fullName = '';
+
+    $(document).ready(function () {
+      $(".mlw-li").hide()
+      $(".mlw-li-home").show()
+      @if(flashMessage('notification'))
+
+          /*Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: "{{flashMessage('notification')}}",
+
+          });*/
+
+          $("#title-paragraph-alert-modal-success").html("Success!");
+          $("#content-paragraph-alert-modal-success").html("{{flashMessage('notification')}}");
+          $("#continue-alert-modal-success").html("Continue");
+          $("#info-alert-modal-success").modal('show');
+
+      @endif
+
+
+
+      @if(flashMessage('failMessage'))
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed!',
+        text: "{{flashMessage('failMessage')}}",
+
+      })
+      @endif
+
+      @if(flashMessage('successMessage'))
+
+        /*Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: "{{flashMessage('successMessage')}}",
+
+        })*/
+        $("#title-paragraph-alert-modal-success").html("Success!");
+        $("#content-paragraph-alert-modal-success").html("{{flashMessage('successMessage')}}");
+        $("#continue-alert-modal-success").html("Continue");
+        $("#info-alert-modal-success").modal('show');
+      @endif
+      let selectorParent  = $('#parent').selectize({});
+      $(document).delegate("#act", "change", function () {
+        selectorParent[0].selectize.enable();
+        $("#yes-delete-move-to-course-category").html("Move");
+
+        if($(this).val()=="delete"){
+          selectorParent[0].selectize.disable();
+
+          $("#yes-delete-move-to-course-category").html("Delete");
+        }
+      });
+      $(".btndeleteormove").on("click", function () {
+        let fullname = $(this).attr("fullname")
+        dataIdDelete = $(this).attr("dataid");
+        fullName     = fullname;
+        $("#topModalNameDeleteCourseCategory").html(fullname);
+        $(".select-move-to").show()
+        $(".select-move-to-"+dataIdDelete).hide();
+        $("#yes-delete-move-to-course-category").html("Move");
+        $("#top-modal-delete-course-category").modal('show');
+
+
+
+      });
+      $("#yes-delete-move-to-course-category").on("click",function(){
+        $("#top-modal-delete-course-category").modal('hide');
+        if($("#act").val()=="delete"){
+          let fullname = fullName;
+          let urldelete = "{{ route('dashboard.course-category.soft-delete',{ id : 'data.id' })}}";
+
+          urldelete = urldelete.replace('data.id', dataIdDelete);
+          $('#top-modal-delete').modal('show');
+          dataId =  dataIdDelete;
+          urlDelete = urldelete;
+          let labelDelete = 'Delete Category';
+          let contentParagraphDelete = "Do you really want to delete category  </br>" + "<b>"+"'"+fullname+"'"+"</b>"+"?";
+          let yesDelete = "Delete Category";
+          let noDelete  = "Never Mind, Keep the Category";
+          $('#topModalLabelDelete').html(labelDelete);
+          $('#content-paragraph-delete').html(contentParagraphDelete);
+          $('#yes-delete').html(yesDelete);
+          $('#no-delete').html(noDelete);
+
+        }
+        else{
+          window.location.href = "{{route('dashboard.course-category.change-parent-one-data')+'?'}}"+"parent="+$('#parent').val()+"&&"+"choose_categories="+dataIdDelete;
+        }
+      });
+      let valChooseCategories = [];
+      $("#pop-up-move-course-category").on("click", function(){
+        valChooseCategories = []
+        $('input[name="choose_categories[]"]:checked').each(function() {
+                valChooseCategories.push($(this).val());
+        });
+        titleModalCategories = "Move "+valChooseCategories.length+" categories to…";
+        $("#topModalLabelCourseCategory").html("<b>"+titleModalCategories+"</b>");
+        $('#top-modal-course-category').modal('show');
+      });
+
+      $('.choose-categories').change(function() {
+        let id = $(this).attr("dataid");
+        if(this.checked) {
+
+           $("#label-choose-category-"+id).removeClass("label-uncheckded-choose-categories");
+           //.addClass("label-checkded-choose-categories");
+           $("#label-choose-category-"+id).css("color",dataThemes.color_scheme);
+
+        }
+        else{
+           $("#label-choose-category-"+id).removeClass("label-checkded-choose-categories").addClass("label-uncheckded-choose-categories");
+        }
+        valChooseCategories = [];
+        $('input[name="choose_categories[]"]:checked').each(function() {
+                valChooseCategories.push($(this).val());
+        });
+        titleModalCategories = "Choose Categories";
+        if(valChooseCategories.length > 0){
+           titleModalCategories = "Move "+valChooseCategories.length+" categories to…";
+
+        }
+        console.log(valChooseCategories);
+        $("#topModalLabelCourseCategory").html("<b>"+titleModalCategories+"</b>");
+
+      });
+
+
+      $(".red-button-minus").hide();
+      $(".child-of-category").hide();
+      $(".expand-all").on("click", function () {
+        $(".red-button-minus").show();
+        $(".red-button-plus").hide();
+        $(".child-of-category").show();
+        valSearchField = $("#search-field").val();
+        checkShowHideAll(valSearchField);
+
+
+      });
+      $(".collapse-all").on("click", function () {
+        $(".red-button-minus").hide();
+        $(".red-button-plus").show();
+        $(".child-of-category").hide();
+
+      });
+
+      $(".red-button-plus").on("click", function () {
+        dataidExpandCollapse = $(this).attr("dataid");
+        $(".red-button-minus-"+dataidExpandCollapse).show();
+        $(this).hide();
+        $(".child-of-category-"+dataidExpandCollapse).show();
+        valSearchField = $("#search-field").val();
+        checkShowHide(valSearchField, dataidExpandCollapse)
+      });
+
+      $(".red-button-minus").on("click", function () {
+        dataidExpandCollapse = $(this).attr("dataid");
+        $(".red-button-plus-"+dataidExpandCollapse).show();
+        $(this).hide();
+        $(".child-of-category-"+dataidExpandCollapse).hide();
+
+      });
+
+      $("#yes-course-category").on("click", function () {
+        $("#form_change_parent").submit();
+      });
+
+
+
+
+      let url = "{{ BASE_URL() + route('dashboard.role-management.datatable') }}";
+      $("#datatable1").DataTable({
+        columnDefs: [
+                  { "orderable": false, "targets": [3] },
+                  { "type": "num", "width" : "18px", "targets" : 0},
+                  { "width" : "120px", "targets" : 2},
+                  { "width" : "30px", "targets" : 3},
+  							],
+        language: {
+          search : ' ', /*Empty to remove the label*/
+        },
+        order: [
+
+        ],
+        aLengthMenu : [[25, 50, 75, -1], [25, 50, 75, "All"]],
+        iDisplayLength: 25,
+
+        scrollX: !0,
+        //dom: 'Bfrltip',
+
+        pagingType:
+          "full_numbers",
+        drawCallback: function () {
+          $("thead").css("background",dataThemes.color_scheme);
+$(".dataTables_paginate > .pagination").addClass("pagination-default")
+          $(".dataTables_info").addClass("pd-top-pagination")
+          $(".dataTables_paginate").addClass("pd-top-pagination")
+          $(".odd").addClass("tr-odd");
+          $(".even").addClass("tr-even");
+          $('input[type="search"]').addClass("search-datatable")
+          $('input[type="search"]').attr("placeholder", "    Search here");
+          $('.dataTables_length').addClass('dataTables_length_custom');
+          $('.dataTables_filter').addClass('dataTables_filter_custom');
+          $(".page-item.active .page-link").css("background-color",dataThemes.color_scheme);
+          $(".page-item.active .page-link").css("border-color",dataThemes.color_scheme);
+        }
+      }),
+        $(".dataTables_length select").addClass("form-select form-select-sm"),
+        $(".dataTables_length select").removeClass("custom-select custom-select-sm"),
+        $(".dataTables_length label").addClass("form-label")
+        $(".dataTables_filter label").addClass("form-label")
+
+
+    });
+
+
+    $('.btndelete').on('click', function () {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urldelete = "{{ route('dashboard.module-category.soft-delete',{ id : 'data.id' })}}";
+
+      urldelete = urldelete.replace('data.id', dataid);
+      $('#top-modal-delete').modal('show');
+      dataId =  dataid;
+      urlDelete = urldelete;
+      let labelDelete = 'Delete Module Category';
+      let contentParagraphDelete = "Do you really want to delete module category </br>" + "<b>"+"'"+fullname+"'"+"</b>"+"?";
+      let yesDelete = "Delete Module Category";
+      let noDelete  = "Never Mind, Keep the Module Category";
+      $('#topModalLabelDelete').html(labelDelete);
+      $('#content-paragraph-delete').html(contentParagraphDelete);
+      $('#yes-delete').html(yesDelete);
+      $('#no-delete').html(noDelete);
+
+
+    });
+
+    $('#yes-delete').on('click', function() {
+      window.location.href = urlDelete;
+    });
+
+
+
+  </script>
+  <!-- third party js ends -->
+@endsection

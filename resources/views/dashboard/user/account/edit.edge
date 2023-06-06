@@ -1,0 +1,628 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>Moleawiz|User|Account| Edit Account</title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <!-- Plugins css -->
+  <!-- Plugins css -->
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <!-- third party css end -->
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+
+
+    <!-- Start Content-->
+    <div class="content">
+
+      <!-- Start Content-->
+      <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right" style="">
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('home')}}">HOME</a></li>
+                  <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.user.account.index')}}">Browse List of Learners</a></li>
+                  <li class="breadcrumb-item  breadcrumb-link">{{ user.firstname.toUpperCase() +' '+ user.lastname.toUpperCase() }}</li>
+                  <li class="breadcrumb-item  breadcrumb-link active">Edit Profile</li>
+                </ol>
+              </div>
+              <div class="row">
+                <div class="col-lg-2">
+                  <a href="{{route('dashboard.user.account.index')}}" ><h4 class="page-title back-button  text-hover-color-scheme"><i class="mdi mdi-arrow-left"></i> Back</h4> </a>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="header-title" style="padding-bottom:100px;"><b>Edit Profile</b></h4>
+
+
+                <div class="row" style="padding-top:20px;">
+                  <div class="col-lg-7">
+                    <div class="card-widgets">
+                      <a data-bs-toggle="collapse" href="#cardCollpase4" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                    </div>
+                    <h4 class="header-title pb-3" >General</h4>
+                    <hr>
+                  </div>
+                </div>
+                <div id="cardCollpase4" class="collapse pt-3 show">
+                <p class="text-black-50 mt-n3" style="font-style: italic;">There are required fields in this form marked <span
+                    class="text-danger">*</span></p>
+
+
+
+                <div class="row">
+                  <div class="col-lg-7">
+
+                      <form id="edit_user" action="{{ route('dashboard.user.account.update', { id : user.id }) }}"
+                      enctype="multipart/form-data" method="POST">
+                      {{ csrfField() }}
+
+
+                      <div class="row mb-3">
+                        <label for="username" class="col-5 col-xl-4 col-form-label">Username <i
+                            class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="Please be aware that some authentication plugins will not allow you to change the username" tabindex="0"
+                            data-plugin="tippy" data-tippy-theme="translucent"></i></label>
+                        <div class="col-8 col-xl-8">
+                          <input type="text" id="username" name="username" class="form-control" style="color:#333333;" value="{{user.username}}" required>
+                        </div>
+                        @if(hasErrorFor('username'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                               role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('username') }}
+                          </div>
+                        @endif
+                      </div>
+
+                      <div class="row mb-1">
+                        <label for="example-select" class="col-5 col-xl-4 form-label">Authentication method <i
+                            class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="This setting determines the authentication method used when the user logs in. Only enabled authentication plugins should be chosen otherwise the user will no longer be able to login, To block from logging in select 'no login'" tabindex="0"
+                            data-plugin="tippy" data-tippy-theme="translucent"></i></label>
+                        <div class="col-8 col-xl-8">
+                          <select name="auth" class="form-select form-select-custom" style="color:#333333;" id="id_auth" >
+                            <optgroup label="Enabled">
+                              <option value="email">Email-based self-registration</option>
+                              <option value="manual" selected="selected">Manual accounts</option>
+                              <option value="nologin">No login</option>
+                            </optgroup>
+                            <optgroup label="Disabled">
+                              <option value="cas">CAS server (SSO)</option>
+                              <option value="db">External database</option>
+                              <option value="ldap">LDAP server</option>
+                              <option value="lti">LTI</option>
+                              <option value="mnet">MNet authentication</option>
+                              <option value="none">No authentication</option>
+                              <option value="oauth2">OAuth 2</option>
+                              <option value="shibboleth">Shibboleth</option>
+                              <option value="webservice">Web services authentication</option>
+                            </optgroup>
+                          </select>
+                        </div>
+                      </div>
+
+                      <div class="row mb-1">
+                        <label class="col-4 form-label"></label>
+                        <div class="form-check col-8 col-xl-7" style="margin-left: 15px">
+                          <input type="checkbox" class="form-check-input" id="suspended" name="suspended" value="{{user.suspended}}">
+                          <label class="form-check-label" for="suspended">Suspended account <i
+                              class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="Suspended user accounts cannot log in or use web services, and any outgoing messages are discarded." tabindex="0"
+                              data-plugin="tippy" data-tippy-theme="translucent"></i></label>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label class="col-4 form-label"></label>
+                        <div class="form-check col-8 col-xl-7" style="margin-left: 15px">
+                          <input type="checkbox" class="form-check-input" id="generate_password_and_notify"
+                                 name="generate_password_and_notify" value="1">
+                          <label class="form-check-label" for="generate_password_and_notify">Generate password and notify
+                            user</label>
+                        </div>
+                      </div>
+
+
+                      <div class="row mb-1">
+                        <label for="password" class="col-5 col-xl-4 form-label">New password  <i
+                            class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="Enter a new password or leave blank  to keep current password" tabindex="0"
+                            data-plugin="tippy" data-tippy-theme="translucent"></i></label>
+                        <div class="col-8 col-xl-8">
+                          <div class="input-group input-group-merge">
+                            <input type="password" id="password" name="password" class="form-control" style="color:#333333;"
+                                   placeholder="Enter your password" required>
+                            <div class="input-group-text" data-password="false">
+                              <span class="password-eye"></span>
+                            </div>
+                          </div>
+                          @if(hasErrorFor('password'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                 role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('password') }}
+                            </div>
+                          @endif
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label class="col-4 form-label"></label>
+                        <div class="form-check col-8 col-xl-7" style="margin-left: 15px">
+                          <input type="checkbox" class="form-check-input" id="force_password_change"
+                                 name="force_password_change" value="1">
+                          <label class="form-check-label" for="force_password_change">Force password change  <i
+                              class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="if this checkbox is ticked, the user will be prompted to change their password on their next login" tabindex="0"
+                              data-plugin="tippy" data-tippy-theme="translucent"></i></label>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label for="firstname" class="col-5 col-xl-4 form-label">First name <span
+                            class="text-danger">*</span></label>
+                        <div class="col-8 col-xl-8">
+                          <input type="text" id="firstname" name="firstname" class="form-control" style="color:#333333;" value="{{user.firstname}}" required>
+                          @if(hasErrorFor('firstname'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                 role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('firstname') }}
+                            </div>
+                          @endif
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="lastname" class="col-5 col-xl-4 form-label">Surname <span
+                            class="text-danger">*</span></label>
+                        <div class="col-8 col-xl-8">
+                          <input type="text" id="lastname" name="lastname" class="form-control" style="color:#333333;" value="{{user.lastname}}" required>
+                          @if(hasErrorFor('lastname'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                 role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('lastname') }}
+                            </div>
+                          @endif
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="email" class="col-5 col-xl-4 form-label">Email address <span
+                            class="text-danger">*</span></label>
+                        <div class="col-8 col-xl-8">
+                          <input type="email" id="email" name="email" class="form-control" style="color:#333333;" value="{{user.email}}" required>
+                          @if(hasErrorFor('email'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                 role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('email') }}
+                            </div>
+                          @endif
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="maildisplay" class="col-5 col-xl-4 form-label">Email display</label>
+                        <div class="col-8 col-xl-8">
+                          <select class="form-select form-select-custom" style="color:#333333;" name="maildisplay" id="id_maildisplay">
+                            <option value="0">Hide my email address from everyone</option>
+                            <option value="1" selected="selected">Allow everyone to see my email address</option>
+                            <option value="2">Allow only other course members to see my email address</option>
+                          </select>
+                          @if(hasErrorFor('maildisplay'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                 role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('maildisplay') }}
+                            </div>
+                          @endif
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label for="phone2" class="col-5 col-xl-4 form-label">Mobile phone</label>
+                        <div class="col-8 col-xl-8">
+                          <input type="text" id="phone2" name="phone2" class="form-control" style="color:#333333;" value="{{user.phone2}}" >
+                          @if(hasErrorFor('phone2'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                 role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('phone2') }}
+                            </div>
+                          @endif
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <label for="city" class="col-5 col-xl-4 form-label">City/town</label>
+                        <div class="col-8 col-xl-8">
+                          <input type="text" id="city" name="city" value="{{user.city}}" class="form-control" style="color:#333333;" >
+                          @if(hasErrorFor('city'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                 role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('city') }}
+                            </div>
+                          @endif
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
+                        <label for="country" class="col-5 col-xl-4 form-label">Country</label>
+                        <div class="col-8 col-xl-8">
+                          <select id="country" name="country" class="" style="color:#333333;" >
+                            <option value="">Select a Country</option>
+                            @each(country in countries)
+                            <option value="{{ country.code }}">{{ country.name }}</option>
+                            @endeach
+                          </select>
+                          @if(hasErrorFor('country'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                 role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('country') }}
+                            </div>
+                          @endif
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                   <div class="row">
+                  <div class="col-lg-7">
+
+                    <div class="card-widgets">
+                      <a data-bs-toggle="collapse" href="#cardCollpase5" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                    </div>
+                    <h4 class="header-title pb-3">Other fields</h4>
+                    <hr style="margin-bottom: 5px">
+                    <div id="cardCollpase5" class="collapse pt-3 show">
+                    <div class="row mb-3">
+                      <label for="position" class="col-5 col-xl-4 form-label">Position</label>
+                      <div class="col-8 col-xl-8">
+                        <input type="text" id="position" name="position" class="form-control" style="color:#333333;" value="{{user.position ? user.position : '' }}" >
+                        @if(hasErrorFor('position'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                               role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('position') }}
+                          </div>
+                        @endif
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="superior" class="col-5 col-xl-4 form-label">Superior</label>
+                      <div class="col-8 col-xl-8">
+                        <input type="text" id="superior" name="superior" class="form-control" style="color:#333333;" value="{{user.superior ? user.superior : ''}}" >
+                        @if(hasErrorFor('superior'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                               role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('superior') }}
+                          </div>
+                        @endif
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="nha" class="col-5 col-xl-4 form-label">NHA</label>
+                      <div class="col-8 col-xl-8">
+                        <input type="text" id="nha" name="nha" class="form-control" style="color:#333333;" value="{{user.nha ? user.nha : ''}}" >
+                        @if(hasErrorFor('nha'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                               role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('nha') }}
+                          </div>
+                        @endif
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="joindate" class="col-5 col-xl-4 form-label">Join date</label>
+                      <div class="col-8 col-xl-8">
+                        <input type="text" id="joindate" name="joindate" class="form-control" style="color:#333333;" value="{{user.joindate ? user.joindate  : '' }}" >
+                        @if(hasErrorFor('joindate'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                               role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('joindate') }}
+                          </div>
+                        @endif
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="worklocation" class="col-5 col-xl-4 form-label">Work location</label>
+                      <div class="col-8 col-xl-8">
+                        <input type="text" id="worklocation" name="worklocation" class="form-control" style="color:#333333;" value="{{user.worklocation ? user.worklocation : ''}}" >
+                        @if(hasErrorFor('worklocation'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                               role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('worklocation') }}
+                          </div>
+                        @endif
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="directorate" class="col-5 col-xl-4 form-label">Directorate</label>
+                      <div class="col-8 col-xl-8">
+                        <input type="text" id="directorate" name="directorate" class="form-control" style="color:#333333;" value="{{user.directorate ? user.directorate : ''}}" >
+                        @if(hasErrorFor('directorate'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                               role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('directorate') }}
+                          </div>
+                        @endif
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="subdirectorate" class="col-5 col-xl-4 form-label">Sub directorate</label>
+                      <div class="col-8 col-xl-8">
+                        <input type="text" id="subdirectorate" name="subdirectorate" class="form-control" style="color:#333333;"  value="{{user.subdirectorate ? user.subdirectorate : ''}}" >
+                        @if(hasErrorFor('subdirectorate'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                               role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('subdirectorate') }}
+                          </div>
+                        @endif
+                      </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <label for="division" class="col-5 col-xl-4 form-label">Division</label>
+                      <div class="col-8 col-xl-8">
+                        <input type="text" id="division" name="division" class="form-control" style="color:#333333;" value="{{user.division ? user.division : ''}}" >
+                        @if(hasErrorFor('division'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                               role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('division') }}
+                          </div>
+                        @endif
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="department" class="col-5 col-xl-4 form-label">Department</label>
+                      <div class="col-8 col-xl-8">
+                        <input type="text" id="department" name="department" class="form-control" style="color:#333333;" value="{{user.department ? user.department : '' }}" >
+                        @if(hasErrorFor('department'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                               role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('department') }}
+                          </div>
+                        @endif
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="group" class="col-5 col-xl-4 form-label">Group</label>
+                      <div class="col-8 col-xl-8">
+                        <input type="text" id="group" name="group" class="form-control" style="color:#333333;" value="{{user.group ? user.group : ''}}" >
+                        @if(hasErrorFor('group'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                               role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('group') }}
+                          </div>
+                        @endif
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="learningagent" class="col-5 col-xl-4 form-label">Learning agent</label>
+                      <div class="col-8 col-xl-8">
+                        <input type="text" id="learningagent" name="learningagent" class="form-control" style="color:#333333;" value="{{user.learningagent ? user.learningagent : ''}}" >
+                        @if(hasErrorFor('learningagent'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                               role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('learningagent') }}
+                          </div>
+                        @endif
+                      </div>
+                    </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-5 col-xl-4 form-label"></label>
+                      <div class="col-12 col-xl-8">
+                        <button type="submit" class="btn btn-danger waves-effect waves-light col-12 col-xl-12" style="float: right;"><i
+                            class="mdi mdi-pencil"></i> Update Profile
+                        </button>
+
+                      </div>
+                    </div>
+                    </form>
+
+                </div>
+              </div>
+              </div> <!-- end card-body -->
+            </div> <!-- end card -->
+          </div><!-- end col -->
+        </div>
+        <!-- RADIOS -->
+
+
+      </div> <!-- container -->
+
+    </div> <!-- content -->
+
+
+    <!-- Footer Start -->
+    @include('layouts.footer')
+    <!-- end Footer -->
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Plugins js -->
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+
+  <script>
+    $(document).ready(function () {
+      $(".mlw-li").hide()
+      $(".mlw-li-home").show()
+      $('#btn_auto_generate_password').click(function () {
+        let randomstring = Math.random().toString(36).slice(-10);
+        $('#password').val(randomstring);
+      });
+
+      $('#submit_btn').click(function () {
+
+        $('#edit_user').submit();
+      });
+
+      let country = "{{user.country}}";
+      $('#country').val(country).change();
+      $('#country').selectize();
+
+      let maildisplay = "{{user.maildisplay}}";
+      $('#id_maildisplay').val(maildisplay).change();
+
+
+      var drEvent = $('#profpic').dropify();
+
+      drEvent.on('dropify.beforeClear', function (event, element) {
+        return confirm('Do you really want to delete ' + element.file.name + ' ?');
+      });
+
+      drEvent.on('dropify.afterClear', function (event, element) {
+        alert('File deleted');
+      });
+
+      drEvent.on('dropify.errors', function (event, element) {
+        console.log('Has Errors');
+      });
+
+      const fp = flatpickr("#joindate", {
+        dateFormat: "Y-m-d",
+      });
+
+
+    });
+
+  </script>
+  <!-- third party js ends -->
+@endsection

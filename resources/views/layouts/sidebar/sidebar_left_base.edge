@@ -1,0 +1,315 @@
+<div class="left-side-menu" >
+
+  <div class="h-100" data-simplebar>
+
+    <!-- User box -->
+    <div class="user-box text-center">
+      <img src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/images/users/user-6.jpg" alt="user-img"
+           title="Mat Helme"
+           class="rounded-circle avatar-md">
+      <div class="dropdown">
+        <a href="javascript: void(0);" class="text-dark dropdown-toggle h5 mt-2 mb-1 d-block"
+           data-bs-toggle="dropdown">{{ authUser.firstname +' '+authUser.lastname}}</a>
+        <div class="dropdown-menu user-pro-dropdown">
+          <!-- item-->
+          <a href="javascript:void(0);" class="dropdown-item notify-item">
+            <i class="fe-log-out me-1"></i>
+            <span>Logout</span>
+          </a>
+
+        </div>
+      </div>
+      <p class="text-muted">Admin Head</p>
+    </div>
+
+    <div id="sidebar-menu">
+
+      <ul id="side-menu">
+        <li>
+          <a href="{{route('home')}}">
+            <i class="fas fa-home"></i>
+            <span> HOME </span>
+          </a>
+        </li>
+        <li>
+          <a style="" href="{{route('dashboard')}}" >
+            <i data-feather="grid"></i>
+            <span> DASHBOARD </span>
+          </a>
+        </li>
+
+
+        <hr style="width:80%;color:gray;background-color:gray">
+        <li class="mlw-li mlw-li-dashboard">
+          <a style="color: green;" href="{{route('dashboard.report.index')}}" >
+            <i class="mdi  mdi-clipboard-text-outline"></i>
+            <span> Report </span>
+          </a>
+        </li>
+
+
+
+        <li class="mlw-li mlw-li-dashboard">
+          <a style="color: green;" href="{{route('dashboard.glossarium.index')}}" >
+            <i class="mdi  mdi-book-open-variant"></i>
+            <span> Glossarium </span>
+          </a>
+        </li>
+
+        <li class="mlw-li mlw-li-home">
+          <a href="#sidebarLearner" data-bs-toggle="collapse">
+            <i class="fas fa-graduation-cap"></i>
+            <span> Learners </span>
+            <span class="menu-arrow"></span>
+          </a>
+          <div class="collapse" id="sidebarLearner">
+            <ul class="nav-second-level">
+              <li>
+                <a href="{{route('dashboard.user.account.create')}}" style="">Add a New Learner</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.user.account.index')}}" style="">Browse List of Learners</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.user.import-learners-form-preview')}}">Upload Learners</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.user.cohort.index-accordion')}}" style="">Learners Grouping</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.user.cohort.import-cohort-member')}}">Upload Learners Grouping</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.user.import-sync-active-user')}}">Synchronize Active Learners</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.user.learner-profile-field.index')}}"> <span style=""> Learner Profile Fields </span></a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.role-management.sign-user-to-siteadmin-form')}}" style="">Site
+                  Administrators</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.role-management.index')}}" style="">Defines Roles</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.role-management.index-assign')}}" style="">Assign System Roles</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.learner-buddy.index-form')}}"><span style=""> Check Learner Buddy </span></a>
+              </li>
+
+
+            <!--<li>
+                          <a href="#accounts" data-bs-toggle="collapse">
+                              Accounts <span class="menu-arrow"></span>
+                          </a>
+                          <div class="collapse" id="accounts">
+                              <ul class="nav-second-level">
+
+
+
+
+                                    <a href="{{route('dashboard.user.cohort.create')}}">Add New Cohort</a>
+                                  </li>
+
+                                </ul>
+                          </div>
+                      </li>-->
+
+            <!--<li>
+                          <a href="#permissions" data-bs-toggle="collapse">
+                            Permissions <span class="menu-arrow"></span>
+                          </a>
+                          <div class="collapse" id="permissions">
+                              <ul class="nav-second-level">
+
+                                  <li>
+                                    <a href="{{route('dashboard.role-management.index')}}">Defines And Assign Roles</a>
+                                  </li>
+
+                                  <li>
+                                    <a href="{{route('dashboard.role-management.create')}}">Add Role</a>
+                                  </li>
+
+
+
+
+                              </ul>
+                          </div>
+                      </li>-->
+
+            </ul>
+          </div>
+        </li>
+
+        <li class="mlw-li mlw-li-home">
+          <a href="#sidebarContent" data-bs-toggle="collapse">
+            <i class="fas fa-book"></i>
+            <span> Content </span>
+            <span class="menu-arrow"></span>
+          </a>
+          <div class="collapse" id="sidebarContent">
+            <ul class="nav-second-level">
+              <li>
+                <!--<a href="{{route('dashboard.course-category.index')}}" style="color: green">Manage Content and
+                  Categories</a>-->
+                  <a href="{{route('dashboard.course-category.index-collapse-expand')}}" style="color: green">Manage Content and
+                    Categories</a>
+
+              </li>
+              <li>
+                <a href="{{route('dashboard.completion.completing-module-form')}}" style="">Module Completion</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.report.content-rating.index')}}" style="">Content Rating
+                  Report</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.module-category.index')}}" style=""> Module Category</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.content-library.index')}}" style="">Content Library</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.course.index-export')}}" style="">Export Module</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.learning-history.index-export')}}" style="">Export Learning History</a>
+              </li>
+
+            <!--<li>
+                    <a href="{{route('dashboard.course-category.create')}}">Add New Category</a>
+                  </li>
+
+                  <li>
+                    <a href="{{route('dashboard.course.create')}}">Add New Module</a>
+                  </li>
+                  <li>
+                    <a href="{{route('dashboard.module-category.create')}}">Add New Daa Module Category</a>
+                  </li>-->
+
+
+            </ul>
+          </div>
+        </li>
+
+        <li class="mlw-li mlw-li-home">
+          <a href="#sidebarLearningProcessSetting" data-bs-toggle="collapse">
+            <i class="fas fa-sliders-h"></i>
+            <span> Learning Process Setting </span>
+            <span class="menu-arrow"></span>
+          </a>
+          <div class="collapse" id="sidebarLearningProcessSetting">
+            <ul class="nav-second-level">
+              <li>
+                <a href="{{route('dashboard.journey.index')}}" style="color: green">Journey </a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.badge.index')}}" style="">Badges</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.reward.index')}}" >Reward</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.point.user-point.index')}}" style="">Learner Point Logs</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.journey.reward-history.index-all')}}" style="">Reward History</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.reward.index-approval')}}" style="">Redeem Approval</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.reminder.index')}}" style="">Reminder List</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.reminder.index-monitoring-log')}}" style="">Reminder Monitoring</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.notif.send-notif')}}" style="">Push Notification</a>
+              </li>
+
+            </ul>
+          </div>
+        </li>
+      <!--<li>
+          <a href="#sidebarSetting" data-bs-toggle="collapse">
+            <i data-feather="settings"></i>
+            <span> System Setting </span>
+            <span class="menu-arrow"></span>
+          </a>
+          <div class="collapse" id="sidebarSetting">
+            <ul class="nav-second-level">
+
+              <li>
+                <a href="{{route('dashboard.content-library.create')}}">Add Content Library</a>
+              </li>
+
+
+
+            </ul>
+          </div>
+        </li>-->
+      <!--<li>
+          <a href="#program" data-bs-toggle="collapse">
+            <i class="fas fa-tv"></i>
+
+              <span> Program </span>
+          </a>
+          <div class="collapse" id="program">
+            <ul class="nav-second-level">
+              <li>
+                <a href="{{route('dashboard.journey.index')}}">List Program</a>
+              </li>
+              <li>
+                <a href="{{route('dashboard.journey.create')}}">Add Program</a>
+              </li>
+
+
+
+            </ul>
+          </div>
+        </li>-->
+        <li class="mlw-li mlw-li-home">
+          <a href="#settings" data-bs-toggle="collapse">
+            <i class="fas fa-cog"></i>
+            <!--<span class="badge bg-success rounded-pill float-end">4</span>-->
+            <span>System Setting </span>
+            <span class="menu-arrow"></span>
+          </a>
+          <div class="collapse" id="settings">
+            <ul class="nav-second-level">
+
+              <li>
+                <a href="{{route('setting.set-user-login-form')}}">Setting Learner Login</a>
+              </li>
+              <li>
+                <a href="{{route('setting.app-version.index')}}" style=""> Application Version</a>
+              </li>
+              <li>
+                <a href="{{route('setting.set-theme')}}" style="color: red">Themes</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" style="color: red">Language Setting</a>
+              </li>
+              <li>
+                <a href="{{route('setting.set-clear-user-access-form')}}">Setting Clear Learner Access</a>
+              </li>
+
+            <!--<li>
+                <a href="{{route('setting.app-version.create')}}">Create App Version</a>
+              </li>-->
+
+
+            </ul>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="clearfix"></div>
+
+  </div>
+  <!-- Sidebar -left -->
+
+</div>

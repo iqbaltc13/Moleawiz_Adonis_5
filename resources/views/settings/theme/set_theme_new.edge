@@ -1,0 +1,416 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>Moleawiz|Setting|Set Theme| Set Theme</title>
+@endsection
+@section('style')
+  <!-- third party css -->
+
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/spectrum-colorpicker2/spectrum.min.css" rel="stylesheet" type="text/css">
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css"
+        rel="stylesheet" type="text/css"/>
+  
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link rel="stylesheet" type="text/css"
+        href="{{ BASE_URL() }}/JS/Dual-Select-Boxes-For-Bootstrap-Bootstrap-Dual-Listbox/src/bootstrap-duallistbox.css">
+  <link href="{{ BASE_URL() }}/JS/dropify/dist/css/dropify.css" rel="stylesheet" type="text/css" />
+  <!-- third party css end -->
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+
+
+    <!-- Start Content-->
+    <div class="content">
+
+      <!-- Start Content-->
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                     <li class="breadcrumb-item  breadcrumb-link text-hover-color-scheme"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('home')}}">HOME</a></li>
+                     <li class="breadcrumb-item  breadcrumb-link active">Themes</li>
+                </ol>
+              </div>
+              <div class="row">
+                <div class="col-lg-2">
+                  <h4 class="page-title">Themes</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+
+                <br>
+                <form id="set_theme" action="{{ route('setting.set-theme') }}" enctype="multipart/form-data"
+                          method="POST">
+                      {{ csrfField() }}
+                <div class="row">
+                  <div class="col-lg-7">
+                    <div class="card-widgets">
+                      <a data-bs-toggle="collapse" href="#cardCollpaseGeneral" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                    </div>
+                    <h4 class="header-title pb-3">General</h4>
+                    <hr>
+                  </div>
+                </div>
+                <div id="cardCollpaseGeneral" class="collapse pt-3 show">
+
+                    <div class="row">
+                        <div class="col-lg-7">
+
+                            <div class="row mb-3">
+                                <label for="color_scheme" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                Color Scheme  <i
+                                class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="Please be aware that it changes color scheme on elements in this webpage, such as: button color, table header, text highlight, icon highlight, etc." tabindex="0"
+                                data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                    <input type="text" id="color_scheme" name="color_scheme" class="form-control"  value="{{data.color_scheme}}">
+                                </div>
+                                @if(hasErrorFor('color_scheme'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('color_scheme') }}
+                                </div>
+                                @endif
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="logo" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                Header Logo  <i
+                                class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="It’s best to incorporated horizontal logo on header instead of vertical logo. Format accepted: PNG and JPG." tabindex="0"
+                                data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                  <input required type="file" name="logo" class="form-control" style="color:#333333;"  data-height="200"  id="logo" data-default-file="{{ BASE_URL() }}/uploads/assets/images/{{data.logo}}"  />
+                                </div>
+                                @if(hasErrorFor('logo'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('logo') }}
+                                </div>
+                                @endif
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="footer" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                Footer Text
+
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                   <textarea id="footer" rows="4" class="form-control"  style="color:#333333;" placeholder="Write footer text here" name="footer">{{data.footer}}</textarea>
+                                </div>
+                                @if(hasErrorFor('footer'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('footer') }}
+                                </div>
+                                @endif
+                            </div>
+
+
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-7">
+                      <div class="card-widgets">
+                        <a data-bs-toggle="collapse" href="#cardCollpaseLoginPage" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                      </div>
+                      <h4 class="header-title pb-3">Login Page </h4>
+                      <hr>
+                    </div>
+                </div>
+                <div id="cardCollpaseLoginPage" class="collapse pt-3 show">
+
+
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="row mb-3">
+                                <label for="logo_login" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                  Login Page Logo <i
+                                  class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="Format accepted: PNG and JPG" tabindex="0"
+                                  data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                  <input required type="file" name="logo_login" class="form-control" style="color:#333333;"  data-height="200"  id="logo_login" data-default-file="{{ BASE_URL() }}/uploads/assets/images/{{data.logo_login}}"  />
+                                </div>
+                                @if(hasErrorFor('logo_login'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('logo_login') }}
+                                </div>
+                                @endif
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="logo_login_background" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                  Login Page Background
+                                  <i
+                                  class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="Size: 1920x1080 px Format accepted: PNG and JPG" tabindex="0"
+                                  data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                  <input type="file" name="logo_login_background" class="form-control" style="color:#333333;"  data-height="200"  id="logo_login_background" data-default-file="{{ BASE_URL() }}/uploads/assets/images/{{data.logo_login_background}}"  />
+                                </div>
+                                @if(hasErrorFor('logo_login_background'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('logo_login_background') }}
+                                </div>
+                                @endif
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7">
+                      <div class="card-widgets">
+                        <a data-bs-toggle="collapse" href="#cardCollpaseDashboard" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                      </div>
+                      <h4 class="header-title pb-3">Dashboard</h4>
+                      <hr>
+                    </div>
+                </div>
+                <div id="cardCollpaseDashboard" class="collapse pt-3 show">
+                   <div class="row">
+                        <div class="col-lg-7">
+                  <div class="row mb-3">
+                      <label for="primary_color" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                      Primary Color  <i
+                      class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="Be aware that it will change the color for charts on dashboard. Please pick color that has good contrast with secondary color." tabindex="0"
+                      data-plugin="tippy" data-tippy-theme="translucent"></i>
+                      </label>
+                      <div class="col-8 col-xl-8">
+                          <input type="text" id="primary_color" name="primary_color" class="form-control"  value="{{data.primary_color}}">
+                      </div>
+                      @if(hasErrorFor('primary_color'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                          role="alert">
+                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                  aria-label="Close"></button>
+                          {{ getErrorFor('primary_color') }}
+                      </div>
+                      @endif
+                  </div>
+
+                  <div class="row mb-3">
+                      <label for="secondary_color" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                      Secondary Color  <i
+                      class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="Be aware that it will change the color for charts on dashboard. Please pick color that has good contrast with primary color." tabindex="0"
+                      data-plugin="tippy" data-tippy-theme="translucent"></i>
+                      </label>
+                      <div class="col-8 col-xl-8">
+                          <input type="text" id="secondary_color" name="secondary_color" class="form-control"  value="{{data.secondary_color}}">
+                      </div>
+                      @if(hasErrorFor('secondary_color'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                          role="alert">
+                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                  aria-label="Close"></button>
+                          {{ getErrorFor('secondary_color') }}
+                      </div>
+                      @endif
+                  </div>
+                </div>
+                </div>
+
+                </div>
+
+
+
+
+                <div class="row">
+                  <div class="col-lg-7">
+
+
+                    <div class="row mb-3">
+                      <label class="col-5 col-xl-4 form-label"></label>
+                      <div class="col-12 col-xl-8 btn-gropup">
+                        <button type="submit" class="btn btn-danger waves-effect waves-light  col-xl-12"><i class="fas fa-save"></i>&#160; Save Changes
+                        </button>
+
+
+                      </div>
+                    </div>
+
+                  </div>
+                    </form>
+                  </div>
+
+              </div> <!-- end card-body -->
+            </div> <!-- end card -->
+          </div><!-- end col -->
+        </div>
+        <!-- end row -->
+
+        <!-- RADIOS -->
+
+
+      </div> <!-- container -->
+
+    </div> <!-- content -->
+
+
+    <!-- Footer Start -->
+  @include('layouts.footer')
+  <!-- end Footer -->
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Plugins js -->
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/spectrum-colorpicker2/spectrum.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+  <script src="{{ BASE_URL() }}/JS/dropify/src/js/dropify.js"></script>
+
+  <script>
+    $(document).ready(function () {
+       $(".mlw-li").hide()
+       $(".mlw-li-home").show()
+       $('#logo').dropify({
+          messages: {
+                  default: 'Drop file here or click to upload ',
+
+              }
+        });
+
+         $('#logo_login').dropify({
+          messages: {
+                  default: 'Drop file here or click to upload ',
+
+              }
+        });
+
+         $('#logo_login_background').dropify({
+          messages: {
+                  default: 'Drop file here or click to upload ',
+
+              }
+        });
+
+        $("#primary_color").spectrum({
+
+        });
+        $("#secondary_color").spectrum({
+
+        });
+        $("#color_scheme").spectrum({
+
+        });
+
+
+
+    });
+
+  </script>
+  <!-- third party js ends -->
+@endsection

@@ -1,0 +1,549 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>Moleawiz|Course|Course Category| List Course </title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <!-- third party css end -->
+  <style>
+    btn-add:hover {
+
+      background-color: #DF2333 !important;
+      color: white !important;
+    }.dataTables_length_custom{
+      padding-bottom: 0px!important;
+    }
+    .dataTables_filter_custom{
+      padding-bottom: 0px !important;
+    }
+    .search-datatable {
+        border-radius: 30px!important;
+        padding-bottom: -5px!important;
+
+
+    }
+
+    .tr-odd{
+      border-color: transparent!important;
+      background-color: #F7F9FC!important;
+    }
+    .tr-even{
+      border-color: transparent!important;
+      background-color: #FFFFFF!important;
+    }
+    .pd-top-pagination{
+      padding-top: 16px!important;;
+    }
+    .red-button{
+      background-color: transparent!important;
+
+    }
+
+    .add-button{
+      background-color: #FFFFFF!important;
+      border-color: #6D757D!important;
+    }
+    .add-button:hover {
+      border-color: #DF2333!important;
+      background-color: #DF2333!important;
+      color: white!important;
+    }
+    .page-item.active .page-link {
+        /* z-index: 3; */
+        position: relative;
+        display: block;
+        color: #fff;
+        background-color: #DF2333;
+        border-color: #DF2333;
+    }
+
+
+    .bottom-wrapper {
+        margin-top: 0.5em;
+    }
+    .top-wrapper {
+      margin-bottom: 0.5em;
+    }
+    /* .card-drop:hover{
+      color: #DF2333!important;
+    } */
+
+    .label-uncheckded-choose-categories{
+      color: #333333;
+    }
+
+    .label-checkded-choose-categories{
+      color: #DF2333;
+    }
+  </style>
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+    <div class="content">
+      @loggedIn
+      <input type="hidden" value="{{authUser.firstname +' '+ authUser.lastname}}" id="auth_name">
+      @else
+        <script>
+          window.location.replace("{{route('login')}}");
+        </script>
+        @endloggedIn
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box">
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('home')}}">HOME</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.course-category.index-collapse-expand')}}">Manage Content and Categories</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link active">View Course</li>
+                  </ol>
+                </div>
+                <div class="row">
+                  <div class="col-lg-2">
+                      <a href="{{route('dashboard.course-category.index-collapse-expand')}}" ><h4 class="page-title back-button  text-hover-color-scheme"><i class="mdi mdi-arrow-left"></i> Back</h4> </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+
+
+                  <div class="btn-toolbar">
+
+                    <div class="btn-group dropdown-btn-group pull-right">
+
+
+                    </div>
+                  </div>
+
+
+                  <div class="responsive-table-plugin dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                      <div class="col align-self-start">
+
+                      </div>
+                      <!-- <div class="col align-self-center">
+                          <div class="dt-buttons btn-group flex-wrap">
+                              <button class="btn btn-secondary buttons-copy buttons-html5 btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Copy</span></button>
+                              <button class="btn btn-secondary buttons-print btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Print</span></button>
+                              <button class="btn btn-secondary buttons-pdf buttons-html5 btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
+                           </div>
+                      </div>  -->
+                      <div class="col align-self-end">
+
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="btn-toolbar" style="padding-bottom:8px">
+                          <div class="btn-group dropdown-btn-group pull-left" style="padding-bottom:20px;">
+                           <b ><h4 class="header-title" style="font-size: 1.25rem;"> {{category.name}}</h4></b>
+                          </div>
+                          <div class="btn-group dropdown-btn-group pull-right" style="padding-bottom:20px;">
+                            <input type="search" class="form-control form-control-sm search-datatable" id="search-field" onkeyup="quickSearch(this)" placeholder="    Search course" aria-controls="datatable">
+
+
+                          </div>
+
+                          <br>
+                          <br>
+                          <div class="btn-group dropdown-btn-group pull-left" style="padding-bottom:10px;">
+
+                          </div>
+                          <div class="btn-group dropdown-btn-group pull-right" style="padding-bottom:10px;">
+
+                            <a href="javascript:void(0);" id="pop-up-move-course-category" class="btn  button-hover-color-scheme"> <i class="mdi mdi-folder-move mdi-18px "></i>&#160;  Move</a> &#160; &#160;
+                            <div class="dropdown float-end">
+                              <a href="javascript:void(0);" class="dropdown-toggle  btn  button-hover-color-scheme" data-bs-toggle="dropdown" aria-expanded="false"> <i class="mdi mdi-sort-variant mdi-18px "></i>&#160;  Sort By</a>
+                              <div class="dropdown-menu dropdown-menu-end">
+                                  <a  href="{{route('dashboard.course.index-by-category',{ category_id : category.id })+'?'+'sort_by='+'fullname'+'&&'+'mode='+'asc'}}" class="dropdown-item"  dataid="{{data.id}}" style="float: none;"> Sort by Course full name ascending</a>
+                                  <a  href="{{route('dashboard.course.index-by-category',{ category_id : category.id })+'?'+'sort_by='+'fullname'+'&&'+'mode='+'desc'}}" class="dropdown-item"  dataid="{{data.id}}" style="float: none;"> Sort by Course full name descending</a>
+                                  <a  href="{{route('dashboard.course.index-by-category',{ category_id : category.id })+'?'+'sort_by='+'shortname'+'&&'+'mode='+'asc'}}" class="dropdown-item"  dataid="{{data.id}}" style="float: none;"> Sort by Course short name ascending</a>
+                                  <a  href="{{route('dashboard.course.index-by-category',{ category_id : category.id })+'?'+'sort_by='+'shortname'+'&&'+'mode='+'desc'}}" class="dropdown-item"  dataid="{{data.id}}" style="float: none;"> Sort by Course short name descending</a>
+                                  <a  href="{{route('dashboard.course.index-by-category',{ category_id : category.id })+'?'+'sort_by='+'idnumber'+'&&'+'mode='+'asc'}}" class="dropdown-item"  dataid="{{data.id}}" style="float: none;"> Sort by Course ID number ascending</a>
+                                  <a  href="{{route('dashboard.course.index-by-category',{ category_id : category.id })+'?'+'sort_by='+'idnumber'+'&&'+'mode='+'desc'}}" class="dropdown-item"  dataid="{{data.id}}" style="float: none;"> Sort by Course ID number descending</a>
+                                  <a  href="{{route('dashboard.course.index-by-category',{ category_id : category.id })+'?'+'sort_by='+'timecreated'+'&&'+'mode='+'asc'}}" class="dropdown-item"  dataid="{{data.id}}" style="float: none;"> Sort by Course time created ascending</a>
+                                  <a  href="{{route('dashboard.course.index-by-category',{ category_id : category.id })+'?'+'sort_by='+'timecreated'+'&&'+'mode='+'desc'}}" class="dropdown-item"  dataid="{{data.id}}" style="float: none;"> Sort by Course time created descending</a>
+
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      <div class="col-sm-12">
+                      <table id="add_course_table"
+                        class="table w-100 nowrap"
+                        role="grid" aria-describedby="datatable-buttons_info" style="width: 924px;">
+                        <thead></thead>
+                        <tbody>
+                          <tr style="color:#6D757D; border: 1px solid transparent" valign= "middle">
+                            <td style="background-color:#F5F7FB;">
+                            <a href="{{route('dashboard.course.create-by-category',{ category_id : category.id })}}" class="red-button text-hover-color-scheme" style="background-color:#6D757D;"  ><span class="red-button text-hover-color-scheme" style="font-size:16px; color:#6D757D"><i class="mdi mdi-plus-circle" ></i> Add new course</span></a>
+
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                        <form id="form_change_category" action="{{ route('dashboard.course.change-category') }}"
+                            enctype="multipart/form-data" method="POST">
+                            {{ csrfField() }}
+                        <table id="datatable1"
+                               class="table w-100 nowrap"
+                               role="grid" aria-describedby="datatable-buttons_info" style="width: 924px;">
+                          <thead style="color: white; background: #DF2333;">
+
+                          </thead>
+
+                          <tbody>
+                            @each(data in category.getRelated('courses').rows)
+
+
+                            <tr style="color:#6D757D; border: 1px solid transparent; padding-bottom:10px;" valign="middle" dataid="{{data.id}}" class="content-row">
+
+
+                              <td style="width:18px; background-color:#F5F7FB;">
+                                 <input type="checkbox" id="course_id_{{data.id}}" class="choose-courses form-check-input" name="choose_courses[]" value="{{data.id}}">
+                              </td>
+
+                              <td style="width:950px; background-color:#F5F7FB; color:#333333  ">
+                                 @if(data.visible == 0 || data.visible == '0')
+                                  <b style="opacity: 0.4;">{{data.fullname}}</b>
+                                 @else
+                                  <b>{{data.fullname}}</b>
+                                 @endif
+
+                              </td>
+
+                              <td style="background-color:#F5F7FB;">
+                                <div class="dropdown float-end">
+                                    <a href="#" class="dropdown-toggle arrow-none card-drop text-hover-color-scheme" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="mdi mdi-dots-horizontal"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-end">
+                                      <a  href="{{route('dashboard.course.detail',{ id : data.id })}}" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">View</a>
+                                      <a  href="{{ route('dashboard.course.edit', { id : data.id }) }}" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Edit</a>
+                                      @if(data.visible==1 || data.visible=='1')
+                                      <a href="{{ route('dashboard.course.switch-visible', { id : data.id }) }}" class="dropdown-item"><!--<i class="fas fa-eye-slash"></i>--> Hide </a>
+                                      @else
+                                      <a href="{{ route('dashboard.course.switch-visible', { id : data.id }) }}" class="dropdown-item"><!--<i class="fas fa-eye"></i>--> Show</a>
+                                      @endif
+
+                                      <!--<a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Enrolled Learners</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Backup</a>
+                                      <a  href="javascript:void(0);" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Restore</a>-->
+                                      <div class="dropdown-divider"></div>
+                                      <a  href="javascript:void(0);" class="dropdown-item btndelete btndeleteormove" fullname="{{ data.fullname  }}" dataid="{{data.id}}" style="float: none;"><!--<span class="mdi mdi-delete"></span>--> Delete</a>
+
+                                    </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr style="border: 1px solid transparent; height: 20px; background: transparent;"  class="content-row" dataid="{{item.id}}">
+                            </tr>
+                            @endeach
+                          </tbody>
+                        </table>
+
+
+
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div> <!-- end card body-->
+              </div> <!-- end card -->
+            </div><!-- end col-->
+          </div>
+          <!-- end row-->
+
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+
+    <!-- Footer Start -->
+  @include('layouts.footer')
+  <!-- end Footer -->
+  <!-- Top modal content -->
+  <div id="top-modal-course-category" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true" style="background-color: transparent; margin-top: 40px; margin-bottom: 150px; ">
+      <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+          <div class="modal-content" style="width: 100%; height: 50%;">
+              <div class="modal-header" style="padding-bottom: 0.5rem;">
+                  <h4 class="modal-title" id="topModalLabelCourseCategory" style="color: #333333; "></h4>
+
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body" style="padding-top: 0.5rem;">
+                  <hr>
+                   @each(data in datasCategory.rows)
+                      <input type="radio" dataid="{{data.id}}" class="form-check-input" id="choose-category-{{data.id}}"
+                            name="category" value="{{data.id}}">
+                      <label  id="label-choose-category-{{data.id}}" class="label-uncheckded-choose-categories  form-check-label" for="choose_category-{{data.id}}">&#160; {{data.name}} </label>
+                      <hr>
+                      @if(data.getRelated('childCategory').rows.length > 0)
+                         @each(item in data.getRelated('childCategory').rows)
+                          <input type="radio" dataid="{{item.id}}" class="form-check-input" id="choose-category-{{item.id}}"
+                                 name="category" value="{{item.id}}">
+                          <label  id="label-choose-category-{{item.id}}" class="label-uncheckded-choose-categories  form-check-label" for="choose_category-{{item.id}}">&#160; {{item.name}} </label>
+                          <hr>
+                          @endeach
+
+                      @else
+                          <input type="radio" dataid="{{data.id}}" class="form-check-input" id="choose-category-{{data.id}}"
+                                 name="category" value="{{data.id}}">
+                          <label  id="label-choose-category-{{data.id}}" class="label-uncheckded-choose-categories  form-check-label" for="choose_category-{{data.id}}">&#160; {{data.name}} </label>
+                          <hr>
+                      @endif
+
+                   @endeach
+                  <h5 id="title-paragraph-course-category" class="title-paragraph-course-category" ></h5>
+                  <p id="content-paragraph-course-category" style="color: #6D757D;"></p>
+              </div>
+              <div class="modal-footer">
+
+                  <button type="button" id="yes-course"  class="btn btn-danger" style="background-color: #DF2333; color:#FFFFFF; padding-right: 0.45rem" > <i class="mdi mdi-folder-move"></i>&#160; Move</button>
+                  <button type="button" id="no-course" class="btn " data-bs-dismiss="modal" style="background-color:#F0F2F7; color: #6D757D; padding-right: 0.45rem" >Cancel</button>
+              </div>
+          </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+</form>
+
+
+  @include('layouts.modal_and_alert')
+  @include('layouts.footer')
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Sweet Alerts js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+
+  <script>
+    let unhideParent =  [];
+    function quickSearch(input) {
+        var filter,  arrTr, i, j, k, txtValue;
+        filter = input.value.toUpperCase();
+        if(filter == ""){
+
+          $(".content").show();
+
+        }
+        else{
+          let arrTd = [];
+          let arrTdResult = [];
+
+          arrTr = document.querySelectorAll('.content-row');
+
+          for (i = 0; i < arrTr.length; i++) {
+            arrTd = arrTr[i].querySelectorAll('td');
+
+            if(arrTd.length > 0){
+
+
+               arrTdResult =  [...arrTr[i].querySelectorAll('td')].filter(function(td) {
+                txtValue = td.textContent || td.innerText;
+                return txtValue.toUpperCase().indexOf(filter) >= 0 ;
+              });
+
+              if(arrTdResult.length > 0){
+                 arrTr[i].style.display = "";
+                 arrTr[i+1].style.display = "";
+
+              }
+              else{
+                arrTr[i].style.display = "none";
+                if(arrTr[i+1].querySelectorAll('td').length < 1){
+                   arrTr[i+1].style.display = "none";
+                }
+
+              }
+
+            }
+            else{
+              //arrTr[i].style.display = "none";
+            }
+          }
+
+
+
+
+
+
+        }
+
+    }
+
+  </script>
+  <script>
+    let dataId =  0;
+    let dataidExpandCollapse = 0;
+    let urlDelete = '';
+    let valSearchField = '';
+    let titleModalCategories = '';
+    let dataIdDelete = 0;
+    let fullName = '';
+
+    $(document).ready(function () {
+      $(".mlw-li").hide()
+      $(".mlw-li-home").show()
+      @if(flashMessage('notification'))
+
+          /*Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: "{{flashMessage('notification')}}",
+
+          });*/
+
+          $("#title-paragraph-alert-modal-success").html("Success!");
+          $("#content-paragraph-alert-modal-success").html("{{flashMessage('notification')}}");
+          $("#continue-alert-modal-success").html("Continue");
+          $("#info-alert-modal-success").modal('show');
+
+      @endif
+
+
+
+      @if(flashMessage('failMessage'))
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed!',
+        text: "{{flashMessage('failMessage')}}",
+
+      })
+      @endif
+
+      @if(flashMessage('successMessage'))
+
+        /*Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: "{{flashMessage('successMessage')}}",
+
+        })*/
+        $("#title-paragraph-alert-modal-success").html("Success!");
+        $("#content-paragraph-alert-modal-success").html("{{flashMessage('successMessage')}}");
+        $("#continue-alert-modal-success").html("Continue");
+        $("#info-alert-modal-success").modal('show');
+      @endif
+
+      let valChooseCourses = [];
+      $("#pop-up-move-course-category").on("click", function(){
+        valChooseCourses = []
+        $('input[name="choose_courses[]"]:checked').each(function() {
+                valChooseCourses.push($(this).val());
+        });
+        titleModalCourses = "Move "+valChooseCourses.length+" courses to…";
+        $("#topModalLabelCourseCategory").html("<b>"+titleModalCourses+"</b>");
+        $('#top-modal-course-category').modal('show');
+      });
+
+
+
+
+
+      $("#yes-course").on("click", function () {
+        $("#form_change_category").submit();
+      });
+
+
+
+
+
+
+
+    $('.btndelete').on('click', function () {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urldelete = "{{ route('dashboard.course.soft-delete',{ id : 'data.id' })}}";
+
+      urldelete = urldelete.replace('data.id', dataid);
+      $('#top-modal-delete').modal('show');
+      dataId =  dataid;
+      urlDelete = urldelete;
+      let labelDelete = 'Delete Course';
+      let contentParagraphDelete = "Do you really want to delete this </br>" + "<b>"+"'"+fullname+"'"+"</b>"+" course and all the data it contains"+"?";
+      let yesDelete = "Delete Course";
+      let noDelete  = "Never Mind, Keep the Course";
+      $('#topModalLabelDelete').html(labelDelete);
+      $('#content-paragraph-delete').html(contentParagraphDelete);
+      $('#yes-delete').html(yesDelete);
+      $('#no-delete').html(noDelete);
+
+
+    });
+
+    $('#yes-delete').on('click', function() {
+      window.location.href = urlDelete;
+    });
+
+
+  });
+
+
+
+  </script>
+  <!-- third party js ends -->
+@endsection

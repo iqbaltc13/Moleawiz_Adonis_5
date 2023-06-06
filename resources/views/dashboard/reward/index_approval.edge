@@ -1,0 +1,448 @@
+@layout('layouts.appfix')
+@section('title')
+<title>Moleawiz|Dashboard|Reward| List Reward Learner Approval</title>
+@endsection
+@section('style')
+<!-- third party css -->
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<!-- third party css end -->
+<style>
+   .dataTables_length_custom{
+    padding-bottom: 0px!important;
+  }
+  .dataTables_filter_custom{
+    padding-bottom: 0px !important;
+  }
+  .search-datatable {
+      border-radius: 30px!important;
+      padding-bottom: -5px!important;
+        /* background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgICB2ZXJzaW9uPSIxLjEiICAgaWQ9InN2ZzQ0ODUiICAgdmlld0JveD0iMCAwIDIxLjk5OTk5OSAyMS45OTk5OTkiICAgaGVpZ2h0PSIyMiIgICB3aWR0aD0iMjIiPiAgPGRlZnMgICAgIGlkPSJkZWZzNDQ4NyIgLz4gIDxtZXRhZGF0YSAgICAgaWQ9Im1ldGFkYXRhNDQ5MCI+ICAgIDxyZGY6UkRGPiAgICAgIDxjYzpXb3JrICAgICAgICAgcmRmOmFib3V0PSIiPiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+ICAgICAgICA8ZGM6dHlwZSAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4gICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPiAgICAgIDwvY2M6V29yaz4gICAgPC9yZGY6UkRGPiAgPC9tZXRhZGF0YT4gIDxnICAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLC0xMDMwLjM2MjIpIiAgICAgaWQ9ImxheWVyMSI+ICAgIDxnICAgICAgIHN0eWxlPSJvcGFjaXR5OjAuNSIgICAgICAgaWQ9ImcxNyIgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjAuNCw4NjYuMjQxMzQpIj4gICAgICA8cGF0aCAgICAgICAgIGlkPSJwYXRoMTkiICAgICAgICAgZD0ibSAtNTAuNSwxNzkuMSBjIC0yLjcsMCAtNC45LC0yLjIgLTQuOSwtNC45IDAsLTIuNyAyLjIsLTQuOSA0LjksLTQuOSAyLjcsMCA0LjksMi4yIDQuOSw0LjkgMCwyLjcgLTIuMiw0LjkgLTQuOSw0LjkgeiBtIDAsLTguOCBjIC0yLjIsMCAtMy45LDEuNyAtMy45LDMuOSAwLDIuMiAxLjcsMy45IDMuOSwzLjkgMi4yLDAgMy45LC0xLjcgMy45LC0zLjkgMCwtMi4yIC0xLjcsLTMuOSAtMy45LC0zLjkgeiIgICAgICAgICBjbGFzcz0ic3Q0IiAvPiAgICAgIDxyZWN0ICAgICAgICAgaWQ9InJlY3QyMSIgICAgICAgICBoZWlnaHQ9IjUiICAgICAgICAgd2lkdGg9IjAuODk5OTk5OTgiICAgICAgICAgY2xhc3M9InN0NCIgICAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgwLjY5NjQsLTAuNzE3NiwwLjcxNzYsMC42OTY0LC0xNDIuMzkzOCwyMS41MDE1KSIgICAgICAgICB5PSIxNzYuNjAwMDEiICAgICAgICAgeD0iLTQ2LjIwMDAwMSIgLz4gICAgPC9nPiAgPC9nPjwvc3ZnPg==);
+        background-repeat: no-repeat;
+        background-color: #fff;
+        background-position: 0px 3px !important; */
+
+  }
+  
+  .tr-odd{
+    border-color: transparent!important;
+    background-color: #F7F9FC!important;
+  }
+  .tr-even{
+    border-color: transparent!important;
+    background-color: #FFFFFF!important;
+  }
+  .pd-top-pagination{
+    padding-top: 16px!important;;
+  }
+  .add-button{
+    background-color: #FFFFFF!important;
+    border-color: #6D757D!important;
+  }
+  .add-button:hover {
+    border-color: #DF2333!important;
+    background-color: #DF2333!important;
+    color: white!important;
+  }
+
+  .approval-button{
+    background-color: #FFFFFF;
+    border-color: #6D757D;
+    color: #6D757D;
+  }
+  
+  .page-item.active .page-link {
+      /* z-index: 3; */
+      position: relative;
+      display: block;
+      color: #fff;
+      background-color: #DF2333;
+      border-color: #DF2333;
+  }
+
+
+  .bottom-wrapper {
+      margin-top: 0.5em;
+  }
+  .top-wrapper {
+    margin-bottom: 0.5em;
+  }
+</style>
+@endsection
+@section('navbar')
+@include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+@include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+<div class="content-page">
+  <div class="content">
+      @loggedIn
+    <input type="hidden" value="{{authUser.firstname +' '+ authUser.lastname}}"  id="auth_name">
+@else
+   <script>
+      window.location.replace("{{route('login')}}");
+   </script>
+@endloggedIn
+
+      <!-- Start Content-->
+      <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box">
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('home')}}">HOME</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link active">Redeem Approval</li>
+                  </ol>
+                </div>
+                <h4 class="page-title" style="color:#333333">Redeem Approval</h4>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div  class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+                            <div class="row">
+                                <div class="col align-self-start">
+
+                                </div>
+
+                                <div class="col align-self-end">
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                              <div class="btn-toolbar">
+                                <div class="btn-group dropdown-btn-group pull-left" style="padding-bottom:20px;">
+                                  <h4 class="header-title" > {{datas.length}} Entries</h4>
+                                </div>
+                                <div class="btn-group dropdown-btn-group pull-right" style="padding-bottom:20px;">
+
+
+                                </div>
+                              </div>
+                                <div class="col-sm-12">
+                                    <table id="datatable" class="table w-100 nowrap" role="grid" aria-describedby="datatable-buttons_info" style="width: 924px;">
+                             <thead style="color: white; background: #DF2333;">
+                              <tr>
+                                <th valign="middle" >No.</th>
+                                <th valign="middle" >Username</th>
+                                <th valign="middle" >Journey</th>
+                                <th valign="middle" >Reward</th>
+
+                                <th valign="middle" style="text-align: right;" >Point</th>
+                                <th valign="middle" >Code</th>
+                                <th valign="middle" >Redeem Date</th>
+                                <th valign="middle" >Approval</th>
+                             </tr>
+                            </thead>
+                            <script>
+                              let arrAssignments = [];
+                              let i = 0;
+                              let j = 0;
+                              var monthNames = [ "January", "February", "March", "April", "May", "June",
+                                "July", "August", "September", "October", "November", "December" ];
+                            </script>
+
+                            <tbody>
+
+                            @each(data in datas)
+
+                             <tr>
+                              <td valign="middle" style="opacity : 1; ">
+                                <script>
+                                i++;
+                                document.write(i)
+                              </script></td>
+                              <td valign="middle" style="opacity : 1; ">
+                                {{ data.getRelated('user') ? data.getRelated('user').username : ''  }}  </td>
+                              <td valign="middle" style="opacity : 1; ">
+                                {{ data.getRelated('journey') ? data.getRelated('journey').name : '' }}</td>
+                              <td valign="middle" style="opacity : 1; ">
+                                 {{data.getRelated('reward')? data.getRelated('reward').title : ''}}</td>
+
+                              <td valign="middle" style="opacity : 1; text-align: right; ">
+                                {{data.point}}
+                              </td>
+                              <td valign="middle" style="opacity : 1; ">
+                                 {{data.redeem_code}}</td>
+                              <td valign="middle" style="opacity : 1; ">
+                                 <script>document.write("{{data.redeem_date.getDate()+' '}}"); document.write(monthNames[{{data.redeem_date.getMonth()}}].substring(0,3)); </script>{{" "+data.redeem_date.getFullYear()}} <br/> <script> document.write("{{" "+data.redeem_date.getHours() + ":" + data.redeem_date.getMinutes() + ":" + data.redeem_date.getSeconds()}}")</script>
+                              </td>
+
+                              <td valign="middle" style="opacity : 1; ">
+                                <div class="tabledit-toolbar btn-toolbar btntoolbar-{{data.id}}" style="text-align: left;" dataid="{{data.id}}">
+                                  <div class=" btngroup-{{data.id}}" style="float: none;" dataid="{{data.id}}">
+                                    <a  href="javascript:void(0);" class=" btn approval-button button-hover-color-scheme btnapprove"  dataid="{{data.id}}" style="float: none; "> Approve</a>
+                                    &#160; &#160; &#160
+                                    <a  href="javascript:void(0);" class=" btn approval-button button-hover-color-scheme btndecline"  dataid="{{data.id}}" style="float: none; ">  Decline</a>
+
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+
+
+
+
+                            @endeach
+                            </tbody>
+                        </table></div></div>
+
+                      </div>
+
+                    </div> <!-- end card body-->
+                </div> <!-- end card -->
+            </div><!-- end col-->
+        </div>
+        <!-- end row-->
+
+      </div> <!-- container -->
+
+  </div> <!-- content -->
+
+  <!-- Footer Start -->
+  @include('layouts.footer')
+  <!-- end Footer -->
+
+  @include('layouts.modal_and_alert')
+
+</div>
+@endsection
+@section('right_sidebar')
+@include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+<!-- third party js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<!-- Sweet Alerts js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script>
+let dataId =  0;
+$(document).ready(function(){
+   $(".mlw-li").hide()
+   $(".mlw-li-home").show()
+   @if(flashMessage('notification'))
+
+    // Swal.fire({
+    //   icon: 'success',
+    //   title: 'Success!',
+    //   text: "{{flashMessage('notification')}}",
+
+    // })
+   @endif
+
+
+
+   @if(flashMessage('failMessage'))
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Failed!',
+      text: "{{flashMessage('failMessage')}}",
+
+    })
+   @endif
+
+   @if(flashMessage('notification_sucess_approve'))
+
+    // Swal.fire({
+    //   icon: 'success',
+    //   title: 'Success!',
+    //   text: "{{flashMessage('successMessage')}}",
+
+    // })
+
+
+      $("#title-paragraph-alert-modal-success").html("Redeem Approved!");
+      $("#content-paragraph-alert-modal-success").html("{{flashMessage('notification_sucess_approve')}}");
+      $("#continue-alert-modal-success").html("Continue");
+      $("#info-alert-modal-success").modal('show');
+   @endif
+
+   @if(flashMessage('notification_sucess_decline'))
+
+    // Swal.fire({
+    //   icon: 'success',
+    //   title: 'Success!',
+    //   text: "{{flashMessage('successMessage')}}",
+
+    // })
+
+
+      $("#title-paragraph-alert-modal-success").html("Redeem Declined!");
+      $("#content-paragraph-alert-modal-success").html("{{flashMessage('notification_sucess_decline')}}");
+      $("#continue-alert-modal-success").html("Continue");
+      $("#info-alert-modal-success").modal('show');
+    @endif
+
+
+
+
+
+
+
+   //let url = "{{ BASE_URL() + route('dashboard.role-management.datatable') }}";
+   $("#datatable").DataTable({
+     columnDefs: [
+   				 			{ "orderable": false, "targets": [7] },
+                { "type": "num", "width" : "18px", "targets" : 0},
+
+  							],
+      language: {
+        search : ' ', /*Empty to remove the label*/
+      },
+		  order: [
+
+      ],
+      aLengthMenu : [[25, 50, 75, -1], [25, 50, 75, "All"]],
+      iDisplayLength: 25,
+
+     scrollX:!0,
+     //dom: 'Bfrltip',
+     buttons: [
+        {
+            extend: 'copy',
+            exportOptions: {
+                columns: [  0,1,2,3,4,5,6 ]
+            }
+        },
+        {
+            extend: 'csv',
+            exportOptions: {
+                columns: [  0,1,2,3,4,5,6 ]
+            }
+        },
+        {
+            extend: 'pdf',
+            exportOptions: {
+                columns: [  0,1,2,3,4,5,6 ]
+            }
+        },
+        {
+            extend: 'print',
+            exportOptions: {
+                columns: [  0,1,2,3,4,5,6 ]
+            }
+        },
+        //'colvis'
+      ],
+     pagingType:
+      "full_numbers",
+      drawCallback:function(){
+        $("thead").css("background",dataThemes.color_scheme);
+$(".dataTables_paginate > .pagination").addClass("pagination-default")
+        $(".dataTables_info").addClass("pd-top-pagination")
+        $(".dataTables_paginate").addClass("pd-top-pagination")
+        $(".odd").addClass("tr-odd")
+        $(".even").addClass("tr-even")
+        $('input[type="search"]').addClass("search-datatable")
+        $('input[type="search"]').attr("placeholder", "    Search here");
+        $('.dataTables_length').addClass('dataTables_length_custom');
+        $('.dataTables_filter').addClass('dataTables_filter_custom');
+        $(".page-item.active .page-link").css("background-color",dataThemes.color_scheme);
+        $(".page-item.active .page-link").css("border-color",dataThemes.color_scheme);
+     }}),
+        $(".dataTables_length select").addClass("form-select form-select-sm"),
+        $(".dataTables_length select").removeClass("custom-select custom-select-sm"),
+        $(".dataTables_length label").addClass("form-label")
+        $(".dataTables_filter label").addClass("form-label")
+
+
+
+
+});
+
+
+
+function updateStatus(drh_id, status){
+
+  let urlUpdateStatus = "{{ route('dashboard.reward.submit-approval',{ id : 'data.id' })}}";
+
+  urlUpdateStatus = urlUpdateStatus.replace('data.id', drh_id);
+  urlUpdateStatus = urlUpdateStatus+'?'+'redeem_status='+status;
+
+  window.location.href = urlUpdateStatus;
+
+}
+
+
+   $('.btnapprove').on('click', function() {
+      let dataid = $(this).attr("dataid");
+
+
+      $('#top-modal-approve').modal('show');
+      dataId = dataid;
+      let labelApprove = 'Approve the Redeem';
+      let contentParagraphApprove = "Do you really want to approve the redeem"+"?";
+      let yesApprove = "Approve";
+      let noApprove  = "Cancel";
+      $('#topModalLabelApprove').html(labelApprove);
+      $('#content-paragraph-approve').html(contentParagraphApprove);
+      $('#yes-approve').html(yesApprove);
+      $('#no-approve').html(noApprove);
+
+   })
+
+
+   $('.btndecline').on('click', function() {
+      let dataid = $(this).attr("dataid");
+
+      $('#top-modal-decline').modal('show');
+      dataId = dataid;
+      let labelDecline = 'Decline the Redeem';
+      let contentParagraphDecline = "Do you really want to decline the redeem"+"?";
+      let yesDecline = "Decline";
+      let noDecline  = "Cancel";
+      $('#topModalLabelDecline').html(labelDecline);
+      $('#content-paragraph-decline').html(contentParagraphDecline);
+      $('#yes-decline').html(yesDecline);
+      $('#no-decline').html(noDecline);
+
+   })
+
+   $('#yes-approve').on('click', function() {
+     updateStatus(dataId,1)
+   });
+
+
+
+   $('#yes-decline').on('click', function() {
+     updateStatus(dataId,2)
+   });
+
+
+
+
+
+</script>
+<!-- third party js ends -->
+@endsection

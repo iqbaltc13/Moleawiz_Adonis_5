@@ -1,0 +1,249 @@
+@layout('layouts.appfix')
+@section('title')
+<title>Moleawiz|Dashboard|Program| Add Certificate</title>
+@endsection
+@section('style')
+<!-- third party css -->
+<!-- Plugins css -->
+ <!-- Plugins css -->
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/JS/summernote/summernote.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{ BASE_URL() }}/JS/Dual-Select-Boxes-For-Bootstrap-Bootstrap-Dual-Listbox/src/bootstrap-duallistbox.css">
+<!-- third party css end -->
+@endsection
+@section('navbar')
+@include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+@include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+<div class="content-page">
+
+
+  <!-- Start Content-->
+  <div class="content">
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+
+                    <h4 class="page-title">Create Certificate Form</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <!--<h4 class="header-title" style="padding-bottom:20px;">General</h4>-->
+
+
+
+                                <form id="add_certificate" action="{{ route('dashboard.journey.certificate.store') }}" enctype="multipart/form-data" method="POST">
+                                  {{ csrfField() }}
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Name</label>
+                                        <input type="text" id="name" name="name" class="form-control" style="color:#333333;" value="" required>
+                                        @if(hasErrorFor('name'))
+                                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                              {{ getErrorFor('name') }}
+                                          </div>
+                                        @endif
+                                    </div>
+                                    <div class="mb-3">
+                                      <label for="kode" class="form-label">Code</label>
+                                      <input type="text" id="kode" name="kode" class="form-control" style="color:#333333;" value="" required>
+                                      @if(hasErrorFor('kode'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            {{ getErrorFor('kode') }}
+                                        </div>
+                                      @endif
+                                    </div>
+                                    <div class="mb-3">
+                                      <label for="note" class="form-label">Note </label>
+                                      <textarea rows="4" id="note" class="form-control" style="color:#333333;"  name="note"></textarea>
+                                      @if(hasErrorFor('note'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            {{ getErrorFor('note') }}
+                                        </div>
+                                      @endif
+                                   </div>
+                                   <div class="mb-3">
+                                    <label for="expired_date_show" class="form-label">Expired Date</label>
+                                    <input type="text" id="expired_date_show" name="expired_date_show" class="form-control" style="color:#333333;" value="" required>
+                                    @if(hasErrorFor('expired_date_show'))
+                                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                          {{ getErrorFor('expired_date_show') }}
+                                      </div>
+                                    @endif
+                                   </div>
+                                   <input type="hidden" id="daa_journey_id" name="daa_journey_id" value="{{journey.id}}">
+                                   <input type="hidden" id="expired_date" name="expired_date" value="">
+                                   <div class="mb-3">
+                                    <label for="module_id" class="form-label">Assign User</label>
+                                    <select multiple="multiple" class="form-select form-select-custom" style="color:#333333;" id="module_id" name="module_id[]" data-plugin="multiselect">
+                                    @each(module in modules)
+                                      <script>
+
+                                          document.write("<option value='{{module.id}}' >{{ module.fullname }}</option>")
+
+
+                                      </script>
+
+                                    @endeach
+
+                                    </select>
+
+                                  </div>
+
+                                    <div class="mb-3">
+                                      <div class="form-check">
+                                          <input type="checkbox" class="form-check-input" id="visible" name="visible" value="1" >
+                                          <label class="form-check-label" for="visible">Visible</label>
+                                      </div>
+                                    </div>
+
+                                    <div class="mb-3">
+                                      <label for="certificate" class="form-label">Template</label>
+                                      <input type="file" name="certificate" class="form-control" style="color:#333333;" id="thumbnail_pic"  />
+                                      @if(hasErrorFor('certificate'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            {{ getErrorFor('certificate') }}
+                                        </div>
+                                      @endif
+                                    </div>
+
+
+
+
+
+
+
+                        <button id="submit_btn" type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                      </form>
+                        <!-- end row-->
+
+                    </div> <!-- end card-body -->
+                </div> <!-- end card -->
+            </div><!-- end col -->
+        </div>
+        <!-- end row -->
+
+
+
+
+
+
+        <!-- RADIOS -->
+
+
+
+    </div> <!-- container -->
+
+</div> <!-- content -->
+
+
+  <!-- Footer Start -->
+
+  <!-- end Footer -->
+
+</div>
+@endsection
+@section('right_sidebar')
+@include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+<!-- third party js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+ <!-- Plugins js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ BASE_URL() }}/JS/summernote/summernote.js"></script>
+<script src="{{ BASE_URL() }}/JS/Dual-Select-Boxes-For-Bootstrap-Bootstrap-Dual-Listbox/src/jquery.bootstrap-duallistbox.js"></script>
+<script>
+$(document).ready(function(){
+  $(".mlw-li").hide()
+  $(".mlw-li-home").show()
+  $('#note').summernote();
+  $('#module_id').bootstrapDualListbox();
+  $(".move").css("background-color",dataThemes.color_scheme);
+  $(".move").css("border-color",dataThemes.color_scheme);
+  $(".remove").css("background-color",dataThemes.color_scheme);
+  $(".remove").css("border-color",dataThemes.color_scheme);
+  $(".moveall").css("background-color",dataThemes.color_scheme);
+  $(".moveall").css("border-color",dataThemes.color_scheme);
+  $(".removeall").css("background-color",dataThemes.color_scheme);
+  $(".removeall").css("border-color",dataThemes.color_scheme);
+  $(".set-main-admin").css("background-color",dataThemes.color_scheme);
+  $(".set-main-admin").css("border-color",dataThemes.color_scheme);
+  $('#expired_date_show').flatpickr({
+
+    dateFormat: "d/m/Y",
+
+
+    onChange: function(selectedDates, dateStr, instance) {
+
+    },
+    onClose: function(selectedDates, dateStr, instance){
+        console.log(dateStr);
+        $('#expired_date').val(dateStr.split("/").reverse().join("-"));
+
+
+    }
+  });
+
+
+
+
+});
+
+</script>
+<!-- third party js ends -->
+@endsection

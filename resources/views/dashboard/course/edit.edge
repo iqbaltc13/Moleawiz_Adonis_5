@@ -1,0 +1,527 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>Moleawiz|Course|Course| Create Module </title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <!-- Plugins css -->
+  <!-- Plugins css -->
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/JS/summernote/summernote.css" rel="stylesheet" type="text/css"/>
+
+
+
+  <!-- third party css end -->
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+
+
+    <!-- Start Content-->
+    <div class="content">
+
+      <!-- Start Content-->
+      <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+
+              <h4 class="page-title">Create Course Form</h4>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="header-title" style="padding-bottom:20px;">General</h4>
+                <form id="add_user" action="{{ route('dashboard.course.update', { id : course.id }) }}"
+                      enctype="multipart/form-data" method="POST">
+                  {{ csrfField() }}
+                  <div class="mb-3">
+                    <label for="fullname" class="form-label">Course Full Name</label>
+                    <input type="text" id="fullname" name="fullname" value="{{course.fullname}}" class="form-control" style="color:#333333;"
+                           required>
+                    @if(hasErrorFor('fullname'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                           role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('fullname') }}
+                      </div>
+                    @endif
+                  </div>
+                  <div class="mb-3">
+                    <label for="shortname" class="form-label">Course Short Name</label>
+                    <input type="text" id="shortname" name="shortname" value="{{course.shortname}}" class="form-control" style="color:#333333;"
+                           required>
+                    @if(hasErrorFor('shortname'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                           role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('shortname') }}
+                      </div>
+                    @endif
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="category" class="form-label">Course Category
+                    </label>
+                    <select name="category" class="form-select form-select-custom" style="color:#333333;" id="category" required>
+                      @each(courseCategory in courseCategories)
+                      <option value="{{courseCategory.id}}">{{courseCategory.name}}</option>
+                      @endeach
+                    </select>
+                    @if(hasErrorFor('category'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                           role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('category') }}
+                      </div>
+                    @endif
+
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="visible" class="form-label">Course Visibility
+                    </label>
+                    <select name="visible" class="form-select form-select-custom" style="color:#333333;" id="visible" required>
+                      <option value="0">Hide</option>
+                      <option value="1">Show</option>
+                    </select>
+                    @if(hasErrorFor('visible'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                           role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('visible') }}
+                      </div>
+                    @endif
+
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="startdate" class="form-label">Course Start Date</label>
+                    <input type="text" id="startdate" name="startdate" value="{{course.str_startdate}}"
+                           class="form-control" style="color:#333333;" required>
+                    @if(hasErrorFor('startdate'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                           role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('startdate') }}
+                      </div>
+                    @endif
+                  </div>
+                  <div class="mb-3">
+                    <label for="enddate" class="form-label">Course End Date</label>
+                    <input type="text" id="enddate" name="enddate" value="{{course.str_enddate}}" class="form-control" style="color:#333333;"
+                           required>
+                    @if(hasErrorFor('enddate'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                           role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('enddate') }}
+                      </div>
+                    @endif
+                  </div>
+
+
+                  <div class="mb-3">
+                    <label for="idnumber" class="form-label">Course ID Number</label>
+                    <input type="text" id="idnumber" name="idnumber" class="form-control" style="color:#333333;" value="{{course.idnumber}}"
+                           required>
+                    @if(hasErrorFor('idnumber'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                           role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('idnumber') }}
+                      </div>
+                    @endif
+                  </div>
+
+
+              </div> <!-- end card-body -->
+            </div> <!-- end card -->
+          </div><!-- end col -->
+        </div>
+        <!-- end row -->
+
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="header-title" style="padding-bottom:20px;">Description</h4>
+
+
+                <div class="mb-3">
+                  <label for="summary" class="form-label">Course Summary </label>
+                  <textarea rows="4" id="summary" class="form-control" style="color:#333333;" name="summary">{{course.summary}}</textarea>
+                  {{--  <input type="text" name="summary" class="form-control" style="color:#333333;" id="summary" placeholder="">  --}}
+                  @if(hasErrorFor('summary'))
+                    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                         role="alert">
+                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                              aria-label="Close"></button>
+                      {{ getErrorFor('summary') }}
+                    </div>
+                  @endif
+                </div>
+
+                <div class="mb-3">
+                  <label for="daa_picture" class="form-label">Current Picture</label>
+                  <h5>None</h5>
+                </div>
+
+                <!--<div class="dz-message needsclick">
+
+                  <h3>Drop image files here or click to upload.</h3>
+
+                </div>
+
+                <div class="fallback">
+                    <input name="profpic" type="file" id="profpic" accept="image/png, image/jpeg"/>
+                </div>-->
+                <div class="mb-3">
+                  <label for="profile_pic" class="form-label">Course Summary Files </label>
+                  <input type="file" name="profile_pic" class="form-control" style="color:#333333;" id="profile_pic"/>
+                  @if(hasErrorFor('profile_pic'))
+                    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                         role="alert">
+                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                              aria-label="Close"></button>
+                      {{ getErrorFor('profile_pic') }}
+                    </div>
+                  @endif
+                </div>
+
+
+                <!-- Preview -->
+                <div class="dropzone-previews mt-3" id="file-previews"></div>
+
+
+                <!-- end row-->
+
+              </div> <!-- end card-body -->
+            </div> <!-- end card -->
+          </div><!-- end col -->
+
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="header-title" style="padding-bottom:20px;">Course Format</h4>
+
+
+                <div class="mb-3">
+                  <label for="format" class="form-label">Format
+                  </label>
+                  <select name="format" class="form-select form-select-custom" style="color:#333333;" id="format" required>
+                    <option value="singleactivity">Single Activity Format</option>
+                  </select>
+                  @if(hasErrorFor('format'))
+                    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                         role="alert">
+                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                              aria-label="Close"></button>
+                      {{ getErrorFor('format') }}
+                    </div>
+                  @endif
+
+                </div>
+
+
+                <div class="mb-3">
+                  <label for="activitytype" class="form-label">Type of Activity
+                  </label>
+                  <select name="activitytype" class="form-select form-select-custom" style="color:#333333;" id="activitytype" required>
+                    <option value="data">Database</option>
+                    <option value="forum">Forum</option>
+                    <option value="scorm">SCORM
+                  </select>
+                  @if(hasErrorFor('activitytype'))
+                    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                         role="alert">
+                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                              aria-label="Close"></button>
+                      {{ getErrorFor('activitytype') }}
+                    </div>
+                  @endif
+
+                </div>
+
+
+                <!-- end row-->
+
+              </div> <!-- end card-body -->
+            </div> <!-- end card -->
+          </div><!-- end col -->
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="header-title" style="padding-bottom:20px;">Files And Uploads</h4>
+
+
+                <div class="mb-3">
+                  <label for="maxbytes" class="form-label">Maximum Upload Size
+                  </label>
+                  <select name="maxbytes" class="form-select form-select-custom" style="color:#333333;" id="maxbytes" required>
+                    <option value="0">Site upload limit (1GB)</option>
+                    <option value="1098907648">1GB</option>
+                    <option value="1073741824">1GB</option>
+                    <option value="786432000">750MB</option>
+                    <option value="524288000">500MB</option>
+                    <option value="262144000">250MB</option>
+                    <option value="104857600">100MB</option>
+                    <option value="52428800">50MB</option>
+                    <option value="20971520">20MB</option>
+                    <option value="10485760">10MB</option>
+                    <option value="5242880">5MB</option>
+                    <option value="2097152">2MB</option>
+                    <option value="1048576">1MB</option>
+                    <option value="512000">500KB</option>
+                    <option value="102400">100KB</option>
+                    <option value="51200">50KB</option>
+                    <option value="10240">10KB</option>
+                  </select>
+                  @if(hasErrorFor('maxbytes'))
+                    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                         role="alert">
+                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                              aria-label="Close"></button>
+                      {{ getErrorFor('maxbytes') }}
+                    </div>
+                  @endif
+
+                </div>
+
+
+                <!-- end row-->
+
+              </div> <!-- end card-body -->
+            </div> <!-- end card -->
+          </div><!-- end col -->
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="header-title" style="padding-bottom:20px;">Completion Tracking</h4>
+
+
+                <div class="mb-3">
+                  <label for="enablecompletion" class="form-label">Enable Completion Tracking
+                  </label>
+                  <select name="enablecompletion" class="form-select form-select-custom" style="color:#333333;" id="enablecompletion" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                  </select>
+                  @if(hasErrorFor('enablecompletion'))
+                    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                         role="alert">
+                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                              aria-label="Close"></button>
+                      {{ getErrorFor('enablecompletion') }}
+                    </div>
+                  @endif
+
+                </div>
+
+
+                <button id="submit_btn" type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                </form>
+
+                <!-- end row-->
+
+              </div> <!-- end card-body -->
+            </div> <!-- end card -->
+          </div><!-- end col -->
+        </div>
+
+        <!-- RADIOS -->
+
+
+      </div> <!-- container -->
+
+    </div> <!-- content -->
+
+
+    <!-- Footer Start -->
+    @include('layouts.footer')
+    <!-- end Footer -->
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Plugins js -->
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+  <script src="{{ BASE_URL() }}/JS/summernote/summernote.js"></script>
+
+
+
+  <script>
+    $(document).ready(function () {
+      $(".mlw-li").hide()
+      $(".mlw-li-home").show()
+      $('#btn_auto_generate_password').click(function () {
+        let randomstring = Math.random().toString(36).slice(-10);
+        $('#password').val(randomstring);
+      });
+
+      $('#country').selectize();
+
+      $('#submit_btn').click(function () {
+
+        $('#add_user').submit();
+      });
+
+      var drEvent = $('#profpic').dropify({
+        messages: {
+          default: 'Drag atau drop untuk memilih gambar',
+          replace: 'Ganti',
+          remove: 'Hapus',
+          error: 'error'
+        }
+      });
+
+
+      $('#category').val("{{course.category}}").change();
+      $('#visible').val("{{course.visible}}").change();
+      $('#maxbytes').val("{{course.maxbytes}}").change();
+      $('#enablecompletion').val("{{course.enablecompletion}}").change();
+      $('#activitytype').val("{{course.getRelated('format_option').value}}").change();
+
+      $('#summary').summernote();
+
+      $('#category').selectize();
+
+      $('#maxbytes').selectize();
+      $('#startdate').flatpickr({
+        dateFormat: "Y-m-d"
+      });
+      $('#enddate').flatpickr({
+        dateFormat: "Y-m-d"
+      });
+
+
+      drEvent.on('dropify.beforeClear', function (event, element) {
+        return confirm('Do you really want to delete ' + element.file.name + ' ?');
+      });
+
+      drEvent.on('dropify.afterClear', function (event, element) {
+        alert('File deleted');
+      });
+
+      drEvent.on('dropify.errors', function (event, element) {
+        console.log('Has Errors');
+      });
+
+      const fp = flatpickr("#joindate", {
+        dateFormat: "Y-m-d",
+      });
+
+
+    });
+
+  </script>
+  <!-- third party js ends -->
+@endsection

@@ -1,0 +1,753 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>Moleawiz|Course|Course Category| List Course Category</title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <!-- Plugins css -->
+  <!-- Plugins css -->
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css"
+        rel="stylesheet" type="text/css"/>
+  
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <!-- third party css end -->
+  <style>
+    btn-add:hover {
+
+      background-color: #DF2333 !important;
+      color: white !important;
+    }
+    .page-item.active .page-link {
+        /* z-index: 3; */
+        position: relative;
+        display: block;
+        color: #fff;
+        background-color: #DF2333;
+        border-color: #DF2333;
+    }
+  </style>
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+
+
+    <!-- Start Content-->
+    <div class="content">
+
+      <!-- Start Content-->
+      <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+
+              <h4 class="page-title">Course And Category Management</h4>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-7">
+                    <h4 class="header-title" style="padding-bottom:20px;">List Course categories</h4>
+                    <div class="btn-toolbar">
+
+                      <div class="btn-group dropdown-btn-group pull-right">
+                        <a href="{{ route('dashboard.course-category.create') }}" class="btn  btn-success">Add
+                          New</a>
+
+                      </div>
+                    </div>
+                    <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+                      <div class="row">
+                        <div class="col align-self-start">
+
+                        </div>
+
+                        <div class="col align-self-end">
+
+                        </div>
+
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <table id="datatable"
+                                 class="table w-100 nowrap"
+                                 role="grid" aria-describedby="datatable-buttons_info" style="width: 924px;">
+                            <thead style="color: white; background: #DF2333;">
+                            <tr>
+                              <th valign="middle" >Name</th>
+                              <th valign="middle" >Sortorder</th>
+                              <th valign="middle" >Actions</th>
+
+                              <th valign="middle" style="text-align: right;">Total Courses</th>
+
+
+                            </tr>
+                            </thead>
+
+
+                            <tbody>
+                            <script>
+                              let dateLastAccess = [];
+                            </script>
+                            @each(courseCategory in courseCategories)
+                            <tr>
+                              <td valign="middle" style="max-width: 70px;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                            overflow: hidden;">{{ courseCategory.name }}</td>
+                              <td valign="middle" style="max-width: 70px;
+                             text-overflow: ellipsis;
+                             white-space: nowrap;
+                             overflow: hidden;">{{ courseCategory.sortorder }}</td>
+
+                              <td valign="middle" style="word-break: break-word;
+                              vertical-align: top;">
+                                <div class="tabledit-toolbar btn-toolbar btntoolbar-{{courseCategory.id}}"
+                                     style="text-align: left;" dataid="{{courseCategory.id}}">
+                                  <div class="btn-group btn-group-sm btngroup-{{courseCategory.id}}"
+                                       style="float: none;" dataid="{{courseCategory.id}}">
+                                    <a
+                                      href="{{ route('dashboard.course-category.index') }}?detail_id={{courseCategory.id}}"
+                                      class="tabledit-edit-button btn btn-primary btndetail"
+                                      dataid="{{courseCategory.id}}" style="float: none;"><i
+                                        class="fas fa-info-circle"></i></a>
+                                    <a href="{{ route('dashboard.course-category.edit', { id : courseCategory.id }) }}"
+                                       class="tabledit-edit-button btn btn-success btnedit-{{courseCategory.id}}"
+                                       dataid="{{courseCategory.id}}" style="float: none;"><span
+                                        class="mdi mdi-pencil"></span></a>
+                                    <a href="javascript:void(0);" class="tabledit-edit-button btn btn-danger btndelete"
+                                       fullname="{{ courseCategory.name }}" dataid="{{courseCategory.id}}"
+                                       style="float: none;"><span class="mdi mdi-delete"></span></a>
+                                    @if(courseCategory.visible == 1)
+                                      <a href="javascript:void(0);"
+                                         class="tabledit-edit-button btn btn-warning btnunvisible"
+                                         fullname="{{ courseCategory.name }}" dataid="{{courseCategory.id}}"
+                                         style="float: none;"><span class="fas fa-eye"></span></a>
+                                    @else
+                                      <a href="javascript:void(0);"
+                                         class="tabledit-edit-button btn btn-warning btnvisible"
+                                         fullname="{{ courseCategory.name }}" dataid="{{courseCategory.id}}"
+                                         style="float: none;"><span class="fas fa-eye-slash"></span></a>
+                                    @endif
+                                    <a
+                                      href="{{  route('dashboard.course-category.moveup', { id : courseCategory.id }) }}"
+                                      class="btn btn-outline-blue waves-effect waves-light btnmoveup"
+                                      dataid="{{courseCategory.id}}" style="float: none;"><i
+                                        class="fas fa-arrow-up"></i></a>
+                                    <a
+                                      href="{{  route('dashboard.course-category.movedown', { id : courseCategory.id }) }}"
+                                      class="btn btn-outline-blue waves-effect waves-light btnmovedown"
+                                      dataid="{{courseCategory.id}}" style="float: none;"><i
+                                        class="fas fa-arrow-down"></i></a>
+                                    <a
+                                      href="{{  route('dashboard.course-category.create') }}?parent={{courseCategory.id}}"
+                                      class="btn btn-outline-blue waves-effect waves-light " dataid="{{course.id}}"
+                                      style="float: none;"><i class="fas fa-plus-square"></i></a>
+
+
+                                  </div>
+                                </div>
+                              </td>
+
+
+                              <td valign="middle" style="text-align: right;">{{courseCategory.getRelated('courses').rows.length}}</td>
+
+
+                            </tr>
+
+                            @endeach
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-5">
+                    <h4 class="header-title" style="padding-bottom:20px;">List Course, Category
+                      : {{curCourseCategory.name}} </h4>
+                    <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+                      <div class="row">
+                        <div class="col align-self-start">
+
+                        </div>
+
+                        <div class="col align-self-end">
+
+                        </div>
+
+                      </div>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <table id="datatable2" filename="{{curCourseCategory.name}}"
+                                 class="table w-100 nowrap"
+                                 role="grid" aria-describedby="datatable-buttons_info" style="width: 924px;">
+                            <thead style="color: white; background: #DF2333;">
+                            <tr>
+
+                              <th valign="middle" >Name</th>
+                              <th valign="middle" >Actions</th>
+                              <th valign="middle" >Sortorder</th>
+
+                            </tr>
+                            </thead>
+
+
+                            <tbody>
+
+                            @each(course in  curCourseCategory.getRelated('courses').rows)
+
+                            <tr>
+                              <td valign="middle" style="max-width: 70px;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;">{{ course.fullname }}</td>
+                              <td valign="middle">
+                                <div class="tabledit-toolbar btn-toolbar btntoolbar-{{course.id}}"
+                                     style="text-align: left;" dataid="{{course.id}}">
+                                  <div class="btn-group btn-group-sm btngroup-{{course.id}}" style="float: none;"
+                                       dataid="{{course.id}}">
+
+                                    <a href="{{ route('dashboard.course.edit', { id : course.id }) }}"
+                                       class="tabledit-edit-button btn btn-success btnedit-{{course.id}}"
+                                       dataid="{{course.id}}" style="float: none;"><span class="mdi mdi-pencil"></span></a>
+                                    <a href="javascript:void(0);"
+                                       class="tabledit-edit-button btn btn-danger btncoursedelete"
+                                       fullname="{{ course.fullname }}" dataid="{{course.id}}"
+                                       style="float: none;"><span class="mdi mdi-delete"></span></a>
+                                    @if(course.visible == 1)
+                                      <a href="javascript:void(0);"
+                                         class="tabledit-edit-button btn btn-warning btncourseunvisible"
+                                         fullname="{{ course.fullname }}" dataid="{{course.id}}"
+                                         style="float: none;"><span class="fas fa-eye"></span></a>
+                                    @else
+                                      <a href="javascript:void(0);"
+                                         class="tabledit-edit-button btn btn-warning btncoursevisible"
+                                         fullname="{{ course.fullname }}" dataid="{{course.id}}"
+                                         style="float: none;"><span class="fas fa-eye-slash"></span></a>
+                                    @endif
+                                    <a href="{{  route('dashboard.course.moveup', { id : course.id }) }}"
+                                       class="btn btn-outline-blue waves-effect waves-light btnmoveup"
+                                       dataid="{{course.id}}" style="float: none;"><i class="fas fa-arrow-up"></i></a>
+                                    <a href="{{  route('dashboard.course.movedown', { id : course.id }) }}"
+                                       class="btn btn-outline-blue waves-effect waves-light btnmovedown"
+                                       dataid="{{course.id}}" style="float: none;"><i class="fas fa-arrow-down"></i></a>
+
+
+                                  </div>
+                                </div>
+                              </td>
+
+                              <td valign="middle" style="max-width: 70px;
+                      text-overflow: ellipsis;
+                      white-space: nowrap;
+                      overflow: hidden;">{{ course.sortorder }}</td>
+
+
+                            </tr>
+
+                            @endeach
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <!-- end row-->
+
+              </div> <!-- end card-body -->
+            </div> <!-- end card -->
+          </div><!-- end col -->
+        </div>
+        <!-- end row -->
+
+
+        <!-- RADIOS -->
+
+
+      </div> <!-- container -->
+
+    </div> <!-- content -->
+
+
+    <!-- Footer Start -->
+    @include('layouts.footer')
+    <!-- end Footer -->
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Plugins js -->
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+
+  <script>
+    $(document).ready(function () {
+      $(".mlw-li").hide()
+      $(".mlw-li-home").show()
+      @if(flashMessage('notification'))
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: "{{flashMessage('notification')}}",
+
+      })
+      @endif
+
+
+      @if(flashMessage('failMessage'))
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed!',
+        text: "{{flashMessage('failMessage')}}",
+
+      })
+      @endif
+
+      @if(flashMessage('successMessage'))
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: "{{flashMessage('successMessage')}}",
+
+      })
+      @endif
+
+
+
+
+
+
+      let url = "{{ BASE_URL() + route('dashboard.course-category.datatable') }}";
+      $("#datatable").DataTable({
+        columnDefs: [
+          {"orderable": false, "targets": 0},
+
+
+        ],
+        order: [
+          [2, "asc"]
+        ],
+        //  ordering: true,
+        //  destroy: true,
+        //  processing: true,
+        //  serverSide: true,
+        //  ajax: url,
+        //  columns: [
+        // 		      {
+        //             data:'firstname',
+        //             render: function(data){
+        // 							var element=data.firstname+' '+data.lastname;
+        // 							return element;
+        // 						}
+        // 					},
+        // 					{
+        // 						data:'email',
+        // 					},
+        // 					{
+        // 						data:'city',
+        // 					},
+
+        // 					{
+        // 						data:'country.name',
+
+
+        // 					},
+        // 					{
+        // 						data:'lastaccess',
+        // 					},
+
+        // 					{
+        // 						data:null,
+        // 						searchable: false,
+        // 						render: function(data){
+        // 							let temp = "";
+        //               let btnAction = '<div class="tabledit-toolbar btn-toolbar btntoolbar-'+data.id+'" style="text-align: left;" dataid="'+data.id+'">'+
+        //                                   '<div class="btn-group btn-group-sm btngroup-'+data.id+'" style="float: none;" dataid="'+data.id+'">'+
+        //                                     '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-success btnedit-'+data.id+'"  dataid="'+data.id+'" style="float: none;"><span class="mdi mdi-pencil"></span></a>' +
+        //                                     '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-danger btndelete-'+data.id+'" dataid="'+data.id+'" style="float: none;"><span class="mdi mdi-delete"></span></a>' +
+        //                                     '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-warning btnsuspend-'+data.id+'" dataid="'+data.id+'" style="float: none;"><span class="mdi mdi-eye-outline"></span></a>' +
+        //                                   '</div>'+
+        //                             '</div>';
+        // 							return let+btnAction;
+        // 						}
+
+        // 					},
+
+
+        //      ],
+        scrollX: !0,
+        //dom: 'Bfrltip',
+        buttons: [
+          {
+            extend: 'copy',
+            exportOptions: {
+              columns: [0, 1, 3]
+            }
+          },
+          {
+            extend: 'csv',
+            exportOptions: {
+              columns: [0, 1, 3]
+            }
+          },
+          {
+            extend: 'pdf',
+            exportOptions: {
+              columns: [0, 1, 3]
+            }
+          },
+          {
+            extend: 'print',
+            exportOptions: {
+              columns: [0, 1, 3]
+            }
+          },
+          //'colvis'
+        ],
+        pagingType:
+          "full_numbers",
+        drawCallback: function () {
+          $("thead").css("background",dataThemes.color_scheme);
+$(".dataTables_paginate > .pagination").addClass("pagination-default")
+        }
+      }),
+        $(".dataTables_length select").addClass("form-select form-select-sm"),
+        $(".dataTables_length select").removeClass("custom-select custom-select-sm"),
+        $(".dataTables_length label").addClass("form-label")
+        $(".dataTables_filter label").addClass("form-label")
+
+      $("#datatable2").DataTable({
+        columnDefs: [
+          {"orderable": false, "targets": 0},
+
+
+        ],
+        order: [
+          [2, "asc"]
+        ],
+        //  ordering: true,
+        //  destroy: true,
+        //  processing: true,
+        //  serverSide: true,
+        //  ajax: url,
+        //  columns: [
+        // 		      {
+        //             data:'firstname',
+        //             render: function(data){
+        // 							var element=data.firstname+' '+data.lastname;
+        // 							return element;
+        // 						}
+        // 					},
+        // 					{
+        // 						data:'email',
+        // 					},
+        // 					{
+        // 						data:'city',
+        // 					},
+
+        // 					{
+        // 						data:'country.name',
+
+
+        // 					},
+        // 					{
+        // 						data:'lastaccess',
+        // 					},
+
+        // 					{
+        // 						data:null,
+        // 						searchable: false,
+        // 						render: function(data){
+        // 							let temp = "";
+        //               let btnAction = '<div class="tabledit-toolbar btn-toolbar btntoolbar-'+data.id+'" style="text-align: left;" dataid="'+data.id+'">'+
+        //                                   '<div class="btn-group btn-group-sm btngroup-'+data.id+'" style="float: none;" dataid="'+data.id+'">'+
+        //                                     '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-success btnedit-'+data.id+'"  dataid="'+data.id+'" style="float: none;"><span class="mdi mdi-pencil"></span></a>' +
+        //                                     '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-danger btndelete-'+data.id+'" dataid="'+data.id+'" style="float: none;"><span class="mdi mdi-delete"></span></a>' +
+        //                                     '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-warning btnsuspend-'+data.id+'" dataid="'+data.id+'" style="float: none;"><span class="mdi mdi-eye-outline"></span></a>' +
+        //                                   '</div>'+
+        //                             '</div>';
+        // 							return let+btnAction;
+        // 						}
+
+        // 					},
+
+
+        //      ],
+        scrollX: !0,
+        //dom: 'Bfrltip',
+        buttons: [
+          {
+            extend: 'copy',
+            exportOptions: {
+              columns: [0]
+            },
+            title: 'List Course, Category: ' + $("#datatable2").attr("filename"),
+          },
+          {
+            extend: 'csv',
+            exportOptions: {
+              columns: [0]
+            },
+            title: 'List Course, Category: ' + $("#datatable2").attr("filename"),
+          },
+          {
+            extend: 'pdf',
+            exportOptions: {
+              columns: [0]
+            },
+            title: 'List Course, Category: ' + $("#datatable2").attr("filename"),
+          },
+          {
+            extend: 'print',
+            exportOptions: {
+              columns: [0]
+            },
+            title: 'List Course, Category: ' + $("#datatable2").attr("filename"),
+          },
+          //'colvis'
+        ],
+        pagingType:
+          "full_numbers",
+        drawCallback: function () {
+          $("thead").css("background",dataThemes.color_scheme);
+$(".dataTables_paginate > .pagination").addClass("pagination-default")
+        }
+      })
+
+
+    });
+
+    $('.btnvisible').on('click', function () {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urlvisible = "{{ route('dashboard.course-category.switch-visible',{ id : 'course_category.id' })}}";
+
+      urlvisible = urlvisible.replace('course_category.id', dataid);
+      //console.log(urldelete);
+      Swal.fire({
+        title: 'Are you sure want to visible ' + fullname + ' ?',
+        text: "Visible Course Category",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, visible it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = urlvisible;
+        }
+      })
+
+    })
+
+    $('.btnunvisible').on('click', function () {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urlunvisible = "{{ route('dashboard.course-category.switch-visible',{ id : 'course_category.id' })}}";
+
+      urlunvisible = urlunvisible.replace('course_category.id', dataid);
+      //console.log(urldelete);
+      Swal.fire({
+        title: 'Are you sure want to unvisible ' + fullname + ' ?',
+        text: "Unvisible Course Category",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, unvisible it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = urlunvisible;
+        }
+      })
+
+    })
+
+    $('.btndelete').on('click', function () {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urldelete = "{{ route('dashboard.course-category.soft-delete',{ id : 'course_category.id' })}}";
+
+      urldelete = urldelete.replace('course_category.id', dataid);
+      //console.log(urldelete);
+      Swal.fire({
+        title: 'Are you sure want to delete ' + fullname + ' ?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = urldelete;
+        }
+      })
+
+    })
+
+    $('.btncoursevisible').on('click', function () {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urlvisible = "{{ route('dashboard.course.switch-visible',{ id : 'course.id' })}}";
+
+      urlvisible = urlvisible.replace('course.id', dataid);
+      //console.log(urldelete);
+      Swal.fire({
+        title: 'Are you sure want to visible ' + fullname + ' ?',
+        text: "Visible Course",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, visible it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = urlvisible;
+        }
+      })
+
+    })
+
+    $('.btncourseunvisible').on('click', function () {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urlunvisible = "{{ route('dashboard.course.switch-visible',{ id : 'course.id' })}}";
+
+      urlunvisible = urlunvisible.replace('course.id', dataid);
+      //console.log(urldelete);
+      Swal.fire({
+        title: 'Are you sure want to unvisible ' + fullname + ' ?',
+        text: "Unvisible Course",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, unvisible it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = urlunvisible;
+        }
+      })
+
+    })
+
+    $('.btncoursedelete').on('click', function () {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urldelete = "{{ route('dashboard.course.soft-delete',{ id : 'course.id' })}}";
+
+      urldelete = urldelete.replace('course.id', dataid);
+      //console.log(urldelete);
+      Swal.fire({
+        title: 'Are you sure want to delete ' + fullname + ' ?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = urldelete;
+        }
+      })
+
+    })
+  </script>
+  <!-- third party js ends -->
+@endsection

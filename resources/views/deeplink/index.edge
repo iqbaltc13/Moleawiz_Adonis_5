@@ -1,0 +1,54 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="{{ BASE_URL() }}/vendor/assets/deeplink/css/style.css" />
+	</head>
+	<body onload="detect_agent()">
+
+		<div class="container">
+	        <img class="ops" src="{{ BASE_URL() }}/vendor/assets/deeplink/images/404.png" style="max-height: 300px" />
+	        <br />
+	        <h3>Yuk, lanjutkan pembelajaran kamu di LoG.</h3>
+	        <br />
+	        <div id="button_open"></div>
+	    </div>
+
+		<div id="os_version"></div><br>
+	</body>
+<!-- linking -->
+<script>
+	function myFunction() {
+		var url = 'deeplink';
+		setTimeout(() => window.open(url), 1000);
+	}
+</script>
+<script type="text/javascript">
+    var baseUrl = (window.location).href;
+    let mod_id = baseUrl.substring(baseUrl.lastIndexOf('=') + 1);
+    const android_link = "intent://app-dev.digimasia.com/link/?id="+ mod_id +"#Intent;scheme=mlw;package=com.digimasia.moleawizrn;end";
+    const iOSLink = "{{ BASE_URL() }}/link?id="+ mod_id;
+    function detect_agent() { 
+	    var os_ver = document.getElementById("os_version");
+	    var btn_link = document.getElementById("button_open"); 
+
+	    var Name; 
+	    //Handling Android Deeplink
+	    if (navigator.userAgent.indexOf("Android") != -1) {
+	    	Name = "Android OS";
+	    	//os_ver.innerHTML = Name;
+	    	btn_link.innerHTML = "<a href='"+android_link+"' target='_blank' class='buton' onclick='myFunction()'>Open Module on LoG Android</a>";
+	    }
+	    //Handling iOS Deeplink
+	    else if (navigator.userAgent.indexOf("like Mac") != -1) {
+	    	Name =  "iOS";
+	    	//os_ver.innerHTML = Name;
+	    	btn_link.innerHTML = "<a href='"+iOSLink+"' target='_blank' class='buton' onclick='myFunction()'>Open Module on LoG iOS</a>";
+	    } 
+	    //Otherwise, redirect to Landing page
+	    else {
+	    	Name = "Other";
+	    	//os_ver.innerHTML = Name; 
+	    	window.location.href = "{{ BASE_URL() }}/deeplink/landing";}
+	}
+</script>
+
+</html>

@@ -1,0 +1,1057 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>MoLeaWiz | Dashboard</title>
+@endsection
+
+@section('style')
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/JS/Fullscreen-Loading-Modal-Indicator-Plugin-For-jQuery-loadingModal/css/jquery.loadingModal.css"
+    rel="stylesheet" type="text/css"/>
+
+
+
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+    <div class="content">
+      @loggedIn
+      <input type="hidden" value="{{authUser.firstname +' '+ authUser.lastname}}" id="auth_name">
+      @else
+        <script>
+          window.location.replace("{{route('login')}}");
+        </script>
+        @endloggedIn
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box">
+                <div class="page-title-right">
+
+                </div>
+                <h4 class="page-title">Dashboard </h4>
+              </div>
+            </div>
+          </div>
+          <!-- end page title -->
+
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="header-title mb-0">Register Date</h4>
+                  <div class="mb-3">
+                    <label class="form-label" style="padding-top:20px;">Start Date</label>
+                    <div class="input-group input-group-merge">
+                      <div class="input-group-text">
+                        <i class="fas fa-calendar-alt"></i>
+
+                      </div>
+                      <input type="text" name="startdate" id="startdate" class="form-control" style="color:#333333;">
+                    </div>
+
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">End Date</label>
+                    <div class="input-group input-group-merge">
+                      <div class="input-group-text">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <input type="text" name="enddate" id="enddate" class="form-control" style="color:#333333;">
+                    </div>
+                  </div>
+                  <div class="button-list pe-xl-6 d-grid">
+                    <a href="javascript:void(0);" id="btn-change-date-range-enrol"
+                       class="btn btn-danger waves-effect waves-light">Apply</a>
+                  </div>
+                </div>
+              </div> <!-- end card -->
+
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="header-a mb-0">Total Registered Learners</h4>
+                  <div class="widget-chart text-left" dir="ltr">
+                    <h2 class="text-left pt-1" id="count-enrolled-learners" style=""></h2>
+                    <h4 class="text-black-50 pt-1"> Learners </h4>
+                  </div>
+                </div>
+              </div>
+            </div> <!-- end col-->
+
+            <div class="col-lg-3">
+              <div class="card custom-padding-card-22">
+                <div class="card-body">
+
+                  <div class="dropdown float-end">
+                       <i
+                        class="mdi mdi-information" style="font-size: 18px;" title="Put cursor at pie chart to view number" tabindex="0"
+                        data-plugin="tippy" data-tippy-theme="translucent"></i>
+                  </div>
+
+                  <h4 class="header-title mb-0">Active Learners</h4>
+
+                  <div id="cardCollpase18" class="collapse pt-3 show" dir="ltr">
+                    <h2 id="count-active-learners" style=""></h2>
+                    <h5 class="form-label text-black-50">Learners</h5>
+                    <div class="total-users-loading spinner-border avatar-lg loading m-1" role="status"></div>
+                    <div id="total-users"></div>
+
+                  </div>
+
+                  <div class="button d-grid pt-2">
+                    <a href="javascript:void(0);" id="btn-detail-active-user"
+                       class="btn button-hover-color-scheme">See details</a>
+                  </div>
+                </div>
+              </div> <!-- end card -->
+            </div>
+
+            <!-- end col-->
+
+
+            <div class="col-lg-6">
+              <div class="card custom-padding-card-22">
+                <div class="card-body">
+                  <div class="dropdown float-end">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                       <i
+                        class="mdi mdi-information" style="font-size: 18px;" title="Put cursor at line chart to view number" tabindex="0"
+                        data-plugin="tippy" data-tippy-theme="translucent"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+
+                    </div>
+                  </div>
+
+                  <h4 class="header-title mb-0">Daily Access Learners Logs</h4>
+
+                  <div class="widget-chart text-center" dir="ltr">
+
+                    <div id="cardCollpase3" class="collapse show pb-xl-1" dir="ltr">
+                       <div class="access-learner-logs-loading spinner-border avatar-lg loading m-1" role="status"></div>
+                      <div id="access-learner-logs" class="apex-charts"></div>
+                    </div> <!-- collapsed end -->
+                  </div>
+
+                  <div class="button pt-1">
+                    <!--<a href="javascript:void(0);" id="daily-access-learner"
+                       class="btn button-hover-color-scheme">See details</a>-->
+                  </div>
+                </div>
+              </div> <!-- end card -->
+            </div>
+          </div>
+          <!-- end row -->
+
+          <div class="row">
+            <div class="col-md-9">
+              <div class="card card-outline">
+                <div class="card-body">
+                  <div class="dropdown float-end">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                       <i
+                        class="mdi mdi-information" style="font-size: 18px;" title="Put cursor at bar chart to view number" tabindex="0"
+                        data-plugin="tippy" data-tippy-theme="translucent"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+
+                    </div>
+                  </div>
+
+                  <h4 class="header-title mb-0">Completions By Learning Program</h4>
+
+                  <div class="widget-chart" dir="ltr">
+
+                    <div id="cardCollpase8" class="collapse pt-3 show" dir="ltr">
+                      <div class="completions-by-learning-program-loading spinner-border avatar-lg loading m-1" role="status"></div>
+                      <div id="completions-by-learning-program" class="apex-charts" style="padding-bottom: 20px;"></div>
+                    </div>
+                    <div class="button">
+                      <a href="javascript:void(0);" id="btn-detail-completion-by-learning-program"
+                         class="btn button-hover-color-scheme">See Details</a>
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- end card -->
+
+              <div class="card card-outline">
+                <div class="card-body">
+                  <div class="dropdown float-end">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                       <i
+                        class="mdi mdi-information" style="font-size: 18px;" title="Put cursor at bar chart to view number" tabindex="0"
+                        data-plugin="tippy" data-tippy-theme="translucent"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+
+                    </div>
+                  </div>
+
+                  <h4 class="header-title mb-3">Completions By Directorate</h4>
+
+                  <div id="cardCollpase8" class="collapse pt-3 show" dir="ltr">
+                    <div class="completions-by-directorate-loading spinner-border avatar-lg loading m-1" role="status"></div>
+                    <div id="completions-by-directorate" class="apex-charts" style="padding-bottom: 20px;"></div>
+                  </div> <!-- collapsed end -->
+                  <div class="button">
+                    <a href="javascript:void(0);" id="btn-detail-completion-by-directorate"
+                       class="btn button-hover-color-scheme">See Details</a>
+                  </div>
+
+
+                </div>
+              </div> <!-- end card -->
+
+              <div class="card card-outline">
+                <div class="card-body">
+                  <div class="dropdown float-end">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                       <i
+                        class="mdi mdi-information" style="font-size: 18px;" title="Put cursor at bar chart to view number" tabindex="0"
+                        data-plugin="tippy" data-tippy-theme="translucent"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+
+                    </div>
+                  </div>
+
+                  <h4 class="header-title mb-0">Favorite Category in Content Library</h4>
+
+                  <div class="widget-chart" dir="ltr">
+                    <div id="cardCollpase8" class="collapse pt-3 show" dir="ltr">
+                      <div class="completions-by-content-library-loading spinner-border avatar-lg loading m-1" role="status"></div>
+                      <div id="completions-by-content-library" class="apex-charts" data-colors=""
+                           style="padding-bottom: 20px;"></div>
+                    </div>
+                    <div class="button">
+                      <a href="javascript:void(0);" id="btn-completion-by-content-library"
+                         class="btn button-hover-color-scheme">See Details</a>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div> <!-- end card -->
+            </div> <!-- end col-->
+
+            <div class="col-md-3">
+              <div class="card">
+                <div data-simplebar style="max-height: 467px;">
+                  <a href="javascript:void(0);" class="text-body">
+                <div class="card-body">
+                  <div class="dropdown float-end">
+                    <a href="javascript:void(0);" id="btn-refresh-point-xtra" class="arrow-none card-drop" >
+                      <i class="mdi mdi-refresh mdi-24px"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+                    </div>
+                  </div>
+                  <h4 class="header-title mb-3">Highest Learning Point</h4>
+                  <div class="poinxtra-loading spinner-border avatar-lg loading m-1" role="status"></div>
+                  <div id="poinxtra" class="inbox-widget" data-simplebar style="">
+                  </div> <!-- end inbox-widget -->
+                </div>
+              </div> <!-- end card -->
+            </div>
+            </div>
+          </div>
+
+
+          <!-- end row -->
+
+
+        </div> <!-- content -->
+    </div>
+    @include('layouts.footer')
+    @include('layouts.modal_and_alert')
+        @endsection
+      @section('right_sidebar')
+        @include('layouts.sidebar.sidebar_right_base')
+      @endsection
+      @section('script')
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/apexcharts/apexcharts.min.js"></script>
+        <!-- Dashboar 1 init js-->
+        <script src="https://apexcharts.com/samples/assets/irregular-data-series.js"></script>
+        <script src="https://apexcharts.com/samples/assets/ohlc.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+        <script src="{{ BASE_URL() }}/JS/Fullscreen-Loading-Modal-Indicator-Plugin-For-jQuery-loadingModal/js/jquery.loadingModal.js"></script>
+
+
+
+        <script>
+          function refreshPointXtra(url){
+            //$('body').loadingModal('animation', 'spinner');
+            fetch(url).then(
+
+              res => {
+                res.json().then(
+                  data => {
+                    //console.log(data);
+                    let baseUrl = "{{ BASE_URL() }}";
+                    if (data.length > 0) {
+
+                      var temp = "";
+                      $('#poinxtra').empty();
+                      data.forEach((itemData) => {
+                        let urlImage = '';
+                        let btnRow = '<div class="inbox-item pr-1">';
+                        if (itemData.daa_picture != null && itemData.daa_picture != '') {
+                          //btnRow = btnRow + '<div class="inbox-item-img"><img src="'+baseUrl+'/uploads/profpic/'+itemData.daa_picture+'" class="rounded-circle" alt=""></div>';
+                          btnRow = btnRow + '<div class="inbox-item-img"><img src="' + baseUrl + '/templates/UBold_v5.1.0/Admin/dist/assets/images/users/user-6.jpg" class="rounded-circle" alt=""></div>';
+                        } else {
+                          btnRow = btnRow + '<div class="inbox-item-img"><img src="' + baseUrl + '/templates/UBold_v5.1.0/Admin/dist/assets/images/users/user-6.jpg" class="rounded-circle" alt=""></div>';
+                        }
+
+                        btnRow = btnRow + '<p class="inbox-item-author">' + itemData.firstname + ' ' + itemData.lastname + '</p>' +
+                          '<p class="inbox-item-text text-black-50">' + itemData.directorate + '</p>' +
+                          '<p class="inbox-item-text" style="margin-left:55px; margin-top:10px; margin-bottom:20px">' + 'Total Point ' + '<span class="btn btn-xs btn-danger">' + itemData.total_point + '</span>' + '</p>'
+                          '</div>';
+                        temp = temp + btnRow;
+                      });
+                      $('.poinxtra-loading').hide();
+                      $('#poinxtra').html(temp);
+                      //$('body').loadingModal('hide');
+
+                    }
+                  }
+                )
+              }
+            )
+          }
+        </script>
+
+        <script>
+          var dataResultEnrolledUser = {};
+          $(document).ready(function () {
+             $(".mlw-li").hide()
+             $(".mlw-li-dashboard").show()
+             $("#count-enrolled-learners").css("color",dataThemes.primary_color);
+             $("#count-active-learners").css("color",dataThemes.primary_color);
+
+
+            let curRangeDateStart = "{{startdate}}";
+            let curRangeDateEnd = "{{enddate}}";
+            let urlEnrolledUser = "{{route('dashboard.get-enrolled-user')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+            let urlActiveUser = "{{route('dashboard.get-active-user')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+            let urlGetCompletionbyDirectorateTop5 = "{{route('dashboard.get-completions-by-directorate-top')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+            let urlGetCompletionbyLearningProgramTop5 = "{{route('dashboard.get-completions-by-learning-program-top')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+            let urlGetCompletionbyContentLibraryTop5 = "{{route('dashboard.get-completion-by-content-library-top')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+            let urlGetHighestUsersbyPointXtra = "{{route('dashboard.get-highest-users-by-poin-xtra')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+            let urlGoAccessUserNew = "{{route('dashboard.go-access-user-new')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+
+
+            $('#enddate').val(function () {
+              let splitDateTime = curRangeDateEnd.split(" ");
+              let returnDateTime = "";
+              if (splitDateTime.length > 1) {
+                returnDateTime = splitDateTime[0].split("-").reverse().join('/') + " " + splitDateTime[1];
+              } else {
+                returnDateTime = splitDateTime[0].split("-").reverse().join('/') + " " + "00:00";
+              }
+              return returnDateTime;
+            });
+            $('#startdate').val(function () {
+              let splitDateTime = curRangeDateStart.split(" ");
+              let returnDateTime = "";
+              if (splitDateTime.length > 1) {
+                returnDateTime = splitDateTime[0].split("-").reverse().join('/') + " " + splitDateTime[1];
+              } else {
+                returnDateTime = splitDateTime[0].split("-").reverse().join('/') + " " + "00:00";
+              }
+              return returnDateTime;
+            });
+
+            $('#startdate').flatpickr({
+              enableTime: true,
+              dateFormat: "d/m/Y H:i",
+              time_24hr: true,
+              //maxDate: curRangeDateEnd.split(" ")[0],
+              conjunction: " - ",
+              onChange: function (selectedDates, dateStr, instance) {
+                //console.log(selectedDates,dateStr);
+                alert("You set start Datetime to " + dateStr);
+              },
+              onClose: function (selectedDates, dateStr, instance) {
+                console.log(dateStr);
+
+                let arrDate = dateStr.split(" ");
+
+                curRangeDateStart = arrDate[0].split("/").reverse().join("-") + " " + arrDate[1];
+                // curRangeDateEnd = arrDate[1].split("/").join("-");
+                console.log(curRangeDateStart);
+
+              }
+            });
+            $('#enddate').flatpickr({
+              enableTime: true,
+              dateFormat: "d/m/Y H:i",
+              time_24hr: true,
+              //minDate: '2021-12-01',
+              conjunction: " - ",
+              onChange: function (selectedDates, dateStr, instance) {
+                //console.log(selectedDates,dateStr);
+                alert("You set end Datetime to " + dateStr);
+              },
+              onClose: function (selectedDates, dateStr, instance) {
+                console.log(dateStr);
+                let arrDate = dateStr.split(" ");
+                curRangeDateEnd = arrDate[0].split("/").reverse().join("-") + " " + arrDate[1];
+                // curRangeDateEnd = arrDate[1].split("/").join("-");
+                console.log(curRangeDateEnd);
+              }
+            });
+            $("#btn-refresh-point-xtra").click(function () {
+              console.log("oke")
+              urlGetHighestUsersbyPointXtra = "{{route('dashboard.get-highest-users-by-poin-xtra')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+              //$('body').loadingModal('animation', 'spinner');
+              $('#poinxtra').empty();
+              fetch(urlGetHighestUsersbyPointXtra).then(
+
+                res => {
+                  res.json().then(
+                    data => {
+                      //console.log(data);
+                      let baseUrl = "{{ BASE_URL() }}";
+                      if (data.length > 0) {
+
+                        var temp = "";
+
+                        data.forEach((itemData) => {
+                          let urlImage = '';
+                          let btnRow = '<div class="inbox-item pr-1">';
+                          if (itemData.daa_picture != null && itemData.daa_picture != '') {
+                            //btnRow = btnRow + '<div class="inbox-item-img"><img src="'+baseUrl+'/uploads/profpic/'+itemData.daa_picture+'" class="rounded-circle" alt=""></div>';
+                            btnRow = btnRow + '<div class="inbox-item-img"><img src="' + baseUrl + '/templates/UBold_v5.1.0/Admin/dist/assets/images/users/user-6.jpg" class="rounded-circle" alt=""></div>';
+                          } else {
+                            btnRow = btnRow + '<div class="inbox-item-img"><img src="' + baseUrl + '/templates/UBold_v5.1.0/Admin/dist/assets/images/users/user-6.jpg" class="rounded-circle" alt=""></div>';
+                          }
+
+                          btnRow = btnRow + '<p class="inbox-item-author">' + itemData.firstname + ' ' + itemData.lastname + '</p>' +
+                            '<p class="inbox-item-text text-black-50">' + itemData.directorate + '</p>' +
+                            '<p class="inbox-item-text" style="margin-left:55px; margin-top:10px; margin-bottom:20px">' + 'Total Point ' + '<span class="btn btn-xs btn-danger">' + itemData.total_point + '</span>' + '</p>'
+                            '</div>';
+                          temp = temp + btnRow;
+                        });
+                        $('.poinxtra-loading').hide();
+                        $('#poinxtra').html(temp);
+                        //$('body').loadingModal('hide');
+
+                      }
+                    }
+                  )
+                }
+              )
+
+            });
+            $(document).delegate("#btn-change-date-range-enrol", "click", function () {
+              let dateTimeStart = new Date(curRangeDateStart);
+              let dateTimeEnd = new Date(curRangeDateEnd);
+              if (dateTimeStart > dateTimeEnd) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error Range Date!',
+                  text: "End Date must be later than Start Date",
+                  confirmButtonText: 'Yes, I understand'
+                }).then((result) => {
+
+                })
+              } else {
+                window.location.href = "{{route('dashboard')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+              }
+
+
+            });
+            $(document).delegate("#btn-detail-completion-by-directorate", "click", function () {
+              window.open("{{route('dashboard.completion.index-by-directorate')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd, "_blank");
+            });
+
+            $(document).delegate("#btn-detail-completion-by-learning-program", "click", function () {
+              window.open("{{route('dashboard.completion.index-by-learning-program')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd, "_blank");
+            });
+
+            $(document).delegate("#btn-completion-by-content-library", "click", function () {
+              window.open("{{route('dashboard.completion.index-by-content-library')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd, "_blank");
+            });
+
+            $(document).delegate("#btn-detail-active-user", "click", function () {
+              window.open("{{route('dashboard.user.index-active-learners')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd, "_blank");
+            });
+
+
+
+
+
+            @if(flashMessage('error'))
+            let urllogout = "{{ route('logout')}}"
+            Swal.fire({
+              icon: 'error',
+              title: 'Access Denied!',
+              text: "{{flashMessage('error')}}",
+              confirmButtonText: 'Yes, I will logout'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = urllogout;
+              }
+            })
+
+
+
+            @endif
+            var seriesPieUser = [];
+            var labelsPieUser = ["Active", "Inactive"];
+            var totalEnrolledUser = 0;
+            var activeUser = 0;
+
+
+
+            fetch(urlEnrolledUser).then(
+              res2 => {
+                // $('body').loadingModal({
+                //   position: 'auto',
+                //   text: 'Please Wait...',
+                //   color: dataThemes.color_scheme,
+                //   opacity: '0.7',
+                //   backgroundColor: 'rgb(0,0,0)',
+                //   animation: 'circle'
+                // });
+                res2.json().then(
+                  data2 => {
+                    dataResultEnrolledUser = data2;
+
+                    totalEnrolledUser = Object.keys(dataResultEnrolledUser.reduce((hash, obj) => {
+                        if(obj['user_id'] === undefined) return hash;
+                        return Object.assign(hash, { [obj['user_id']]:( hash[obj['user_id']] || [] ).concat(obj)})
+                      }, {})).length;
+                    //console.log(totalEnrolledUser);
+                    $('#count-enrolled-learners').html(totalEnrolledUser);
+
+
+                    fetch(urlActiveUser).then(
+                      res => {
+                        res.json().then(
+                          data => {
+                            console.log(data[0]);
+                            activeUser = data[0].active_user;
+                            //console.log(activeUser);
+
+                            seriesPieUser.push(activeUser);
+                            seriesPieUser.push(totalEnrolledUser - activeUser);
+                            //console.log(seriesPieUser);
+                            //let colors = ["#A3090F", "#FFA5A9"];
+                            let colors = [dataThemes.primary_color,dataThemes.secondary_color];
+                            $('#count-active-learners').html(activeUser);
+
+                            let optionsTotalUser = {
+                              chart: {
+                                animations: {
+                                    enabled: true,
+                                    easing: 'easeinout',
+                                    speed: 800,
+                                    animateGradually: {
+                                        enabled: true,
+                                        delay: 150
+                                    },
+                                    dynamicAnimation: {
+                                        enabled: true,
+                                        speed: 350
+                                    }
+                                },
+                                height: 310, type: "pie"
+                              },
+                              series: seriesPieUser,
+                              labels: labelsPieUser,
+                              dataLabels: {
+                                enabled: false,
+                              },
+                              colors: colors,
+                              legend: {
+                                show: !0,
+                                position: "bottom",
+                                horizontalAlign: "center",
+                                verticalAlign: "middle",
+                                floating: !1,
+                                fontSize: "14px",
+                                offsetX: 0,
+                                offsetY: 7,
+                                foreColor: '#ffffff'
+                              },
+
+                              noData: {
+                                text: undefined,
+                                align: 'center',
+                                verticalAlign: 'middle',
+                                offsetX: 0,
+                                offsetY: 0,
+                                style: {
+                                  color: undefined,
+                                  fontSize: '14px',
+                                  fontFamily: undefined
+                                }
+                              },
+                              responsive: [{breakpoint: 600, options: {chart: {height: 240}, legend: {show: !1}}}]
+                            }
+                            var chartTotalUser = new ApexCharts(document.querySelector("#total-users"), optionsTotalUser);
+
+                            fetch(urlGetCompletionbyContentLibraryTop5 ).then(
+                                res => {
+                                  res.json().then(
+                                    data => {
+                                      var series1 = [];
+
+                                      var xAxisCategories = [];
+                                      data.forEach((itemData) => {
+                                        series1.push(itemData.total_user_completed);
+
+                                        xAxisCategories.push(itemData.category);
+
+                                      });
+                                      //var colorsCompletionsByLearningProgram = ["#A3090F", "#FFA5A9"];
+                                      var colorsCompletionsByContentLibrary = [dataThemes.primary_color,dataThemes.secondary_color];
+                                      var dataColorsCompletionsByContentLibrary = $("#completions-by-content-library").data('colors');
+                                      if (dataColorsCompletionsByContentLibrary) {
+                                        colorsCompletionsByContentLibrary = dataColorsCompletionsByContentLibrary.split(",");
+                                      }
+
+                                      $(".completions-by-content-library-loading").hide();
+                                      var chartCompletionsByContentLibrary = new ApexCharts(
+                                        document.querySelector("#completions-by-content-library"),
+                                        {
+                                          chart: {
+                                            height: 380,
+                                            type: 'bar',
+                                            stacked: true,
+                                            stackType: '100%',
+                                            toolbar: {
+                                              show: false
+                                            }
+                                          },
+                                          plotOptions: {
+                                            bar: {
+                                              horizontal: true,
+                                            }
+                                          },
+                                          dataLabels: {
+                                            enabled: false
+                                          },
+                                          series: [{
+                                            name: 'Complete',
+                                            data: series1
+                                          }],
+                                          colors: colorsCompletionsByContentLibrary,
+                                          xaxis: {
+                                            categories: xAxisCategories,
+                                          },
+                                          states: {
+                                            hover: {
+                                              filter: 'none'
+                                            }
+                                          },
+                                          stroke: {
+                                            width: 1,
+                                            colors: ['#fff']
+                                          },
+                                          tooltip: {
+                                            y: {
+                                              formatter: function(value, opts) {
+                                                let percent = opts.w.globals.seriesPercent[opts.seriesIndex][opts.dataPointIndex];
+                                                return value + ' learners ' + "(" + percent.toFixed(0) + '%)'
+                                              }
+                                            }
+                                          },
+                                          grid: {
+                                            borderColor: '#f1f3fa'
+                                          }
+                                        }
+                                      ).render()
+                                    }
+                                  )
+                                }
+                              )
+                            $(".total-users-loading").hide();
+                            chartTotalUser.render();
+                            //$('body').loadingModal('hide');
+                          }
+                        )
+                      }
+                    )
+
+
+                  }
+                )
+              }
+            )
+
+
+
+
+
+
+
+            fetch(urlGetHighestUsersbyPointXtra).then(
+              res => {
+                res.json().then(
+                  data => {
+                    //console.log(data);
+                    let baseUrl = "{{ BASE_URL() }}";
+                    if (data.length > 0) {
+
+                      var temp = "";
+                      data.forEach((itemData) => {
+                        let urlImage = '';
+                        let btnRow = '<div class="inbox-item pr-1">';
+                        if (itemData.daa_picture != null && itemData.daa_picture != '') {
+                          //btnRow = btnRow + '<div class="inbox-item-img"><img src="'+baseUrl+'/uploads/profpic/'+itemData.daa_picture+'" class="rounded-circle" alt=""></div>';
+                          btnRow = btnRow + '<div class="inbox-item-img"><img src="' + baseUrl + '/templates/UBold_v5.1.0/Admin/dist/assets/images/users/user-6.jpg" class="rounded-circle" alt=""></div>';
+                        } else {
+                          btnRow = btnRow + '<div class="inbox-item-img"><img src="' + baseUrl + '/templates/UBold_v5.1.0/Admin/dist/assets/images/users/user-6.jpg" class="rounded-circle" alt=""></div>';
+                        }
+
+                        btnRow = btnRow + '<p class="inbox-item-author">' + itemData.firstname + ' ' + itemData.lastname + '</p>' +
+                          '<p class="inbox-item-text text-black-50">' + itemData.directorate + '</p>' +
+                          '<p class="inbox-item-text" style="margin-left:55px; margin-top:10px; margin-bottom:20px">' + 'Total Point ' + '<span class="btn btn-xs btn-danger">' + itemData.total_point + '</span>' + '</p>'
+                          '</div>';
+                        temp = temp + btnRow;
+                      });
+                       $('.poinxtra-loading').hide();
+                      $('#poinxtra').html(temp);
+                    }
+                  }
+                )
+              }
+            )
+
+            fetch(urlGoAccessUserNew).then(
+              res => {
+                res.json().then(
+                  data => {
+                    //chartCompletionsByDirectorate.render();
+
+                    var series1 = [];
+
+                    var xAxisCategories = [];
+                    data.forEach((itemData) => {
+                      series1.push(itemData.total_user);
+
+                      xAxisCategories.push(itemData.access_date);
+
+                    });
+                    //var colorsAccessLearnerLogs = ["#A3090F", "#FFA5A9"];
+                    var colorsAccessLearnerLogs = [dataThemes.primary_color,dataThemes.secondary_color];
+                    var dataColorsAccessLearnerLogs = $("access-learner-logs").data('colors');
+                    if (dataColorsAccessLearnerLogs) {
+
+
+                      colorsAccessLearnerLogs = dataColorsAccessLearnerLogs.split(",");
+                    }
+
+                    //
+                    // Gradient Line Chart
+                    //
+                    var colors = ['#FF0027'];
+                    var dataColors = $("#access-learner-logs").data('colors');
+                    if (dataColors) {
+                      colors = dataColors.split(",");
+                    }
+                    var options = {
+                      chart: {
+                        height: 380,
+                        type: 'line',
+                        toolbar: {
+                          show: true,
+                          tools:{
+                          download:false // <== line to add
+                        }
+                        },
+                        shadow: {
+                          enabled: false,
+                          color: '#bbb',
+                          top: 3,
+                          left: 2,
+                          blur: 3,
+                          opacity: 1
+                        },
+                      },
+                      colors: [dataThemes.primary_color],
+                      stroke: {
+                        width: 5,
+                        curve: 'smooth'
+                      },
+                      series: [{
+                        name: 'Learners',
+                        data: [4, 3, 10, 9, 29, 19, 22, 9, 12, 7, 19, 5, 13, 9, 17, 2, 7, 5]
+                      }],
+                      xaxis: {
+                        type: 'datetime',
+                        labels: {
+                          format: 'dd MMM yyyy',
+                        },
+                        categories: ['1/11/2000', '2/11/2000', '3/11/2000', '4/11/2000', '5/11/2000', '6/11/2000', '7/11/2000', '8/11/2000', '9/11/2000', '10/11/2000', '11/11/2000', '12/11/2000', '1/11/2001', '2/11/2001', '3/11/2001', '4/11/2001', '5/11/2001', '6/11/2001'],
+                      },
+                      title: {
+                        align: 'left',
+                        style: {
+                          fontSize: "14px",
+                          color: '#666'
+                        }
+                      },
+                      markers: {
+                        size: 4,
+                        opacity: 0.9,
+                        colors: [dataThemes.secondary_color],
+                        strokeColor: "#fff",
+                        strokeWidth: 2,
+                        style: 'inverted', // full, hollow, inverted
+                        hover: {
+                          size: 7,
+                        }
+                      },
+                      yaxis: {
+                        min: 0,
+                        max: 100,
+                        title: {
+                          text: 'Total Unique Learners',
+                        },
+                      },
+                      grid: {
+                        row: {
+                          colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
+                          opacity: 0.2
+                        },
+                        borderColor: '#185a9d'
+                      },
+                      responsive: [{
+                        breakpoint: 600,
+                        options: {
+                          chart: {
+                            toolbar: {
+                              show: false
+                            }
+                          },
+                          legend: {
+                            show: false
+                          },
+                        }
+                      }]
+                    }
+
+                    var chart = new ApexCharts(
+                      document.querySelector("#access-learner-logs"),
+                      options
+                    );
+                    $(".access-learner-logs-loading").hide();
+                    chart.render();
+                  }
+                )
+              }
+            )
+
+            /*completions-by-content-library*/
+            fetch(urlGetCompletionbyLearningProgramTop5).then(
+              res => {
+                res.json().then(
+                  data => {
+                    var series1 = [];
+                    var series2 = [];
+                    var xAxisCategories = [];
+                    data.forEach((itemData) => {
+                      series1.push(itemData.total_user_completed);
+                      series2.push(itemData.total_user_incomplete);
+                      xAxisCategories.push(itemData.journey_name);
+
+                    });
+                    var colorsCompletionsByLearningProgram = [dataThemes.primary_color,dataThemes.secondary_color];
+                    var dataColorsCompletionsByLearningProgram = $("#completions-by-learning-program").data('colors');
+                    if (dataColorsCompletionsByLearningProgram) {
+                      colorsCompletionsByLearningProgram = dataColorsCompletionsByLearningProgram.split(",");
+                    }
+
+                    $(".completions-by-learning-program-loading").hide();
+                    var chartCompletionsByLearningProgram = new ApexCharts(
+                      document.querySelector("#completions-by-learning-program"),
+                      {
+                        chart: {
+                          height: 380,
+                          type: 'bar',
+                          stacked: true,
+                          stackType: '100%',
+                          toolbar: {
+                            show: false
+                          }
+                        },
+                        plotOptions: {
+                          bar: {
+                            horizontal: true,
+                          }
+                        },
+                        series: [{
+                          name: 'Completed',
+                          data: series1
+                        }, {
+                          name: 'Incomplete',
+                          data: series2
+                        }],
+                        colors: colorsCompletionsByLearningProgram,
+                        xaxis: {
+                          categories: xAxisCategories,
+                        },
+
+                        states: {
+                          hover: {
+                            filter: 'none'
+                          }
+                        },
+                        stroke: {
+                          width: 1,
+                          colors: ['#fff']
+                        },
+                        tooltip: {
+                          y: {
+                            formatter: function(value, opts) {
+                              let percent = opts.w.globals.seriesPercent[opts.seriesIndex][opts.dataPointIndex];
+                              return value + ' learners ' + "(" + percent.toFixed(0) + '%)'
+                            }
+                          }
+                        },
+                        grid: {
+                          borderColor: '#f1f3fa'
+                        }
+                      }
+                    ).render()
+                  }
+                )
+              }
+            )
+
+            fetch(urlGetCompletionbyDirectorateTop5).then(
+              res => {
+                res.json().then(
+                  data => {
+
+                    //console.log(data[0]);
+
+                    var series1 = [];
+                    var series2 = [];
+                    var xAxisCategories = [];
+                    data.forEach((itemData) => {
+                      series1.push(itemData.total_sum_complete);
+                      series2.push(itemData.total_sum_incomplete);
+                      xAxisCategories.push(itemData.directorate);
+
+                    });
+
+                    //var colorsCompletionsByDirectorate = ["#A3090F", "#FFA5A9"];
+
+                    var colorsCompletionsByDirectorate = [dataThemes.primary_color,dataThemes.secondary_color];
+                    var dataColorsCompletionsByDirectorate = $("#completions-by-directorate").data('colors');
+                    if (dataColorsCompletionsByDirectorate) {
+                      colorsCompletionsByDirectorate = dataColorsCompletionsByDirectorate.split(",");
+                    }
+
+                    $(".completions-by-directorate-loading").hide();
+                    var chartCompletionsByDirectorate = new ApexCharts(
+                      document.querySelector("#completions-by-directorate"),
+                      {
+                        chart: {
+                          height: 380,
+                          type: 'bar',
+                          stacked: true,
+                          stackType: '100%',
+                          toolbar: {
+                            show: false
+                          }
+                        },
+                        plotOptions: {
+                          bar: {
+                            horizontal: true,
+                          }
+                        },
+                        dataLabels: {
+                          enabled: false,
+                        },
+                        series: [{
+                          name: 'Completed',
+                          data: series1
+                        }, {
+                          name: 'Incomplete',
+                          data: series2
+                        }
+                        ],
+                        colors: colorsCompletionsByDirectorate,
+                        xaxis: {
+                          categories: xAxisCategories,
+                        },
+                        states: {
+                          hover: {
+                            filter: 'none'
+                          }
+                        },
+                        stroke: {
+                          width: 1,
+                          colors: ['#fff']
+                        },
+                        tooltip: {
+                          y: {
+                            formatter: function(value, opts) {
+                              let percent = opts.w.globals.seriesPercent[opts.seriesIndex][opts.dataPointIndex];
+                              return value + ' learners ' + "(" + percent.toFixed(0) + '%)'
+                            }
+                          }
+                        },
+                        grid: {
+                          borderColor: '#f1f3fa'
+                        }
+                      }
+                    ).render()
+
+                  }
+                )
+              }
+            )
+
+
+
+
+
+
+            //
+          })
+        </script>
+
+
+@endsection

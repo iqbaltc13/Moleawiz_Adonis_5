@@ -1,0 +1,126 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>MoLeaWiz | Home</title>
+@endsection
+
+@section('style')
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+    <div class="content">
+      @loggedIn
+      <input type="hidden" value="{{authUser.firstname +' '+ authUser.lastname}}" id="auth_name">
+      @else
+        <script>
+          window.location.replace("{{route('login')}}");
+        </script>
+        @endloggedIn
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box">
+                <div class="page-title-right">
+
+                </div>
+                <h4 class="page-title">Home</h4>
+                
+              </div>
+            </div>
+          </div>
+          <!-- end page title -->
+
+        </div> <!-- content -->
+
+        <!-- Footer Start -->
+
+        <!-- end Footer -->
+        @include('layouts.modal_and_alert')
+        @include('layouts.footer')
+        @endsection
+      @section('right_sidebar')
+        @include('layouts.sidebar.sidebar_right_base')
+      @endsection
+      @section('script')
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/apexcharts/apexcharts.min.js"></script>
+        <!-- Dashboar 1 init js-->
+        <script src="https://apexcharts.com/samples/assets/irregular-data-series.js"></script>
+        <script src="https://apexcharts.com/samples/assets/ohlc.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+
+
+        <script>
+          $(document).ready(function () {
+            $(".mlw-li").hide()
+            $(".mlw-li-home").show()
+
+            // $("#title-paragraph-alert-modal-loading").html("Loading...");
+            // $("#content-paragraph-alert-modal-loading").html("Please Wait !!");
+            // $("#info-alert-modal-loading").modal('show');
+            //$('#info-alert-modal-loading').modal({backdrop:'static', keyboard:false});
+
+
+            // $('body').loadingModal({
+            //   position: 'auto',
+            //   text: 'Please Wait...',
+            //   color: dataThemes.color_scheme,
+            //   opacity: '0.7',
+            //   backgroundColor: 'rgb(0,0,0)',
+            //   animation: 'circle'
+            // });
+
+
+            @if(flashMessage('error'))
+            let urllogout = "{{ route('logout')}}"
+            Swal.fire({
+              icon: 'error',
+              title: 'Access Denied!',
+              text: "{{flashMessage('error')}}",
+              confirmButtonText: 'Yes, I will logout'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = urllogout;
+              }
+            })
+
+
+
+            @endif
+
+          })
+        </script>
+
+@endsection

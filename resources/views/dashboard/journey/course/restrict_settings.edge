@@ -1,0 +1,400 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>Moleawiz|Dashboard|Course| Form Restrict</title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <!-- third party css end -->
+  <style>
+    btn-add:hover {
+
+      background-color: #DF2333 !important;
+      color: white !important;
+    }.dataTables_length_custom{
+      padding-bottom: 0px!important;
+    }
+    .dataTables_filter_custom{
+      padding-bottom: 0px !important;
+    }
+    .search-datatable {
+        border-radius: 30px!important;
+        padding-bottom: -5px!important;
+
+
+    }
+
+    .tr-odd{
+      border-color: transparent!important;
+      background-color: #F7F9FC!important;
+    }
+    .tr-even{
+      border-color: transparent!important;
+      background-color: #FFFFFF!important;
+    }
+    .pd-top-pagination{
+      padding-top: 16px!important;;
+    }
+    .add-button{
+      background-color: #FFFFFF!important;
+      border-color: #6D757D!important;
+    }
+    .add-button:hover {
+      border-color: #DF2333!important;
+      background-color: #DF2333!important;
+      color: white!important;
+    }
+    .page-item.active .page-link {
+        /* z-index: 3; */
+        position: relative;
+        display: block;
+        color: #fff;
+        background-color: #DF2333;
+        border-color: #DF2333;
+    }
+
+
+    .bottom-wrapper {
+        margin-top: 0.5em;
+    }
+    .top-wrapper {
+      margin-bottom: 0.5em;
+    }
+
+  </style>
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+    <div class="content">
+      @loggedIn
+      <input type="hidden" value="{{authUser.firstname +' '+ authUser.lastname}}" id="auth_name">
+      @else
+        <script>
+          window.location.replace("{{route('login')}}");
+        </script>
+        @endloggedIn
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box">
+                <div class="page-title-right" >
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('home')}}">HOME</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.journey.index')}}">Journey </a></li>
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.journey.course.index',{id : data.journey_id})}}">View Course </a></li>
+                    <li class="breadcrumb-item  breadcrumb-link active">Restrict Access</li>
+                  </ol>
+                </div>
+                <div class="row">
+                  <div class="col-lg-2">
+                     <a  href="{{route('dashboard.journey.course.index',{id :  data.journey_id})}}" ><h4 class="page-title back-button  text-hover-color-scheme"><i class="mdi mdi-arrow-left"></i> Back</h4> </a>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+
+
+                  <div class="btn-toolbar">
+
+                    <div class="btn-group dropdown-btn-group pull-right">
+
+
+                    </div>
+                  </div>
+
+                   <form id="restrict_settings" action="{{ route('dashboard.journey.course.restrict-settings',{id: data.id}) }}" enctype="multipart/form-data" method="POST">
+                        {{ csrfField() }}
+                        <input type="hidden" id="journey_id" name="journey_id" value="{{data.journey_id}}">
+                  <div class="responsive-table-plugin dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                      <div class="col align-self-start">
+
+                      </div>
+
+                      <div class="col align-self-end">
+
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="btn-toolbar" style="padding-bottom:8px">
+                        <div class="btn-group dropdown-btn-group pull-left" style="padding-bottom:20px;">
+                          <h4 class="header-title" style="font-size: 1.25rem;"> <b>Restrict Access for</b> <br/> {{data.name}}</h4>
+                          </div>
+                          <div class="btn-group dropdown-btn-group pull-right" style="padding-bottom:20px;">
+                              <button id="submit_btn" type="submit" class="btn  button-hover-color-scheme"><i class="mdi mdi-check"></i>  Select Course</button>
+
+                          </div>
+                        </div>
+                      <div class="col-sm-12">
+                        <table id="datatable"
+                               class="table w-100 nowrap"
+                               role="grid" aria-describedby="datatable-buttons_info" style="width: 924px;">
+                          <thead style="color: white; background: #DF2333;">
+                          <tr>
+                            <th valign="middle" ></th>
+                            <th valign="middle" >Image</th>
+                            <th valign="middle" >Course Name</th>
+                            <th valign="middle" >Description</th>
+                          </tr>
+                          </thead>
+                          <script>
+                            let arrAssignments = [];
+                            let i = 0;
+                            let j = 0;
+                          </script>
+
+                          <tbody>
+
+                          @each(item in datas)
+
+                           <tr style="color:#333333; opacity : 1;" >
+                            <td valign="middle" style="">
+                              <script>
+                                i++;
+
+                              </script>
+                              <input type="checkbox" class="form-check-input" name="courses_id[]" value="{{item.id}}">
+                            </td>
+                            <td valign="middle" style=""><img src="{{  BASE_URL() }}/uploads/assets/images/{{item.thumbnail}}" alt=""  width="100" height="100" ></td>
+                            <td valign="middle" style="">
+                              @each(itemChild in item.name_cut)
+                              {{itemChild}}
+                              <br/>
+                              @endeach
+
+                              <br/></td>
+
+                            <td valign="middle">
+                              @each(itemChild in item.description_cut)
+                                    {{itemChild}}
+                                    <br/>
+                              @endeach
+                            </td>
+
+
+                          </tr>
+
+
+                          @endeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                </form>
+
+                  </div>
+
+                </div> <!-- end card body-->
+              </div> <!-- end card -->
+            </div><!-- end col-->
+          </div>
+          <!-- end row-->
+
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+
+    <!-- Footer Start -->
+  @include('layouts.footer')
+  <!-- end Footer -->
+
+  @include('layouts.modal_and_alert')
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Sweet Alerts js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+
+  <script>
+    let dataId =  0;
+    let urlDelete = '';
+    $(document).ready(function () {
+      $(".mlw-li").hide()
+      $(".mlw-li-home").show()
+      @if(flashMessage('notification'))
+
+          /*Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: "{{flashMessage('notification')}}",
+
+          });*/
+
+          $("#title-paragraph-alert-modal-success").html("Success!");
+          $("#content-paragraph-alert-modal-success").html("{{flashMessage('notification')}}");
+          $("#continue-alert-modal-success").html("Continue");
+          $("#info-alert-modal-success").modal('show');
+
+      @endif
+
+
+
+      @if(flashMessage('failMessage'))
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed!',
+        text: "{{flashMessage('failMessage')}}",
+
+      })
+      @endif
+
+      @if(flashMessage('successMessage'))
+
+        /*Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: "{{flashMessage('successMessage')}}",
+
+        })*/
+        $("#title-paragraph-alert-modal-success").html("Success!");
+        $("#content-paragraph-alert-modal-success").html("{{flashMessage('successMessage')}}");
+        $("#continue-alert-modal-success").html("Continue");
+        $("#info-alert-modal-success").modal('show');
+      @endif
+
+
+
+
+
+
+
+      let url = "{{ BASE_URL() + route('dashboard.role-management.datatable') }}";
+      $("#datatable").DataTable({
+        columnDefs: [
+                  { "orderable": false, "targets": [0,1] },
+                  { "type": "num", "width" : "18px", "targets" : 0},
+                  { "width" : "110px", "targets" : 1},
+                  { "width" : "350px", "targets" : 2},
+
+  							],
+        language: {
+          search : ' ', /*Empty to remove the label*/
+        },
+        order: [
+
+        ],
+        aLengthMenu : [[25, 50, 75, -1], [25, 50, 75, "All"]],
+        iDisplayLength: 25,
+
+        scrollX: !0,
+        //dom: 'Bfrltip',
+
+        pagingType:
+          "full_numbers",
+        drawCallback: function () {
+          $("thead").css("background",dataThemes.color_scheme);
+$(".dataTables_paginate > .pagination").addClass("pagination-default")
+          $(".dataTables_info").addClass("pd-top-pagination")
+          $(".dataTables_paginate").addClass("pd-top-pagination")
+          $(".odd").addClass("tr-odd");
+          $(".even").addClass("tr-even");
+          $('input[type="search"]').addClass("search-datatable")
+          $('input[type="search"]').attr("placeholder", "    Search here");
+          $('.dataTables_length').addClass('dataTables_length_custom');
+          $('.dataTables_filter').addClass('dataTables_filter_custom');
+          $(".page-item.active .page-link").css("background-color",dataThemes.color_scheme);
+          $(".page-item.active .page-link").css("border-color",dataThemes.color_scheme);
+        }
+      }),
+        $(".dataTables_length select").addClass("form-select form-select-sm"),
+        $(".dataTables_length select").removeClass("custom-select custom-select-sm"),
+        $(".dataTables_length label").addClass("form-label")
+        $(".dataTables_filter label").addClass("form-label")
+
+
+    });
+
+
+    $('.btndelete').on('click', function () {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urldelete = "{{ route('dashboard.module-category.soft-delete',{ id : 'data.id' })}}";
+
+      urldelete = urldelete.replace('data.id', dataid);
+      $('#top-modal-delete').modal('show');
+      dataId =  dataid;
+      urlDelete = urldelete;
+      let labelDelete = 'Delete Module Category';
+      let contentParagraphDelete = "Do you really want to delete module category </br>" + "<b>"+"'"+fullname+"'"+"</b>"+"?";
+      let yesDelete = "Delete Module Category";
+      let noDelete  = "Never Mind, Keep the Module Category";
+      $('#topModalLabelDelete').html(labelDelete);
+      $('#content-paragraph-delete').html(contentParagraphDelete);
+      $('#yes-delete').html(yesDelete);
+      $('#no-delete').html(noDelete);
+
+
+    });
+
+    $('#yes-delete').on('click', function() {
+      window.location.href = urlDelete;
+    });
+
+
+  </script>
+  <!-- third party js ends -->
+@endsection

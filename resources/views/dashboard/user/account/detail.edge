@@ -1,0 +1,477 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>Moleawiz|User|Account| Detail Account</title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <!-- Plugins css -->
+  <!-- Plugins css -->
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <!-- third party css end -->
+  <style>
+     .add-button{
+      background-color: #FFFFFF!important;
+      border-color: #6D757D!important;
+    }
+    .add-button:hover {
+      border-color: #DF2333!important;
+      background-color: #DF2333!important;
+      color: white!important;
+    }
+  </style>
+  <script>
+    function calcDate(date1,date2) {
+      if (date1 > date2) {
+        var swap = date1;
+        date1 = date2;
+        date2 = swap;
+      }
+      var startYear = date1.getFullYear();
+      var february = (startYear % 4 === 0 && startYear % 100 !== 0) || startYear % 400 === 0 ? 29 : 28;
+      var daysInMonth = [31, february, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+      var yearDiff = date2.getFullYear() - startYear;
+      var monthDiff = date2.getMonth() - date1.getMonth();
+      if (monthDiff < 0) {
+          yearDiff--;
+          monthDiff += 12;
+      }
+      var dayDiff = date2.getDate() - date1.getDate();
+      if (dayDiff < 0) {
+          if (monthDiff > 0) {
+              monthDiff--;
+          } else {
+              yearDiff--;
+              monthDiff = 11;
+          }
+          dayDiff += daysInMonth[date1.getMonth()];
+      }
+      let textDiffDate = '';
+      if(yearDiff > 0){
+        textDiffDate += yearDiff + ' years' + ' ';
+      }
+      if(monthDiff > 0){
+        textDiffDate += monthDiff + ' months' + ' ';
+      }
+      if(dayDiff > 0){
+        textDiffDate += dayDiff + ' days' + ' ';
+      }
+
+      return textDiffDate;
+    }
+  </script>
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+
+
+    <!-- Start Content-->
+    <div class="content">
+
+      <!-- Start Content-->
+      <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right" >
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('home')}}">HOME</a></li>
+                  <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.user.account.index')}}">Browse List of Learners</a></li>
+                  <li class="breadcrumb-item  breadcrumb-link active">{{ user.firstname.toUpperCase() +' '+ user.lastname.toUpperCase() }}</li>
+
+                </ol>
+              </div>
+              <div class="row">
+                <div class="col-lg-2">
+                   <a href="{{route('dashboard.user.account.index')}}" ><h4 class="page-title back-button  text-hover-color-scheme"><i class="mdi mdi-arrow-left"></i> Back</h4> </a>
+                </div>
+              </div>
+
+
+
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-7">
+            <div class="card card-outline">
+              <div class="card-body">
+                <div class="dropdown float-end">
+                  <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                    aria-expanded="false">
+                    <a href="{{ route('dashboard.user.account.edit', { id : user.id }) }}" class="btn  button-hover-color-scheme" style="border-color: #6D757D"><span> <i
+                      class="mdi mdi-pencil"></i>&#160;  Edit Profile </span></a>
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end">
+
+                  </div>
+                </div>
+
+                <h4 class="header-title mb-0"><b style="color:#333333; ">Learner Profile</b></h4>
+
+                <ul class="list-unstyled mb-0" style="padding-top: 30px;">
+                  <li>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >{{ user.firstname.toUpperCase() +' '+ user.lastname.toUpperCase() }}</span> </p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Username</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.username ? user.username : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >First name</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.firstname ? user.firstname.toUpperCase() : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Surname</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.lastname ? user.lastname.toUpperCase(): '-' }}</p>
+                      <p class="mb-2 text-color-scheme" style=""><span class="fw-semibold me-2" style="color : #6D757D!important;">Email address</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.email ? user.email : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Mobile phone</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.phone2 ? user.phone2 : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >City/town</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.city ? user.city : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Country</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.getRelated('nationality') ? user.getRelated('nationality').name : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Position</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.position ? user.position : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Superior</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.superior ? user.superior : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >NHA</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.nha ? user.nha : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Join date</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.joindate ? user.joindate.toLocaleDateString().split('/') : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Work location</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.worklocation ? user.worklocation : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Directorate</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.directorate ? user.directorate  : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Sub directorate</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.subdirectorate ? user.subdirectorate : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Division</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.division ? user.division : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Department</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.department ? user.department: '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Group</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.group ? user.group : '-' }}</p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Learning agent</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;{{user.learningagent ? user.learningagent: '-' }}</p>
+
+                  </li>
+                </ul>
+
+                <div class="widget-chart" dir="ltr">
+
+                  <div id="cardCollpase8" class="collapse pt-3 show" dir="ltr">
+                    <div id="completions-by-learning-program" class="apex-charts" style="padding-bottom: 20px;"></div>
+                  </div>
+                  <div class="button">
+
+                  </div>
+                </div>
+              </div>
+            </div> <!-- end card -->
+          </div> <!-- end col-->
+          <div class="col-md-5">
+            <div class="card">
+              <div class="card-body">
+                <div class="dropdown float-end">
+                  <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                     aria-expanded="false">
+
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end">
+                  </div>
+                </div>
+                <h4 class="header-title mb-3"><b style="color:#333333; ">Login Activity</b></h4>
+
+                <ul class="list-unstyled mb-0">
+                  <script>
+                    let dateLastAccess =  new Date({{ user.lastaccess}} * 1000);
+                    let dateFirstAccess =  new Date({{ user.firstaccess}} * 1000);
+                    let dateNow        = new Date();
+                    let days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                    monthNames = ["January", "February", "March", "April", "May", "June",
+                                    "July", "August", "September", "October", "November", "December"];
+                    let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                  </script>
+                  <li>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >First access to site</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        @if( user.firstaccess != 0 )
+                         <script>
+
+                         document.write(days[dateFirstAccess.getDay()]+', '+dateFirstAccess.getDate()+' '+monthNames[dateFirstAccess.getMonth()]+' '+dateFirstAccess.getFullYear()+', '+ dateFirstAccess.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) +"("+calcDate(dateNow,dateFirstAccess) +")")
+                         </script>
+                        @else
+                          Never
+                        @endif
+                      </p>
+                      <p class="mb-2" style="color : #6D757D!important;"><span class="fw-semibold me-2" >Last access to site</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;
+                        @if( user.lastaccess != 0 )
+                         <script>
+
+
+                          document.write(days[dateLastAccess.getDay()]+', '+dateLastAccess.getDate()+' '+monthNames[dateLastAccess.getMonth()]+' '+dateLastAccess.getFullYear()+', '+ dateLastAccess.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })+"("+calcDate(dateNow,dateLastAccess) +")");
+
+
+
+
+                         </script>
+                        @else
+                          Never
+                        @endif
+
+                      </p>
+                         <p class="mb-2 text-color-scheme" style=""><span class="fw-semibold me-2" style="color : #6D757D!important;">Last IP Address</span> <br/>&nbsp;&nbsp;&nbsp;&nbsp;127.0.0.1</p>
+
+                  </li>
+                </ul>
+
+
+              </div>
+            </div> <!-- end card -->
+
+            <div class="card">
+              <div class="card-body">
+                <div class="dropdown float-end">
+                  <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                     aria-expanded="false">
+
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end">
+                  </div>
+                </div>
+                <h4 class="header-title mb-3"><b style="color:#333333; ">Reports</b></h4>
+
+                <ul class="list-unstyled mb-0">
+                  <li>
+                      <p class="mb-2"><a href="javascript:void(0);"  class="text-color-scheme"><span class="fw-semibold me-2" >Today’s log</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);"  class="text-color-scheme"><span class="fw-semibold me-2" >All logs</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);"  class="text-color-scheme"><span class="fw-semibold me-2" >Outline report</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);"  class="text-color-scheme"><span class="fw-semibold me-2" >Complete report</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);"  class="text-color-scheme"><span class="fw-semibold me-2" >Grades overview</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);"  class="text-color-scheme"><span class="fw-semibold me-2" >Grade</span> </a></p>
+
+
+                  </li>
+                </ul>
+
+
+              </div>
+            </div> <!-- end card -->
+
+            <div class="card">
+              <div class="card-body">
+                <div class="dropdown float-end">
+                  <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                     aria-expanded="false">
+
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end">
+                  </div>
+                </div>
+                <h4 class="header-title mb-3"><b style="color:#333333; ">Administrations</b></h4>
+
+                <ul class="list-unstyled mb-0">
+                  <li>
+                      <p class="mb-2"><a href="javascript:void(0);" class="text-color-scheme" ><span class="fw-semibold me-2" >Preferences</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);" class="text-color-scheme" ><span class="fw-semibold me-2" >Log in as</span> </a></p>
+
+
+
+                  </li>
+                </ul>
+
+
+              </div>
+            </div> <!-- end card -->
+
+            <div class="card">
+              <div class="card-body">
+                <div class="dropdown float-end">
+                  <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                     aria-expanded="false">
+
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end">
+                  </div>
+                </div>
+                <h4 class="header-title mb-3"><b style="color:#333333; ">Miscellaneous</b></h4>
+
+                <ul class="list-unstyled mb-0">
+                  <li>
+                      <p class="mb-2"><a href="javascript:void(0);" class="text-color-scheme" ><span class="fw-semibold me-2" >View all blog entries</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);" class="text-color-scheme" ><span class="fw-semibold me-2" >Notes</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);" class="text-color-scheme" ><span class="fw-semibold me-2" >Forum posts</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);" class="text-color-scheme" ><span class="fw-semibold me-2" >Forum discussions</span> </a></p>
+                      <p class="mb-2"><a href="javascript:void(0);" class="text-color-scheme" ><span class="fw-semibold me-2" >Learning plans</span> </a></p>
+
+
+
+                  </li>
+                </ul>
+
+
+              </div>
+            </div> <!-- end card -->
+
+
+            <div class="card">
+              <div class="card-body">
+                <div class="dropdown float-end">
+                  <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                     aria-expanded="false">
+
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-end">
+                  </div>
+                </div>
+                <h4 class="header-title mb-3"><b style="color:#333333; ">Course Details</b></h4>
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    @each( item in user.getRelated('module_logs').rows)
+                      <p class="mb-2"><a dataid="{{item.module_id}}" href="javascript:void(0);" class="text-color-scheme"><span class="fw-semibold me-2" >{{item.getRelated('module').fullname}}</span> </a></p>
+
+                    @endeach
+
+
+                  </li>
+                </ul>
+
+
+              </div>
+            </div> <!-- end card -->
+          </div>
+
+        </div>
+
+
+        <!-- end page title -->
+
+
+        <!-- RADIOS -->
+
+
+      </div> <!-- container -->
+
+    </div> <!-- content -->
+
+
+    <!-- Footer Start -->
+    @include('layouts.footer')
+    <!-- end Footer -->
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Plugins js -->
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+
+  <script>
+    $(document).ready(function () {
+      $(".mlw-li").hide()
+      $(".mlw-li-home").show()
+      $('#btn_auto_generate_password').click(function () {
+        let randomstring = Math.random().toString(36).slice(-10);
+        $('#password').val(randomstring);
+      });
+
+      $('#submit_btn').click(function () {
+
+        $('#edit_user').submit();
+      });
+
+      let country = "{{user.country}}";
+      $('#country').val(country).change();
+      $('#country').selectize();
+
+      let maildisplay = "{{user.maildisplay}}";
+      $('#id_maildisplay').val(maildisplay).change();
+
+
+      var drEvent = $('#profpic').dropify();
+
+      drEvent.on('dropify.beforeClear', function (event, element) {
+        return confirm('Do you really want to delete ' + element.file.name + ' ?');
+      });
+
+      drEvent.on('dropify.afterClear', function (event, element) {
+        alert('File deleted');
+      });
+
+      drEvent.on('dropify.errors', function (event, element) {
+        console.log('Has Errors');
+      });
+
+      const fp = flatpickr("#joindate", {
+        dateFormat: "Y-m-d",
+      });
+
+
+    });
+
+  </script>
+  <!-- third party js ends -->
+@endsection

@@ -1,0 +1,217 @@
+@layout('layouts.appfix')
+@section('title')
+<title>Moleawiz|Dashboard|Reminder| Edit Reminder Setting</title>
+@endsection
+@section('style')
+<!-- third party css -->
+<!-- Plugins css -->
+ <!-- Plugins css -->
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/JS/summernote/summernote.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{ BASE_URL() }}/JS/Dual-Select-Boxes-For-Bootstrap-Bootstrap-Dual-Listbox/src/bootstrap-duallistbox.css">
+<!-- third party css end -->
+@endsection
+@section('navbar')
+@include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+@include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+<div class="content-page">
+
+
+  <!-- Start Content-->
+  <div class="content">
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+
+                    <h4 class="page-title">Edit Reminder Setting Form</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                                <form id="edit_reminder_setting" action="{{ route('dashboard.reminder.setting.update', { id : data.id }) }}" enctype="multipart/form-data" method="POST">
+                                  {{ csrfField() }}
+                                  <div class="mb-3">
+                                    <label for="notif_date" class="form-label">Notif Date</label>
+                                    <input type="number" id="notif_date" name="notif_date" class="form-control" style="color:#333333;" value="{{data.notif_date}}" required>
+                                    @if(hasErrorFor('notif_date'))
+                                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                          {{ getErrorFor('notif_date') }}
+                                      </div>
+                                    @endif
+                                  </div>
+
+                                  <div class="mb-3">
+                                    <label for="notif_type" class="form-label">Notif Type
+                                    </label>
+                                      <select name="notif_type" class="form-select form-select-custom" style="color:#333333;" id="notif_type" >
+                                        <option value="1" >Push notif</option>
+                                        <option value="2" >Email notif</option>
+                                        <option value="3" >All</option>
+
+                                      </select>
+                                    @if(hasErrorFor('notif_type'))
+                                    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        {{ getErrorFor('notif_type') }}
+                                    </div>
+                                    @endif
+
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="send_spv" class="form-label">Send SPV
+                                    </label>
+                                      <select name="send_spv" class="form-select form-select-custom" style="color:#333333;" id="send_spv" >
+                                        <option value="0" >No</option>
+                                        <option value="1" >Yes</option>
+
+                                      </select>
+                                    @if(hasErrorFor('send_spv'))
+                                    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        {{ getErrorFor('send_spv') }}
+                                    </div>
+                                    @endif
+
+                                  </div>
+
+                                  <div class="mb-3">
+                                    <label for="send_nha" class="form-label">Send NHA
+                                    </label>
+                                      <select name="send_nha" class="form-select form-select-custom" style="color:#333333;" id="send_nha" >
+                                        <option value="0" >No</option>
+                                        <option value="1" >Yes</option>
+
+                                      </select>
+                                    @if(hasErrorFor('send_nha'))
+                                    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        {{ getErrorFor('send_nha') }}
+                                    </div>
+                                    @endif
+
+                                  </div>
+
+
+                                   <input type="hidden" id="reminder_id" name="reminder_id" value="{{params.reminder_id}}">
+
+
+
+
+                                   <div class="mb-3">
+                                    <div class="form-check">
+                                      @if(data.visible == 1 || data.visible == '1')
+                                        <input type="checkbox" class="form-check-input" id="visible" name="visible" value="1"  checked  >
+                                      @else
+                                        <input type="checkbox" class="form-check-input" id="visible" name="visible" value="1"    >
+                                      @endif
+                                        <label class="form-check-label" for="visible">Visible</label>
+                                    </div>
+                                  </div>
+
+                        <button id="submit_btn" type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                      </form>
+                        <!-- end row-->
+
+                    </div> <!-- end card-body -->
+                </div> <!-- end card -->
+            </div><!-- end col -->
+        </div>
+        <!-- end row -->
+
+
+
+
+
+
+        <!-- RADIOS -->
+
+
+
+    </div> <!-- container -->
+
+</div> <!-- content -->
+
+
+  <!-- Footer Start -->
+
+  <!-- end Footer -->
+
+</div>
+@endsection
+@section('right_sidebar')
+@include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+<!-- third party js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+ <!-- Plugins js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ BASE_URL() }}/JS/summernote/summernote.js"></script>
+<script src="{{ BASE_URL() }}/JS/Dual-Select-Boxes-For-Bootstrap-Bootstrap-Dual-Listbox/src/jquery.bootstrap-duallistbox.js"></script>
+<script>
+$(document).ready(function(){
+ $(".mlw-li").hide()
+ $(".mlw-li-home").show()
+ $('#notif_type').val("{{data.notif_type}}");
+ $('#send_spv').val("{{data.send_spv}}");
+ $('#send_nha').val("{{data.send_nha}}");
+
+
+
+});
+
+</script>
+<!-- third party js ends -->
+@endsection

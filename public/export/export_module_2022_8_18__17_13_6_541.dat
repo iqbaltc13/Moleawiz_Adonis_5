@@ -1,0 +1,254 @@
+METADATA|LegacyLearningItem|LearningItemId|EffectiveStartDate|EffectiveEndDate|LearningItemNumber|Title|ShortDescription|OwnedByPersonId|OwnedByPersonNumber|SourceType|SourceId|SourceInfo|SourceSystemOwner|SourceSystemId
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_1|MoLeaWiz|||3016645||||HCMS|PK_VR_1
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_9|Day 3|||3016645||||HCMS|PK_VR_9
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_10|Day 0|||3016645||||HCMS|PK_VR_10
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_11|Day 6|||3016645||||HCMS|PK_VR_11
+MERGE|LegacyLearningItem||2020/26/2|4712/12/31|PK_VR_13|Phone Etiquette|Pelajari etika dan cara yang benar saat menelepon!||3016645||||HCMS|PK_VR_13
+MERGE|LegacyLearningItem||2020/26/2|4712/12/31|PK_VR_14|Clean Desk Policy|Terapkan budaya membereskan area kerjamu untuk menjaga keamanan informasi perusahaan!||3016645||||HCMS|PK_VR_14
+MERGE|LegacyLearningItem||2020/26/2|4712/12/31|PK_VR_15|The Rules|Peraturan-peraturan terkait Sustainable Finance dikemas menarik dalam modul ini. Penasaran?||3016645||||HCMS|PK_VR_15
+MERGE|LegacyLearningItem||2020/26/2|4712/12/31|PK_VR_16|We Can Save The World|Ketahuilah fakta keadaan bumi dan solusi untuk menyelamatkannya dalam modul ini!||3016645||||HCMS|PK_VR_16
+MERGE|LegacyLearningItem||2020/26/2|4712/12/31|PK_VR_17|Welcome Aboard Special Force!|Temukan arti Money Laundering dan Countering Financing of Terrorism dalam modul ini!||3016645||||HCMS|PK_VR_17
+MERGE|LegacyLearningItem||2020/26/2|4712/12/31|PK_VR_18|Differentiate AML & CFT Mission!|Ini adalah misi pertamamu, tangkap penyusup dan jawab setiap pertanyaan dengan tepat!||3016645||||HCMS|PK_VR_18
+MERGE|LegacyLearningItem||2020/26/2|4712/12/31|PK_VR_19|Kirkpatrick Evaluation Level 1|Yuk, berikan penilaian terhadap pengalaman pembelajaranmu di sini!||3016645||||HCMS|PK_VR_19
+MERGE|LegacyLearningItem||2020/26/2|4712/12/31|PK_VR_20|Share Your Learning Experience!|Bagikan pengalaman pembelajaranmu pada piloting ini, sekarang!||3016645||||HCMS|PK_VR_20
+MERGE|LegacyLearningItem||2020/26/2|4712/12/31|PK_VR_21|Disclaimer|Ketahui tujuan perjalanan belajarmu dengan pengalaman pembelajaran yang baru!||3016645||||HCMS|PK_VR_21
+MERGE|LegacyLearningItem||2020/21/9|4712/12/31|PK_VR_22|DT HFG: Video by Hana Financial Group|Yuk cari tahu Digital Transformation yang sudah dilakukan Hana Financial Group.||3016645||||HCMS|PK_VR_22
+MERGE|LegacyLearningItem||2020/21/9|4712/12/31|PK_VR_23|DT Eps 1: Digital Transformation|Perusahaan besar dunia sudah bertransformasi digital, apa saja yang mereka lakukan?||3016645||||HCMS|PK_VR_23
+MERGE|LegacyLearningItem||2020/21/9|4712/12/31|PK_VR_24|Are You Ready for Digital Transformation?|Siapkah kamu menjadi bagian dari Transformasi Digital di Hana Bank?.||3016645||||HCMS|PK_VR_24
+MERGE|LegacyLearningItem||2020/21/9|4712/12/31|PK_VR_25|DT Eps 2: The Digital Skills Gap and The Future of Jobs 2020|Apa saja yang harus kita persiapkan untuk menghadapi transformasi digital?||3016645||||HCMS|PK_VR_25
+MERGE|LegacyLearningItem||2020/21/9|4712/12/31|PK_VR_26|DT Eps 3: Evolution of The Desk|Dampak teknologi kepada kehidupan kita dari perspektif Evolution of The Desk.||3016645||||HCMS|PK_VR_26
+MERGE|LegacyLearningItem||2020/21/9|4712/12/31|PK_VR_27|DT Eps 4: Cyber Security |Cari tahu cara menjaga informasi pribadimu di era digital!||3016645||||HCMS|PK_VR_27
+MERGE|LegacyLearningItem||2020/21/9|4712/12/31|PK_VR_28|DT Eps 5: QR Code by QRIS|Perkenalkan QRIS, transaksi cepat dan efisien yang dikeluarkan Bank Indonesia.||3016645||||HCMS|PK_VR_28
+MERGE|LegacyLearningItem||2020/21/9|4712/12/31|PK_VR_29|DT Eps 6: 5 Step to Digital Transformation in The Financial Industry|Mengapa industri finansial harus bertransformasi digital? Cari tahu di modul ini||3016645||||HCMS|PK_VR_29
+MERGE|LegacyLearningItem||2020/21/9|4712/12/31|PK_VR_30|DT Eps 7: The Future of Digital Payments|Temukan cara memprediksi pembayaran digital di masa depan pada modul ini.||3016645||||HCMS|PK_VR_30
+MERGE|LegacyLearningItem||2020/21/9|4712/12/31|PK_VR_31|DT Eps 8: 9 Reasons Financial Planning and Analysis Belong in The Cloud|Temukan manfaat dari Financial Planning and Analysis in the Cloud.||3016645||||HCMS|PK_VR_31
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_32|Trade Finance Opening|Yuk, cari tahu apa saja yang akan kamu pelajari pada Trade Finance.||3016645||||HCMS|PK_VR_32
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_33|Trade Finance – Part 1 |Trade Finance Introduction.||3016645||||HCMS|PK_VR_33
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_34|Trade Finance – Part 2|Metode Pembayaran.||3016645||||HCMS|PK_VR_34
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_35|Trade Finance – Part 3|Dokumen dalam perdagangan internasional.||3016645||||HCMS|PK_VR_35
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_36|Trade Finance – Part 4|Produk-produk Trade Finance.||3016645||||HCMS|PK_VR_36
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_37|Trade Finance Quiz|Yuk, uji pemahamanmu mengenai materi yang sudah kamu pelajari!||3016645||||HCMS|PK_VR_37
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_42|PSBB|Yuk, berpartisipasi dalam Pembatasan Sosial Berskala Besar.||3016645||||HCMS|PK_VR_42
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_43|Do's and Don'ts WFH|Perhatikan ya Do and Dont selama Work From Home.||3016645||||HCMS|PK_VR_43
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_44|Service Preventif Cabang|Langkah preventif cabang terkait layanan selama pandemi COVID-19.||3016645||||HCMS|PK_VR_44
+MERGE|LegacyLearningItem||2020/16/10|4712/12/31|PK_VR_45|Welcoming|Yuk, cari tahu apa saja yang akan kamu pelajari pada APU PPT.||3016645||||HCMS|PK_VR_45
+MERGE|LegacyLearningItem||2020/16/10|4712/12/31|PK_VR_46|Tinjauan APU PPT|Menggali lebih dalam definisi, regulasi, dan implementasi APU PPT.||3016645||||HCMS|PK_VR_46
+MERGE|LegacyLearningItem||2020/16/10|4712/12/31|PK_VR_47|Elemen APU PPT|Elemen-elemen APU PPT yang perlu kamu pahami.||3016645||||HCMS|PK_VR_47
+MERGE|LegacyLearningItem||2020/16/10|4712/12/31|PK_VR_48|Pelaporan dan Sanksi|Yuk, cari tahu Pelaporan dan Sanksi APU PPT!||3016645||||HCMS|PK_VR_48
+MERGE|LegacyLearningItem||2020/16/10|4712/12/31|PK_VR_49|Case Study 1: Premium Rush|Studi kasus film Premium Rush dan hubungannya dengan APU PPT.||3016645||||HCMS|PK_VR_49
+MERGE|LegacyLearningItem||2020/16/10|4712/12/31|PK_VR_50|Case Study 2: The Bourne Identity|Studi kasus film The Bourne Identity dan hubungannya dengan APU PPT.||3016645||||HCMS|PK_VR_50
+MERGE|LegacyLearningItem||2020/16/10|4712/12/31|PK_VR_51|Closing|Yuk, dukung penerapan APU PPT sesuai kebijakan dan aturan yang berlaku!||3016645||||HCMS|PK_VR_51
+MERGE|LegacyLearningItem||2020/13/10|4712/12/31|PK_VR_54|Phone Etiquette Phase 1|Pahami etika saat berinteraksi melalui telepon.||3016645||||HCMS|PK_VR_54
+MERGE|LegacyLearningItem||2020/13/10|4712/12/31|PK_VR_55|Phone Etiquette Phase 2|Kiat-kiat berinteraksi melalui telepon.||3016645||||HCMS|PK_VR_55
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_56|MyHana Internet Banking|Apa saja yang bisa dilakukan di MyHana Internet Banking? Yuk, cari tahu!||3016645||||HCMS|PK_VR_56
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_57|MyHana Mobile Banking|Bagaimana cara registrasi MyHana Mobile Banking melalui aplikasi? Yuk, cari tahu!||3016645||||HCMS|PK_VR_57
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_58|CBS|Yuk, cari tahu kenapa CBS itu penting!||3016645||||HCMS|PK_VR_58
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_59|Evaluation E-Channel|Sudahkah kamu memahami E-Channel di Hana Bank?||3016645||||HCMS|PK_VR_59
+MERGE|LegacyLearningItem||2020/16/10|4712/12/31|PK_VR_60|Evaluation (All Employee)|Sekarang saatnya mengevaluasi hasil pembelajaranmu mengenai APU PPT.||3016645||||HCMS|PK_VR_60
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_61|Evaluation (BM & BSM)|Sekarang saatnya mengevaluasi hasil pembelajaranmu mengenai APU PPT.||3016645||||HCMS|PK_VR_61
+MERGE|LegacyLearningItem||2020/21/12|4712/12/31|PK_VR_62|Cara Berkomunikasi yang Baik|Yuk, cari tahu cara berkomunikasi yang baik!||3016645||||HCMS|PK_VR_62
+MERGE|LegacyLearningItem||2020/24/2|4712/12/31|PK_VR_66|Evaluation|||3016645||||HCMS|PK_VR_66
+MERGE|LegacyLearningItem||2020/24/2|4712/12/31|PK_VR_67|e-Certificate Prog|||3016645||||HCMS|PK_VR_67
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_68|Sosialisasi Bea Materai|Yuk, cari tahu mengenai Bea Materai.||3016645||||HCMS|PK_VR_68
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_69|Sosialisasi Sustainable Finance|Cari tahu mengenai Sustainable Finance pada modul ini!||3016645||||HCMS|PK_VR_69
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_71|Google Link|Google Link.||3016645||||HCMS|PK_VR_71
+MERGE|LegacyLearningItem||2020/21/12|4712/12/31|PK_VR_72|Jenis Mempengaruhi Interpersonal|Kenali 4 jenis yang mempengaruhi interpersonal.||3016645||||HCMS|PK_VR_72
+MERGE|LegacyLearningItem||2020/21/12|4712/12/31|PK_VR_73|Tips & Tricks Assert|Yuk, cari tahu 3 poin penting Assertive Communication!||3016645||||HCMS|PK_VR_73
+MERGE|LegacyLearningItem||2020/3/12|4712/12/31|PK_VR_74|Opening |Yuk, cari tahu mengapa pengembangan layanan Digital Banking menjadi penting.||3016645||||HCMS|PK_VR_74
+MERGE|LegacyLearningItem||2020/3/12|4712/12/31|PK_VR_75|Revolusi Industri 4.0|Apa itu Digitalisasi dan Revolusi Industri 4.0? Cari tahu di modul ini.||3016645||||HCMS|PK_VR_75
+MERGE|LegacyLearningItem||2020/3/12|4712/12/31|PK_VR_76|How is Digitalization Banking in Indonesia|Bagaimana layanan Digital Banking di Indonesia?||3016645||||HCMS|PK_VR_76
+MERGE|LegacyLearningItem||2020/3/12|4712/12/31|PK_VR_77|Tren E-Channel |Yuk, cari tahu tren e-Channel di Indonesia.||3016645||||HCMS|PK_VR_77
+MERGE|LegacyLearningItem||2020/3/12|4712/12/31|PK_VR_78|E-Money|Bagaimana penggunaan E-Money di Indonesia?||3016645||||HCMS|PK_VR_78
+MERGE|LegacyLearningItem||2020/3/12|4712/12/31|PK_VR_79|Banking 4.0|Cari tahu bagaimana industri perbankan bertransformasi menjadi Banking 4.0!||3016645||||HCMS|PK_VR_79
+MERGE|LegacyLearningItem||2020/16/10|4712/12/31|PK_VR_80| e-Certificate APU PPT|e-Certificate APU PPT.||3016645||||HCMS|PK_VR_80
+MERGE|LegacyLearningItem||2020/13/10|4712/12/31|PK_VR_81|e-Certificate APU PPT (BM & BSM)|e-Certificate APU PPT (BM & BSM).||3016645||||HCMS|PK_VR_81
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_82|Opening Digital Banking (Old)|||3016645||||HCMS|PK_VR_82
+MERGE|LegacyLearningItem||2020/24/2|4712/12/31|PK_VR_83|Early Warning untuk Debitur dengan Collectability 2|Early Warning Delinquency (EW17).||3016645||||HCMS|PK_VR_83
+MERGE|LegacyLearningItem||2020/24/2|4712/12/31|PK_VR_84|Early Warning untuk Debitur dengan Posisi Pass (Collectability 1)|Early Warning Delinquency (EW17).||3016645||||HCMS|PK_VR_84
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_85|Test Module Upload|||3016645||||HCMS|PK_VR_85
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_86|Module Risaf|||3016645||||HCMS|PK_VR_86
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_87|Opening Know Your Company|Yuk, simak pembukaan course Know Your Company!||3016645||||HCMS|PK_VR_87
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_89|Fraud Awareness|Ada berbagai macam Fraud yang harus diketahui. Yuk, simak video nya!||3016645||||HCMS|PK_VR_89
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_90|Service Mindset|Yuk, pelajari materi untuk membangun citra diri yang lebih baik dan profesional!||3016645||||HCMS|PK_VR_90
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_91|Standard Grooming|Inilah Standard Grooming yang diterapkan oleh Hana Bank!||3016645||||HCMS|PK_VR_91
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_92|Closing Know Your Company|Closing.||3016645||||HCMS|PK_VR_92
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_93|Cara Berkomunikasi yang Baik (old)|||3016645||||HCMS|PK_VR_93
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_97|Test 1|||3016645||||HCMS|PK_VR_97
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_98|test 2|||3016645||||HCMS|PK_VR_98
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_100|upload_test|||3016645||||HCMS|PK_VR_100
+MERGE|LegacyLearningItem||2021/7/1|4712/12/31|PK_VR_102|Kuisioner Pakta Integritas Protokol Kesehatan|Yuk, isi Pakta Integritas Protokol Kesehatan!||3016645||||HCMS|PK_VR_102
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_104|test 3|||3016645||||HCMS|PK_VR_104
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_105|Test 4|||3016645||||HCMS|PK_VR_105
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_106|taraaa|||3016645||||HCMS|PK_VR_106
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_108|Cobaaa|||3016645||||HCMS|PK_VR_108
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_109|Cobaa 2|||3016645||||HCMS|PK_VR_109
+MERGE|LegacyLearningItem||2021/15/7|4712/12/31|PK_VR_111|Dashboard|Dashboard mis.hanabank.co.id||3016645||||HCMS|PK_VR_111
+MERGE|LegacyLearningItem||2021/15/7|4712/12/31|PK_VR_112|Report Inquiry |Report Inquiry mis.hanabank.co.id||3016645||||HCMS|PK_VR_112
+MERGE|LegacyLearningItem||2021/15/7|4712/12/31|PK_VR_113|Performance Calendar|Performance Calendar mis.hanabank.co.id||3016645||||HCMS|PK_VR_113
+MERGE|LegacyLearningItem||2021/15/7|4712/12/31|PK_VR_114|Customer Portal|Customer Portal mis.hanabank.co.id||3016645||||HCMS|PK_VR_114
+MERGE|LegacyLearningItem||2021/3/3|4712/12/31|PK_VR_115|Chapter 1 - Overview of AML - CFT |Yuk, cari tahu overview tentang pencucian uang!||3016645||||HCMS|PK_VR_115
+MERGE|LegacyLearningItem||2021/3/3|4712/12/31|PK_VR_116|Chapter 2 - Elements of AML - CFT |Ini dia elemen-elemen dari anti pencucian uang.||3016645||||HCMS|PK_VR_116
+MERGE|LegacyLearningItem||2021/3/3|4712/12/31|PK_VR_117|Chapter 3 - Reporting and Sanctions |Kebijakan, prosedur laporan dan sanksi terkait anti pencucian uang.||3016645||||HCMS|PK_VR_117
+MERGE|LegacyLearningItem||2021/3/3|4712/12/31|PK_VR_118|Post Test |Yuk, uji pemahamanmu terkait AML!||3016645||||HCMS|PK_VR_118
+MERGE|LegacyLearningItem||2021/8/3|4712/12/31|PK_VR_119|Work From Home|WFH Guidance.||3016645||||HCMS|PK_VR_119
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_120|Introduction_UAT|Introduction||3016645||||HCMS|PK_VR_120
+MERGE|LegacyLearningItem||2021/8/3|4712/12/31|PK_VR_121|Protokol Keluar Rumah|Yuk, cari tahu bagaimana Protokol Keluar Rumah pada modul ini!||3016645||||HCMS|PK_VR_121
+MERGE|LegacyLearningItem||2021/8/3|4712/12/31|PK_VR_122|Protokol Kedatangan Sampai di Rumah Setelah Berpergian|Yuk, cari tahu bagaimana Protokol Kedatangan Sampai di Rumah Setelah Berpergian.||3016645||||HCMS|PK_VR_122
+MERGE|LegacyLearningItem||2021/8/3|4712/12/31|PK_VR_124|Panduan Menerima Tamu|Bagaimana cara terbaik menerima tamu saat pandemi Covid-19? Cari tahu di modul ini.||3016645||||HCMS|PK_VR_124
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_125|Overview Asset Management|||3016645||||HCMS|PK_VR_125
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_126|Leader as Talent Manager|||3016645||||HCMS|PK_VR_126
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_127|APD|||3016645||||HCMS|PK_VR_127
+MERGE|LegacyLearningItem||2021/8/3|4712/12/31|PK_VR_128|5M untuk Pencegahan Penularan COVID-19|Apa saja 5M untuk Pencegahan Penularan COVID-19? Cari tahu di modul ini!||3016645||||HCMS|PK_VR_128
+MERGE|LegacyLearningItem||2021/8/3|4712/12/31|PK_VR_129|Tanggung Jawab Karyawan & Atasan|Cari tahu Tanggung Jawab Karyawan & Atasan pada modul ini!||3016645||||HCMS|PK_VR_129
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_130|How to Connect in Business - Refreshment Program for Personal Banker (FA)|Yuk cari tahu pada modul ini bagaimana cara kita menjadi penjual yang handal!||3016645||||HCMS|PK_VR_130
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_131|Bank Notes Identification|Bagaimana cara mengidentifikasi Bank Notes yang kita terima? Cari tahu di modul ini.||3016645||||HCMS|PK_VR_131
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_132|April 2021 (English Version)|Headquarter Compliance Training.||3016645||||HCMS|PK_VR_132
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_133|April 2021 (Korean Version)|Headquarter Compliance Training.||3016645||||HCMS|PK_VR_133
+MERGE|LegacyLearningItem||2020/13/10|4712/12/31|PK_VR_134|Standard Appearance|Tata cara berpenampilan secara profesional.||3016645||||HCMS|PK_VR_134
+MERGE|LegacyLearningItem||2021/8/3|4712/12/31|PK_VR_135|Protokol Libur Panjang|Simak Protokol Libur Panjang, pada modul ini.||3016645||||HCMS|PK_VR_135
+MERGE|LegacyLearningItem||2021/30/4|4712/12/31|PK_VR_136|Refreshment SMR Part 1|Peran Basel terhadap perkembangan penerapan manajemen risiko di Indonesia.||3016645||||HCMS|PK_VR_136
+MERGE|LegacyLearningItem||2021/30/4|4712/12/31|PK_VR_137|Refreshment SMR Part 2|Peran Basel terhadap perkembangan penerapan manajemen risiko di Indonesia.||3016645||||HCMS|PK_VR_137
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_138|Refreshment SMR Part 3|Peran Basel terhadap perkembangan penerapan manajemen risiko di Indonesia.||3016645||||HCMS|PK_VR_138
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_139|Overview |Overview||3016645||||HCMS|PK_VR_139
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_140|Laporan Laba Rugi (Income Statement)  |Yuk pelajari Laporan Laba Rugi (Income Statement).||3016645||||HCMS|PK_VR_140
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_141|Laporan Perubahan Modal/Ekuitas (Statement of Changes in Equity)  |Yuk pelajari Laporan Perubahan Modal/Ekuitas (Statement of Changes in Equity).||3016645||||HCMS|PK_VR_141
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_142|Neraca/Laporan Posisi Keuangan (Balance Sheet)  |Yuk pelajari Neraca/Laporan Posisi Keuangan (Balance Sheet).||3016645||||HCMS|PK_VR_142
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_143|Laporan Arus Kas (Statement of Cash Flow)|Yuk pelajari Laporan Arus Kas (Statement of Cash Flow).||3016645||||HCMS|PK_VR_143
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_144|Catatan Atas Laporan Keuangan (Notes of Financial Statement)  |Yuk pelajari Catatan Atas Laporan Keuangan (Notes of Financial Statement).||3016645||||HCMS|PK_VR_144
+MERGE|LegacyLearningItem||2021/8/3|4712/12/31|PK_VR_145|Work From Office|WFO Guidance.||3016645||||HCMS|PK_VR_145
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_146|May 2021 (English Version)|Headquarter Compliance Training.||3016645||||HCMS|PK_VR_146
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_147|Penutupan Rekening Nasabah Meninggal Dunia (oleh Ahli Waris)|Yuk, pelajari hal yang harus diperhatikan pada Penutupan Rekening Nasabah Meninggal Dunia.||3016645||||HCMS|PK_VR_147
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_148|Introduction Ngebank #caralain 1080p|Produk simpanan LINE Bank by Hana Bank.||3016645||||HCMS|PK_VR_148
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_149|Introduction Ngebank #CaraLain|Produk simpanan LINE Bank by Hana Bank.||3016645||||HCMS|PK_VR_149
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_150|Introduction Ngebank #caralain 480p|Produk simpanan LINE Bank by Hana Bank.||3016645||||HCMS|PK_VR_150
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_151|Go Education - Scholarship Program|Yuk, cari tahu mengenai Go Education pada modul ini!||3016645||||HCMS|PK_VR_151
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_152|Overview Basic Treasury|Overview Basic Treasury.||3016645||||HCMS|PK_VR_152
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_153|Pasar Uang (Money Market)|Definisi, tujuan, dan partisipan Pasar Uang.||3016645||||HCMS|PK_VR_153
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_154|Pasar Valuta Asing (Foreign Exchange Market)|Definisi, jenis, tujuan, dan partisipan Pasar Valuta Asing.||3016645||||HCMS|PK_VR_154
+MERGE|LegacyLearningItem||2021/7/1|4712/12/31|PK_VR_155|Pakta Integritas APU PPT|Kode Etik Anti Pencucian Uang dan Pencegahan Pendanaan Terorisme.||3016645||||HCMS|PK_VR_155
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_156|Four Eyes Principal|Apa itu Four Eyes Principal? Pelajari pada modul ini.||3016645||||HCMS|PK_VR_156
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_157|June 2021 (English Version)|Headquarter Compliance Training||3016645||||HCMS|PK_VR_157
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_158|June 2021 (Korean Version)|Headquarter Compliance Training||3016645||||HCMS|PK_VR_158
+MERGE|LegacyLearningItem||2020/13/10|4712/12/31|PK_VR_159|Business Manner Part 1|Standar Business Manner di Hana Bank.||3016645||||HCMS|PK_VR_159
+MERGE|LegacyLearningItem||2020/13/10|4712/12/31|PK_VR_160|Business Manner Part 2|Standar Business Manner di Hana Bank.||3016645||||HCMS|PK_VR_160
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_161|Test_eCertificate|||3016645||||HCMS|PK_VR_161
+MERGE|LegacyLearningItem||2021/17/6|4712/12/31|PK_VR_162|General Safety (Site)|Aspek-aspek safety di site.||3016645||||HCMS|PK_VR_162
+MERGE|LegacyLearningItem||2021/17/6|4712/12/31|PK_VR_163|How do I Look?|Identifikasi penerapan berpakaian sesuai ketentuan perusahaan.||3016645||||HCMS|PK_VR_163
+MERGE|LegacyLearningItem||2021/17/6|4712/12/31|PK_VR_164|Get Ready for Daily Sales Meeting!|Bersiaplah! Pengetahuanmu terkait Daily Sales Meeting akan diuji!||3016645||||HCMS|PK_VR_164
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_165|Prime Customer Service Policy Part 1 (High Risk)|Persyaratan Nasabah Prima.||3016645||||HCMS|PK_VR_165
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_166|Prime Customer Service Policy Part 2 (High Risk)|Ruang lingkup produk dan aktivitas layanan Nasabah Prima.||3016645||||HCMS|PK_VR_166
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_167|Prime Customer Service Policy Part 3 (High Risk)|Aspek pendukung layanan Nasabah Prima.||3016645||||HCMS|PK_VR_167
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_168|Proses Permintaan Approval Dokumen dan Tata Cara Serah Terima Dokumen (Medium Risk)|Approval dokumen di masa pandemi.||3016645||||HCMS|PK_VR_168
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_169|Evaluation Bancassurance|Yuk, uji pemahamanmu mengenai materi yang sudah kamu pelajari!||3016645||||HCMS|PK_VR_169
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_170|Evaluation Bond|Yuk, uji pemahamanmu mengenai materi yang sudah kamu pelajari!||3016645||||HCMS|PK_VR_170
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_171|Evaluation Mutual Fund|Yuk, uji pemahamanmu mengenai materi yang sudah kamu pelajari!||3016645||||HCMS|PK_VR_171
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_172|Bancassurance|Bancassurance Product Knowledge.||3016645||||HCMS|PK_VR_172
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_173|Bond|Bond Product Knowledge.||3016645||||HCMS|PK_VR_173
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_174|Mutual Fund|Mutual Fund Product Material.||3016645||||HCMS|PK_VR_174
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_175|Incoming Call|5 hal yang harus diperhatikan dalam menjawab telepon.||3016645||||HCMS|PK_VR_175
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_176|Outgoing Call|Hal yang harus dilakukan sebelum menelepon.||3016645||||HCMS|PK_VR_176
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_177|e-Certificate Refreshment SMR_QC|||3016645||||HCMS|PK_VR_177
+MERGE|LegacyLearningItem||2021/30/4|4712/12/31|PK_VR_178|e-Certificate Refreshment SMR|e-Certificate Refreshment SMR.||3016645||||HCMS|PK_VR_178
+MERGE|LegacyLearningItem||2021/7/1|4712/12/31|PK_VR_179|Pakta Integritas Penerapan Integritas Tinggi Dalam Setiap Aktivitas Kerja Periode 2021|Penerapan Integritas tinggi dalam setiap aktivitas kerja.||3016645||||HCMS|PK_VR_179
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_180|July 2021 (English Version) |Headquarter Compliance Training||3016645||||HCMS|PK_VR_180
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_181|First Line of Defense|Cari tahu cara menjalankan First Line of Defense pada modul ini.||3016645||||HCMS|PK_VR_181
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_182|Ketentuan Alarm|Ketentuan Alarm di Hana Bank.||3016645||||HCMS|PK_VR_182
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_183|Ketentuan CCTV|Ketentuan CCTV di Hana Bank.||3016645||||HCMS|PK_VR_183
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_184|Kebijakan Area Pelayanan (Low Risk)|Pedoman dalam menjalankan kegiatan operasional bank.||3016645||||HCMS|PK_VR_184
+MERGE|LegacyLearningItem||2021/7/1|4712/12/31|PK_VR_185|Quiz Kepo: Edisi Media Monitoring|Cek wawasan kamu mengenai Media Monitoring di sini!||3016645||||HCMS|PK_VR_185
+MERGE|LegacyLearningItem||2020/21/12|4712/12/31|PK_VR_186|Pengertian & Klasifikasi Dokumen|Yuk pahami pengertian & klasifikasi dokumen.||3016645||||HCMS|PK_VR_186
+MERGE|LegacyLearningItem||2020/21/12|4712/12/31|PK_VR_187|Perbedaan Graphonomy & Graphology|Apa saja perbedaan Graphonomy & Graphology? Cari tahu di modul ini.||3016645||||HCMS|PK_VR_187
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_188|Opening Service Standard|Cek kelengkapan atribut pelayanan di cabang dan standar penampilan di modul ini.||3016645||||HCMS|PK_VR_188
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_189|Setor Tunai|Standar Layanan Teller.||3016645||||HCMS|PK_VR_189
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_190|Tarik Tunai|Standar Layanan Teller.||3016645||||HCMS|PK_VR_190
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_191|Pembukaan Rekening|Standar Layanan Customer Service.||3016645||||HCMS|PK_VR_191
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_192|Bab 1 - Ketentuan Umum|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_192
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_193|Bab 2 - Prinsip Peraturan & Kode Etik|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_193
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_194|Bab 3 - Ruang Lingkup, Fungsi & Tujuan|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_194
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_195|Bab 4 - Asas & Norma Ketenagakerjaan|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_195
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_196|Bab 5 - Perencanaan & Informasi Ketenagakerjaan|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_196
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_197|Bab 6 - Cipta Lapangan Kerja|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_197
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_198|Bab 7 - Pendidikan & Pelatihan|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_198
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_199|Bab 8 - Hubungan Kerja (Part 1)|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_199
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_200|Bab 8 - Hubungan Kerja (Part 2)|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_200
+MERGE|LegacyLearningItem||2021/30/7|4712/12/31|PK_VR_201|Refreshment APU PPT 2021 (Semester 2)|Yuk, uji kembali pengetahuanmu terkait APU PPT!||3016645||||HCMS|PK_VR_201
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_202| Bab 9 - Perlindungan Ketenagakerjaan (Part 1)|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_202
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_203|Bab 9 - Perlindungan Ketenagakerjaan (Part 2)|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_203
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_204|Bab 9 - Perlindungan Ketenagakerjaan (Part 3)|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_204
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_205|Opening Peraturan Perusahaan|Podcast Peraturan Perusahaan||3016645||||HCMS|PK_VR_205
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_206|Wajibnya Peraturan Perusahaan dalam Perusahaan - Part 1|Podcast Peraturan Perusahaan||3016645||||HCMS|PK_VR_206
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_207|Wajibnya Peraturan Perusahaan dalam Perusahaan - Part 2|Podcast Peraturan Perusahaan||3016645||||HCMS|PK_VR_207
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_208|Bab 9 - Perlindungan Ketenagakerjaan (Part 4)|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_208
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_209|Bab 9 - Perlindungan Ketenagakerjaan (Part 5)|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_209
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_210|Bab 10 - Hubungan Industrial (Part 1)|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_210
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_211|Sistem Pengupahan - Part 1|Podcast Peraturan Perusahaan||3016645||||HCMS|PK_VR_211
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_212|Sistem Pengupahan - Part 2|Podcast Peraturan Perusahaan||3016645||||HCMS|PK_VR_212
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_213|Prinsip Kepatuhan terhadap Kode Etik & Peraturan Perusahaan|Podcast Peraturan Perusahaan||3016645||||HCMS|PK_VR_213
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_214|Hubungan Industrial dalam Konteks Pengawasan & Penindakan - Part 1|Podcast Peraturan Perusahaan||3016645||||HCMS|PK_VR_214
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_215|Hubungan Industrial dalam Konteks Pengawasan & Penindakan - Part 2|Podcast Peraturan Perusahaan||3016645||||HCMS|PK_VR_215
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_216|Know Your Employee|Podcast Peraturan Perusahaan||3016645||||HCMS|PK_VR_216
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_217|Bab 10 - Hubungan Industrial (Part 2)|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_217
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_218|Bab 10 - Hubungan Industrial (Part 3)|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_218
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_219|Bab 10 - Hubungan Industrial (Part 4)|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_219
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_220|Bab 11 - Penyelesaian Perselisihan Hubungan Industrial|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_220
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_221|Bab 12 - Penghargaan & Sanksi|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_221
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_222|Bab 13 - Parameter Sanksi & Hukuman|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_222
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_223|Bab 14 - Pemutusan Hubungan Kerja|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_223
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_224|Bab 15 - Penutup|Peraturan Perusahaan PT Bank KEB Hana Indonesia||3016645||||HCMS|PK_VR_224
+MERGE|LegacyLearningItem||2021/30/7|4712/12/31|PK_VR_225|e-Certificate Refreshment APU PPT 2021 (Semester 2)|e-Certificate Refreshment APU PPT 2021 (Semester 2)||3016645||||HCMS|PK_VR_225
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_226|Infographic Score|Infographic Score||3016645||||HCMS|PK_VR_226
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_227| Infographic Score 2|Infographic Score 2||3016645||||HCMS|PK_VR_227
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_228|Evaluation Basic APU PPT|Yuk, uji pengetahuanmu terkait Basic APU PPT!||3016645||||HCMS|PK_VR_228
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_229|e-Certification WM Products|||3016645||||HCMS|PK_VR_229
+MERGE|LegacyLearningItem||2020/11/12|4712/12/31|PK_VR_230|Banking Knowledge|Yuk, simak materi pengenalan perbankan!||3016645||||HCMS|PK_VR_230
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_231|Overview AML-CFT|Apa itu Anti-Money Laundering and Counter-Terrorism Financing? Cari tahu di modul ini.||3016645||||HCMS|PK_VR_231
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_232|Mandatory AML-CFT Program|Cari tahu pengertian program AML-CFT di modul ini.||3016645||||HCMS|PK_VR_232
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_233|High Risk Area|Kenali kebijakan dan prosedur area risiko tinggi.||3016645||||HCMS|PK_VR_233
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_234|Sanctions Program|Pahami mengenai tujuan dari Sanctions Program.||3016645||||HCMS|PK_VR_234
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_235|Reporting|Cari tahu kebijakan dan prosedur pelaporan pada modul ini!||3016645||||HCMS|PK_VR_235
+MERGE|LegacyLearningItem||2021/7/1|4712/12/31|PK_VR_236|Pakta Integritas Penerapan Strategi dan Budaya Kesadaran Anti Fraud Periode 2021|Treaty of Integrity Statement.||3016645||||HCMS|PK_VR_236
+MERGE|LegacyLearningItem||2021/30/7|4712/12/31|PK_VR_237|e-Certificate Basic APU PPT|e-Certificate Basic APU PPT||3016645||||HCMS|PK_VR_237
+MERGE|LegacyLearningItem||2021/15/7|4712/12/31|PK_VR_238|e-Certificate Bancassurance|e-Certificate Bancassurance||3016645||||HCMS|PK_VR_238
+MERGE|LegacyLearningItem||2021/15/7|4712/12/31|PK_VR_239|e-Certificate Bond|e-Certificate Bond||3016645||||HCMS|PK_VR_239
+MERGE|LegacyLearningItem||2021/15/7|4712/12/31|PK_VR_240|e-Certificate Mutual Fund|e-Certificate Mutual Fund||3016645||||HCMS|PK_VR_240
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_241|Evaluation Fraud Risk Awareness|Fraud Risk Awareness||3016645||||HCMS|PK_VR_241
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_242| August 2021 (English Version) - Part 1|Headquarter Compliance Training||3016645||||HCMS|PK_VR_242
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_243|August 2021 (English Version) - Part 2|Headquarter Compliance Training||3016645||||HCMS|PK_VR_243
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_244|Opening Fraud Risk Awareness|Tujuan pembelajaran Fraud Risk Awareness.||3016645||||HCMS|PK_VR_244
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_245|Anti Fraud Awareness|Pahami mengenai Anti Fraud Awareness pada modul ini!||3016645||||HCMS|PK_VR_245
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_246|Whistle Blowing|Cari tahu cara pelaporan terhadap indikasi fraud.||3016645||||HCMS|PK_VR_246
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_247|Case Study 1 - Sharing Password|DC:If theres similarity on the name of characters, its coincidentally unintentional||3016645||||HCMS|PK_VR_247
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_248|Case Study 2 - Penyalahgunaan ATM|DC:If theres similarity on the name of characters, its coincidentally unintentional||3016645||||HCMS|PK_VR_248
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_249|Case Study 3 - Mis-selling & Misrepresentation|DC:If theres similarity on the name of characters, its coincidentally unintentional||3016645||||HCMS|PK_VR_249
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_250|Case Study 4 - Fasilitas Kantor untuk Pribadi|DC:If theres similarity on the name of characters, its coincidentally unintentional||3016645||||HCMS|PK_VR_250
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_251|Case Study 5 - Penggelapan Asset|DC:If theres similarity on the name of characters, its coincidentally unintentional||3016645||||HCMS|PK_VR_251
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_252|Closing Fraud Risk Awareness|Pahami mengenai Internal Control Component pada module ini.||3016645||||HCMS|PK_VR_252
+MERGE|LegacyLearningItem||2021/30/7|4712/12/31|PK_VR_253|e-Certificate Fraud Risk Awareness|e-Certificate Fraud Risk Awareness||3016645||||HCMS|PK_VR_253
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_254| e-ARC (Electronic Account Receivable) Financing|Cari tahu mengenai e-ARC Financing di modul ini!||3016645||||HCMS|PK_VR_254
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_255|e-Certificate Basic APU PPT (Outsourcing Program)|e-Certificate Basic APU PPT (Outsourcing Program)||3016645||||HCMS|PK_VR_255
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_256|Klarifikasi Atas Uang Rupiah Yang Diragukan Keasliannya|Cari tahu cara klarifikasi atas uang rupiah yang diragukan keasliannya pada modul ini!||3016645||||HCMS|PK_VR_256
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_257|Ketentuan Hubungan Usaha (Political Exposed Person)|Pahami pentingnya memahami ketentuan hubungan usaha (PEP) pada modul ini!||3016645||||HCMS|PK_VR_257
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_258|How to Handle Transaction Dispute|Bagaimana cara menangani dispute? Cari tahu di modul ini!||3016645||||HCMS|PK_VR_258
+MERGE|LegacyLearningItem||2020/13/10|4712/12/31|PK_VR_259|Korean Corner|Percakapan dasar dalam Bahasa Korea.||3016645||||HCMS|PK_VR_259
+MERGE|LegacyLearningItem||2021/20/8|4712/12/31|PK_VR_260|e-Certificate Fraud Risk Awareness (Outsourcing Program)|e-Certificate Fraud Risk Awareness||3016645||||HCMS|PK_VR_260
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_261|September 2021 (English Version) |Headquarter Compliance Training||3016645||||HCMS|PK_VR_261
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_262|Prosedur & Produk Kredit|Pelajari prosedur dan produk kredit Hana Bank pada modul ini!||3016645||||HCMS|PK_VR_262
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_263|Kebijakan Safe Deposit Box (Low Risk)|Pelajari kebijakan Safe Deposit Box pada modul ini!||3016645||||HCMS|PK_VR_263
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_264|Kebijakan Operasional (High Risk)|Pelajari kebijakan operasional yang harus dilaksanakan di cabang pada modul ini!||3016645||||HCMS|PK_VR_264
+MERGE|LegacyLearningItem||2021/7/10|4712/12/31|PK_VR_265|AML-CTF Training for Branch (Quiz)|Yuk, uji pemahamanmu mengenai AML-CFT.||3016645||||HCMS|PK_VR_265
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_266|Test Video Player|Test Video Player||3016645||||HCMS|PK_VR_266
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_267|October 2021 (English Version) - Part 1|Headquarter Compliance Training||3016645||||HCMS|PK_VR_267
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_268|October 2021 (English Version) - Part 2 |Headquarter Compliance Training||3016645||||HCMS|PK_VR_268
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_269|Bancassurance Referral Program|Yuk cari tahu mengenai Bancassurance Referral Program pada modul ini!||3016645||||HCMS|PK_VR_269
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_270|Make Up Tutorial|Simak make up tutorial kurang dari 10 menit pada modul ini.||3016645||||HCMS|PK_VR_270
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_271|Hair Do Tutorial|Simak hair bun tutorial pada modul ini.||3016645||||HCMS|PK_VR_271
+MERGE|LegacyLearningItem||2021/1/3|4712/12/31|PK_VR_272|Kebijakan Dormant Account (Medium Risk)|Yuk cari tahu mengenai Rekening Dormant pada modul ini!||3016645||||HCMS|PK_VR_272
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_273|Kebijakan Mutual Fund (Medium Risk)|Pelajari kebijakan Mutual Fund pada modul ini.||3016645||||HCMS|PK_VR_273
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_274|Kebijakan Bancassurance Module 1 (High Risk)|Yuk cari tahu mengenai kebijakan Bancassurance pada modul ini!||3016645||||HCMS|PK_VR_274
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_275| Kebijakan Bancassurance Module 2 (High Risk)|Yuk cari tahu mengenai kebijakan Bancassurance pada modul ini!||3016645||||HCMS|PK_VR_275
+MERGE|LegacyLearningItem||2020/10/11|4712/12/31|PK_VR_276|Kebijakan Bancassurance Module 3 (High Risk)|Yuk cari tahu mengenai kebijakan Bancassurance pada modul ini!||3016645||||HCMS|PK_VR_276
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_277|Branch Service & Operational Excellence (Mid Year Assessment)|||3016645||||HCMS|PK_VR_277
+MERGE|LegacyLearningItem||2020/23/11|4712/12/31|PK_VR_278|Kebijakan Penanganan Transaksi Dispute (Medium Risk)|||3016645||||HCMS|PK_VR_278
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_280|trial 3|||3016645||||HCMS|PK_VR_280
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_281|trial 4|||3016645||||HCMS|PK_VR_281
+MERGE|LegacyLearningItem|||4712/12/31|PK_VR_282|graham potter|||3016645||||HCMS|PK_VR_282

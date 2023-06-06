@@ -1,0 +1,449 @@
+@layout('layouts.appfix')
+@section('title')
+<title>Moleawiz|Dashboard|Module| Setting Module</title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <!-- Plugins css -->
+  <!-- Plugins css -->
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css"
+        rel="stylesheet" type="text/css"/>
+  
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/JS/summernote/summernote.css" rel="stylesheet" type="text/css"/>
+  <!-- third party css end -->
+  <style>
+  .div-input-content-library .selectize-input {
+
+    overflow: auto;
+    height: 100px;
+  }
+  </style>
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+
+        <script>
+                let idContentLibraries = [];
+        </script>
+    @each(item in data.content_library_modules.rows)
+        <script>
+            idContentLibraries.push({{item.content_library_id}});
+        </script>
+    @endeach
+        <script>
+            console.log(idContentLibraries)
+        </script>
+
+
+    <!-- Start Content-->
+    <div class="content">
+
+      <!-- Start Content-->
+      <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+              <div class="page-title-box">
+                <div class="page-title-right" >
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('home')}}">HOME</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.journey.index')}}">Journey </a></li>
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.journey.course.index',{id : courseModule.getRelated('course').journey_id})}}">View Course </a></li>
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.journey.course.module.index',{id :  courseModule.course_id})}}">View Module </a></li>
+                    <li class="breadcrumb-item  breadcrumb-link active">Module Setting</li>
+                  </ol>
+                </div>
+                <div class="row">
+                  <div class="col-lg-2">
+                     <a   href="{{route('dashboard.journey.course.module.index',{id :  courseModule.course_id})}}" ><h4 class="page-title back-button  text-hover-color-scheme"><i class="mdi mdi-arrow-left"></i> Back</h4> </a>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+
+
+                <h4 class="header-title" style="font-size: 1.25rem;"> <b>Module Setting</b> <br/> {{data.fullname}}</h4>
+
+                <div class="row">
+                  <div class="col-lg-12" >
+                    <div class="alert alert-warning alert-block" role="alert" >
+                      <i class="mdi mdi-alert-outline mdi-18px me-2"></i> Note: Please be careful when using this feature!
+                    </div>
+                  </div>
+                  <div class="col-lg-7" style="padding-top:15px;">
+                  <form id="edit_module" action="{{ route('dashboard.journey.course.module.update', { id : data.id }) }}" enctype="multipart/form-data" method="POST">
+                {{ csrfField() }}
+
+                  <input type="hidden" name="course_module_id" id="course_module_id" value="{{courseModule.id}}">
+                  <div class="row mb-3">
+                    <label  class="col-5 col-xl-4 col-form-label" style="color:#6D757D"  for="description" >Description
+                      </label>
+                    <div class="col-8 col-xl-8">
+                      <textarea rows="4" id="description" class="form-control" style="color:#333333;"  name="description">{{data.description}}</textarea>
+                    </div>
+                    @if(hasErrorFor('description'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                          role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('description') }}
+                      </div>
+                    @endif
+                  </div>
+
+                  <div class="row mb-3">
+                    <label  class="col-5 col-xl-4 col-form-label" style="color:#6D757D" for="attempt" >Max Learning Attempt
+                      </label>
+                    <div class="col-8 col-xl-8">
+                      <input type="number" id="attempt" name="attempt" class="form-control" style="color:#333333;" value="{{data.attempt}}" required>
+                    </div>
+                    @if(hasErrorFor('attempt'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                          role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('attempt') }}
+                      </div>
+                    @endif
+                  </div>
+
+                  <div class="row mb-3">
+                    <label  class="col-5 col-xl-4 col-form-label" style="color:#6D757D"  for="max_point_attempt" >Max Point Attempt
+                      </label>
+                    <div class="col-8 col-xl-8">
+                      <input type="number" id="max_point_attempt" name="max_point_attempt" class="form-control" style="color:#333333;" value="{{data.max_point_attempt}}" required>
+                    </div>
+                    @if(hasErrorFor('max_point_attempt'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                          role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('max_point_attempt') }}
+                      </div>
+                    @endif
+                  </div>
+
+                  <div class="row mb-3">
+                    <label  class="col-5 col-xl-4 col-form-label" style="color:#6D757D"  for="is_placement_test" >Placement Test
+                    </label>
+                    <div class="col-8 col-xl-8">
+                      <select name="is_placement_test" class="form-select form-select-custom" style="color:#333333;" id="is_placement_test" required>
+                          <option value="1" >Yes</option>
+                          <option value="0" >No</option>
+                      </select>
+                    </div>
+                    @if(hasErrorFor('is_placement_test'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                          role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('is_placement_test') }}
+                      </div>
+                    @endif
+                  </div>
+                  <div class="row mb-3">
+                    <label  class="col-5 col-xl-4 col-form-label" style="color:#6D757D" for="unity" >Unity
+                      </label>
+                    <div class="col-8 col-xl-8">
+                       <select name="unity" class="form-select form-select-custom" style="color:#333333;" id="unity" required>
+                          <option value="1" >Yes</option>
+                          <option value="0" >No</option>
+                        </select>
+                    </div>
+                    @if(hasErrorFor('unity'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                          role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('unity') }}
+                      </div>
+                    @endif
+                  </div>
+
+                  <div class="row mb-3">
+                    <label  class="col-5 col-xl-4 col-form-label" style="color:#6D757D" for="module_type" >Type
+                      </label>
+                    <div class="col-8 col-xl-8">
+                      <select name="module_type" class="form-select form-select-custom" style="color:#333333;" id="module_type" required>
+                        <option value="1" >Essential</option>
+                        <option value="2" >Supporting</option>
+                      </select>
+                    </div>
+                    @if(hasErrorFor('module_type'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                          role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('module_type') }}
+                      </div>
+                    @endif
+                  </div>
+
+                  <div class="row mb-3">
+                    <label  class="col-5 col-xl-4 col-form-label" style="color:#6D757D" for="has_rating"> Has Rating
+                      </label>
+                    <div class="col-8 col-xl-8">
+                      <select name="has_rating" class="form-select form-select-custom" style="color:#333333;" id="has_rating" required>
+                        <option value="0" >No</option>
+                        <option value="1" >Yes</option>
+                      </select>
+                    </div>
+                    @if(hasErrorFor('has_rating'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                          role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('has_rating') }}
+                      </div>
+                    @endif
+                  </div>
+
+
+
+                  <div class="row mb-3" >
+                    <label  class="col-5 col-xl-4 col-form-label" style="color:#6D757D" for="learning_effort" >Learning effort (Between 0 - 5)
+                      </label>
+                    <div class="col-8 col-xl-8">
+                      <input type="number"   min="0" max="5" id="learning_effort" name="learning_effort" class="form-control" style="color:#333333;" value="{{data.learning_effort}}" required>
+                    </div>
+                    @if(hasErrorFor('learning_effort'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                          role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('learning_effort') }}
+                      </div>
+                    @endif
+                  </div>
+
+                  <div class="row mb-3" >
+                    <label  class="col-5 col-xl-4 col-form-label" style="color:#6D757D" for="module_category" >Category
+                      </label>
+                    <div class="col-8 col-xl-8">
+                      <select name="module_category" class="" style="color:#333333;" id="module_category" required>
+                          <option value="0" >- Select - </option>
+                          @each( item in   modulesCategory.rows )
+                              <option value="{{item.id}}" >{{item.name}}</option>
+                            @endeach
+                      </select>
+                    </div>
+                    @if(hasErrorFor('module_category'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                          role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('module_category') }}
+                      </div>
+                    @endif
+                  </div>
+
+                  <div class="row mb-3">
+                    <label  class="col-5 col-xl-4 col-form-label" style="color:#6D757D" for="id_content_libraries" >Content Library
+                      </label>
+                    <div class="col-8 col-xl-8 div-input-content-library">
+                      <select multiple="multiple" class="" style="color:#333333;" id="id_content_libraries" name="id_content_libraries[]"
+                                                data-plugin="multiselect">
+
+                          @each( item in contentLibraries.rows)
+                          <script>
+                              if (idContentLibraries.includes({{item.id}})) {
+                              document.write("<option value='{{item.id}}' selected >{{ item.name }}</option>")
+
+                              } else {
+                              document.write("<option value='{{item.id}}' >{{ item.name }}</option>")
+                              }
+
+                          </script>
+
+                          @endeach
+
+                      </select>
+                    </div>
+                    @if(hasErrorFor('id_content_libraries'))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                          role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('id_content_libraries') }}
+                      </div>
+                    @endif
+                  </div>
+
+                  <div class="row mb-3">
+                    <label  class="col-5 col-xl-4 col-form-label" style="color:#6D757D" for="trailer_file" >Trailer
+                      </label>
+                    <div class="col-8 col-xl-8">
+                      <input type="file" name="trailer_file" class="form-control" style="color:#333333;" id="trailer_file"  />
+                    </div>
+                    @if(hasErrorFor(''))
+                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                          role="alert">
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
+                        {{ getErrorFor('') }}
+                      </div>
+                    @endif
+                  </div>
+
+
+
+                  <div class="row mb-3">
+                    <label class="col-5 col-xl-4 form-label"></label>
+                    <div class="col-8 col-xl-8">
+
+                      <button type="submit" id="edit_module" class="btn btn-danger waves-effect waves-light col-12 col-xl-8"><i class="fas fa-save"></i>&#160; Save Changes
+                      </button>
+                      <a   href="{{route('dashboard.journey.course.module.index',{id :  courseModule.course_id})}}" class="btn btn-light waves-effect col-3 col-xl-3"
+                          style="background-color:#F0F2F7; color:#6D757D; float: right;">Cancel
+                       </a>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              </div>
+                <!-- end row-->
+
+              </div> <!-- end card-body -->
+            </div> <!-- end card -->
+          </div><!-- end col -->
+        </div>
+        <!-- end row -->
+
+
+        <!-- RADIOS -->
+
+
+      </div> <!-- container -->
+
+    </div> <!-- content -->
+
+
+    <!-- Footer Start -->
+    @include('layouts.footer')
+    <!-- end Footer -->
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Plugins js -->
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+  <script src="{{ BASE_URL() }}/JS/summernote/summernote.js"></script>
+  <script src="{{ BASE_URL() }}/JS/dropify/src/js/dropify.js"></script>
+
+  <script>
+    $(document).ready(function () {
+          $(".mlw-li").hide()
+          $(".mlw-li-home").show()
+         //$('#is_force').val("{{data.is_force}}")
+
+          $('#is_placement_test').val("{{data.is_placement_test}}");
+          $('#unity').val("{{data.unity}}");
+          $('#module_type').val("{{data.module_type}}");
+          $('#has_rating').val("{{data.has_rating}}");
+          $('#module_category').val("{{data.module_category}}");
+          let selectorModuleCategory = $('#module_category').selectize({
+
+          });
+           let selectorIdContentLibraries = $('#id_content_libraries').selectize({
+            plugins: ['remove_button'],
+          });
+
+
+
+    });
+
+
+  </script>
+  <!-- third party js ends -->
+@endsection

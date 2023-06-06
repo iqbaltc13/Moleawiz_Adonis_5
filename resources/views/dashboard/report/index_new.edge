@@ -1,0 +1,1595 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>Moleawiz|Dashboard|Report| Report</title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/JS/select2-develop/dist/css/select2.min.css" rel="stylesheet" type="text/css"/>
+
+  <!-- third party css end -->
+  <style>
+    btn-add:hover {
+
+      background-color: #DF2333 !important;
+      color: white !important;
+    }
+    .dataTables_length_custom{
+    padding-bottom: 0px!important;
+  }
+  .dataTables_filter_custom{
+    padding-bottom: 0px !important;
+  }
+  .search-datatable {
+      border-radius: 30px!important;
+      padding-bottom: -5px!important;
+        /* background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgICB2ZXJzaW9uPSIxLjEiICAgaWQ9InN2ZzQ0ODUiICAgdmlld0JveD0iMCAwIDIxLjk5OTk5OSAyMS45OTk5OTkiICAgaGVpZ2h0PSIyMiIgICB3aWR0aD0iMjIiPiAgPGRlZnMgICAgIGlkPSJkZWZzNDQ4NyIgLz4gIDxtZXRhZGF0YSAgICAgaWQ9Im1ldGFkYXRhNDQ5MCI+ICAgIDxyZGY6UkRGPiAgICAgIDxjYzpXb3JrICAgICAgICAgcmRmOmFib3V0PSIiPiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+ICAgICAgICA8ZGM6dHlwZSAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4gICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPiAgICAgIDwvY2M6V29yaz4gICAgPC9yZGY6UkRGPiAgPC9tZXRhZGF0YT4gIDxnICAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLC0xMDMwLjM2MjIpIiAgICAgaWQ9ImxheWVyMSI+ICAgIDxnICAgICAgIHN0eWxlPSJvcGFjaXR5OjAuNSIgICAgICAgaWQ9ImcxNyIgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjAuNCw4NjYuMjQxMzQpIj4gICAgICA8cGF0aCAgICAgICAgIGlkPSJwYXRoMTkiICAgICAgICAgZD0ibSAtNTAuNSwxNzkuMSBjIC0yLjcsMCAtNC45LC0yLjIgLTQuOSwtNC45IDAsLTIuNyAyLjIsLTQuOSA0LjksLTQuOSAyLjcsMCA0LjksMi4yIDQuOSw0LjkgMCwyLjcgLTIuMiw0LjkgLTQuOSw0LjkgeiBtIDAsLTguOCBjIC0yLjIsMCAtMy45LDEuNyAtMy45LDMuOSAwLDIuMiAxLjcsMy45IDMuOSwzLjkgMi4yLDAgMy45LC0xLjcgMy45LC0zLjkgMCwtMi4yIC0xLjcsLTMuOSAtMy45LC0zLjkgeiIgICAgICAgICBjbGFzcz0ic3Q0IiAvPiAgICAgIDxyZWN0ICAgICAgICAgaWQ9InJlY3QyMSIgICAgICAgICBoZWlnaHQ9IjUiICAgICAgICAgd2lkdGg9IjAuODk5OTk5OTgiICAgICAgICAgY2xhc3M9InN0NCIgICAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgwLjY5NjQsLTAuNzE3NiwwLjcxNzYsMC42OTY0LC0xNDIuMzkzOCwyMS41MDE1KSIgICAgICAgICB5PSIxNzYuNjAwMDEiICAgICAgICAgeD0iLTQ2LjIwMDAwMSIgLz4gICAgPC9nPiAgPC9nPjwvc3ZnPg==);
+        background-repeat: no-repeat;
+        background-color: #fff;
+        background-position: 0px 3px !important; */
+
+  }
+
+  .tr-odd{
+    border-color: transparent!important;
+    background-color: #F7F9FC!important;
+  }
+  .tr-even{
+    border-color: transparent!important;
+    background-color: #FFFFFF!important;
+  }
+  .pd-top-pagination{
+    padding-top: 16px!important;;
+  }
+  .add-button{
+    background-color: #FFFFFF!important;
+    border-color: #6D757D!important;
+  }
+  .add-button:hover {
+    border-color: #DF2333!important;
+    background-color: #DF2333!important;
+    color: white!important;
+  }
+  .page-item.active .page-link {
+      /* z-index: 3; */
+      position: relative;
+      display: block;
+      color: #fff;
+      background-color: #DF2333;
+      border-color: #DF2333;
+  }
+
+
+  .bottom-wrapper {
+      margin-top: 0.5em;
+  }
+  .top-wrapper {
+    margin-bottom: 0.5em;
+  }
+  .div-input-multiple .selectize-input {
+
+    overflow: auto;
+    height: 100px;
+  }
+  /* .card-drop:hover{
+    color: #DF2333!important;
+  } */
+  </style>
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+    <div class="content">
+      @loggedIn
+      <input type="hidden" value="{{authUser.firstname +' '+ authUser.lastname}}" id="auth_name">
+      @else
+        <script>
+          window.location.replace("{{route('login')}}");
+        </script>
+        @endloggedIn
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box">
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+
+                  </ol>
+                </div>
+                <div class="row">
+                     <h4 class="page-title">REPORT</h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+
+
+                  <div  class="responsive-table-plugin dataTables_wrapper dt-bootstrap4 no-footer">
+                  <div class="row">
+                    <!--  <div class="btn-toolbar" style="padding-bottom:8px">
+                      <div class="btn-group dropdown-btn-group pull-left" style="padding-bottom:20px;">
+
+                      </div>
+                      <div class="btn-group dropdown-btn-group pull-right" style="padding-bottom:20px;">
+
+
+                      </div>
+                    </div>  -->
+                     <div class="col-lg-6" style="">
+                      <div class="row mb-3">
+                        <label for="reportType" class="col-5 col-xl-2 form-label">Report Type</label>
+                        <div class="col-8 col-xl-8">
+                          <select name="reportType" id="reportType" class="form-select form-select-custom" style="color:#333333;"  >
+                            <option value=""  selected="selected">Select report type</option>
+                            <optgroup label="Learner Status">
+                              <option value="registeredUsersNew">Registered Learners</option>
+                              <option value="usersAccessNew">Access Learners</option>
+                              <option value="usersAccessDetailNew">Detail of Access Learners </option>
+                              <option value="activeUsersNew">Active Learners </option>
+                              <option value="contentLibraryCompletionsNew">Content Library Completions </option>
+                            </optgroup>
+                            <optgroup label="Learning Journey">
+                              <option value="learningCompletionsVersionOne">Learning Completions by Program</option>
+                              <option value="learningCompletionsVersionThree">Learning Completions by Multiple Program</option>
+                              <option value="learningCompletionsVersionTwo">Learning Completions by Course</option>
+                              <option value="point-xtra">Learning Point</option>
+                              <option value="detail-point-xtra">Detail of Learning Point</option>
+                              <option value="certificateNumber">Certificate Number</option>
+                              <option value="summaryLearningCompletionsNew">Summary Learning Completions</option>
+                              <option value="ytdSummaryLearningCompletionsNew">Year to Date of Summary Learning Completions</option>
+                              <option value="ytmSummaryLearningCompletionsNew">Year to Month of Summary Learning Completions</option>
+                              <option value="mtdSummaryLearningCompletionsNew">Month to Date of Summary Learning Completions</option>
+                              <option value="learningLogNew">Learning Logs</option>
+                              <option value="learninghoursbyprogram">Learning Hours by Program</option>
+                              <option value="learninghoursbymultiprogram">Learning Hours by Multiple Program</option>
+                              <option value="learninghoursdetail">Detail of Learning Hours</option>
+                            </optgroup>
+                          </select>
+                        </div>
+                      </div>
+
+
+
+                     </div>
+
+                     <div class="col-lg-5 " style="">
+
+                      <!--<div class="row mb-3 field-report field-date-range-enrol" style="">
+                        <label for="range-date-enrol" style="padding-left:80px;" class="col-5 col-xl-4 col-form-label"  style="color:#6D757D">
+                            Date Range
+                        </label>
+                        <div class="col-8 col-xl-8" style=padding-left:100px;>
+                          <div class="input-group input-group-merge">
+                            <input type="text" name="range-date-enrol" id="range-date-enrol" class="form-control" style="color:#333333;">
+                            <div class="input-group-text">
+                              <i class="fas fa-calendar-alt"></i>
+                            </div>
+                          </div>
+                        @if(hasErrorFor('range-date-enrol'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                              role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('range-date-enrol') }}
+                          </div>
+                        @endif
+                        </div>
+
+                      </div>-->
+
+                       <div class="row mb-3 field-report field-date-range-enrol">
+                        <label for="range-date-enrol" class="col-5 col-xl-3 col-form-label ">Date Range
+                        </label>
+                        <div class="col-8 col-xl-9" >
+                          <div class="input-group input-group-merge">
+                              <input type="text" name="range-date-enrol" id="range-date-enrol" class="form-control" style="color:#333333;">
+                              <div class="input-group-text">
+                                <i class="fas fa-calendar-alt"></i>
+                              </div>
+                          </div>
+                        </div>
+                         @if(hasErrorFor('range-date-enrol'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                              role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('range-date-enrol') }}
+                          </div>
+                        @endif
+
+                      </div>
+
+
+
+
+
+                     </div>
+
+                  <hr style="">
+                  <br>
+                  <div class="col-lg-6" style="padding-bottom: 15px;">
+                    <div class="row mb-3 field-report field-content-library">
+                      <label for="contentLibraryData" class="col-5 col-xl-2 col-form-label"  style="color:#6D757D">
+                          Content Library
+                      </label>
+                      <div class="col-8 col-xl-8">
+                        <input type="hidden" id="contentlibraryID" name="contentlibraryID" value="0"/>
+                        <select class="" style="color:#333333;" id="contentlibraryData" name="contentlibraryData">
+                          <option selected value="0">Select content library</option>
+                        </select>
+                        @if(hasErrorFor('contentlibraryData'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                              role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('contentlibraryData') }}
+                          </div>
+                        @endif
+                      </div>
+
+                    </div>
+                    <div class="row mb-3 field-report field-journey">
+                      <label for="journeyData" class="col-5 col-xl-2 col-form-label"  style="color:#6D757D">
+                          Program
+                      </label>
+                      <div class="col-8 col-xl-8">
+                        <input type="hidden" id="journeyID" name="journeyID" value="0"/>
+                        <select class="" style="color:#333333;" id="journeyData" name="journeyData">
+                          <option selected value="0">Select program</option>
+                        </select>
+                        @if(hasErrorFor('journeyData'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                              role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('journeyData') }}
+                          </div>
+                        @endif
+                      </div>
+
+                    </div>
+
+                    <div class="row mb-3 field-report field-journey-multiple">
+                      <label for="journeyMultipleData" class="col-5 col-xl-2 col-form-label"  style="color:#6D757D">
+                          Programs
+                      </label>
+                      <div class="col-8 col-xl-8 div-input-multiple">
+                        <input type="hidden" id="journeyMultipleID" name="journeyMultipleID" value="0"/>
+                        <select class="" style="color:#333333;" id="journeyMultipleData" name="journeyMultipleData" multiple>
+                        </select>
+                        @if(hasErrorFor('journeyMultipleData'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                              role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('journeyMultipleData') }}
+                          </div>
+                        @endif
+                      </div>
+
+                    </div>
+
+                    <div class="row mb-3 field-report field-course">
+                      <label for="courseData" class="col-5 col-xl-2 col-form-label"  style="color:#6D757D">
+                        Course
+                      </label>
+                      <div class="col-8 col-xl-8">
+                        <input type="hidden" id="courseID" name="courseID" value="0"/>
+                        <select class="" style="color:#333333;" name="courseData" id="courseData">
+                          <option selected value="0">Select course</option>
+                        </select>
+                        @if(hasErrorFor('courseData'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                              role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('courseData') }}
+                          </div>
+                        @endif
+                      </div>
+
+                    </div>
+
+                     <div class="row mb-3 field-report field-course-multiple">
+                      <label for="courseMultipleData" class="col-5 col-xl-2 col-form-label"  style="color:#6D757D">
+                          Courses
+                      </label>
+                      <div class="col-8 col-xl-8 div-input-multiple">
+                        <input type="hidden" id="courseMultipleID" name="courseMultipleID" value="0"/>
+                        <select class="" style="color:#333333;" id="courseMultipleData" name="courseMultipleData" multiple>
+                        </select>
+                        @if(hasErrorFor('courseMultipleData'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                              role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('courseMultipleData') }}
+                          </div>
+                        @endif
+                      </div>
+
+                    </div>
+
+                    <div class="row mb-3 field-report field-sort-by">
+                      <label for="sortBy" class="col-5 col-xl-2 col-form-label"  style="color:#6D757D">
+                        Sort By
+                      </label>
+                      <div class="col-8 col-xl-8">
+
+                        <select class="form-select form-select-custom" style="color:#333333;" name="sortBy" id="sortBy">
+                          <option selected value="activeUser">Active</option>
+												  <option value="inactiveUser">Inactive</option>
+												  <option value="0"> - All - </option>
+                        </select>
+                        @if(hasErrorFor('sortBy'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                              role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('sortBy') }}
+                          </div>
+                        @endif
+                      </div>
+
+                    </div>
+
+
+                    <div class="row mb-3 field-report field-master-learner">
+                      <label for="sortBy" class="col-5 col-xl-2 col-form-label"  style="color:#6D757D">
+                        Name or NIP
+                      </label>
+                      <div class="col-8 col-xl-8">
+
+                        <select class="" style="color:#333333;" name="learner" id="learner">
+                          <option selected value="0">- Select Learner -</option>
+
+                        </select>
+                        @if(hasErrorFor('learner'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                              role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('learner') }}
+                          </div>
+                        @endif
+                      </div>
+
+                    </div>
+
+                    <div class="row mb-3 field-report field-module-type">
+                        <label for="module_type_Data" class="col-5 col-xl-2 col-form-label"  style="color:#6D757D">
+                          Module Type
+                        </label>
+                        <div class="col-8 col-xl-8">
+                          <input type="hidden" id="module_type_ID" name="module_type_ID" value="0"/>
+                          <select class="form-select form-select-custom" style="color:#333333;" id="module_type_Data" name="module_type_Data">
+                            <option selected value="0"> - select - </option>
+                            <option value="1">Essential</option>
+                            <option value="2">Supporting</option>
+                          </select>
+                          @if(hasErrorFor('module_type_ID'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('module_type_ID') }}
+                            </div>
+                          @endif
+                        </div>
+                      </div>
+
+
+
+                  </div>
+                  <div class="col-lg-5" style="padding-bottom: 15px;">
+
+
+
+                      <div class="row mb-3 field-report field-directorate">
+                        <label for="directorateData" class="col-5 col-xl-3 col-form-label"  style="color:#6D757D">
+                          Directorate
+                        </label>
+                        <div class="col-8 col-xl-9">
+                          <input type="hidden" id="directorateID" name="directorateID" value="0"/>
+                          <select class="" style="color:#333333;" id="directorateData" name="directorateData">
+                            <option selected value="0">Select directorate</option>
+                          </select>
+                          @if(hasErrorFor('directorateID'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('directorateID') }}
+                            </div>
+                          @endif
+                        </div>
+
+                      </div>
+
+                      <div class="row mb-3 field-report field-subdirectorate">
+                        <label for="subDirectorateData" class="col-5 col-xl-3 col-form-label"  style="color:#6D757D">
+                          Sub Directorate
+                        </label>
+                        <div class="col-8 col-xl-9">
+
+                          <input type="hidden" id="subDirectorateID" name="subDirectorateID" value="0"/>
+                          <select class="" style="color:#333333;" id="subDirectorateData" name="subDirectorateData">
+                            <option selected value="0">Select sub directorate</option>
+                          </select>
+                          @if(hasErrorFor('subDirectorateData'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('subDirectorateData') }}
+                            </div>
+                          @endif
+                        </div>
+
+                      </div>
+
+                      <div class="row mb-3 field-report field-module-multiple">
+                        <label for="moduleMultipleData" class="col-5 col-xl-3 col-form-label"  style="color:#6D757D">
+                            Modules
+                        </label>
+                        <div class="col-8 col-xl-9 div-input-multiple">
+                          <input type="hidden" id="moduleMultipleID" name="moduleMultipleID" value="0"/>
+                          <select class="" style="color:#333333;" id="moduleMultipleData" name="moduleMultipleData" multiple>
+                          </select>
+                          @if(hasErrorFor('moduleMultipleData'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('moduleMultipleData') }}
+                            </div>
+                          @endif
+                        </div>
+
+                      </div>
+
+
+                      <div class="row mb-3 field-report field-type-pointxtra">
+                        <label for="pointXtraType" class="col-5 col-xl-3 col-form-label"  style="color:#6D757D">
+                          Type
+                        </label>
+                        <div class="col-8 col-xl-9">
+
+
+                          <select class="form-select form-select-custom" style="color:#333333;" id="pointXtraType" name="pointXtraType">
+                            <option selected value="usersAll">All Users</option>
+												    <option value="users15">Highest Users (Top 15)</option>
+                          </select>
+                          @if(hasErrorFor('pointXtraType'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('pointXtraType') }}
+                            </div>
+                          @endif
+                        </div>
+
+                      </div>
+
+                       <div class="row mb-3 field-report field-date-range-completion">
+                        <label for="range-date-completion" class="col-5 col-xl-3 col-form-label ">Completion Range
+                        </label>
+                        <div class="col-8 col-xl-9" >
+                          <div class="input-group input-group-merge">
+                              <input type="text" name="range-date-completion" id="range-date-completion" class="form-control" style="color:#333333;">
+                              <div class="input-group-text">
+                                <i class="fas fa-calendar-alt"></i>
+                              </div>
+                          </div>
+                        </div>
+                         @if(hasErrorFor('range-date-completion'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                              role="alert">
+                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                    aria-label="Close"></button>
+                            {{ getErrorFor('range-date-completion') }}
+                          </div>
+                        @endif
+
+                      </div>
+
+                  </div>
+
+                  <div class="col-lg-1" style="padding-bottom: 15px;">
+                  </div>
+
+                  <div class="col-lg-6" style="padding-bottom: 15px;">
+                    <div class="row mb-3">
+                      <label for="submitData" class="col-5 col-xl-2 col-form-label"  style="color:#6D757D">
+
+                      </label>
+                      <div class="col-8 col-xl-8">
+                        <button type="submit" id="download_report" class="btn btn-danger waves-effect waves-light  col-xl-12"><i
+                          class="mdi mdi-download mdi-18px"></i> Download
+                        </button>
+                      </div>
+
+                    </div>
+                  </div>
+
+                  </div>
+                  </div>
+
+
+
+
+                  <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                      <div class="col align-self-start">
+
+                      </div>
+
+                      <div class="col align-self-end">
+
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="btn-toolbar" style="padding-bottom:8px">
+                        <div class="btn-group dropdown-btn-group pull-left" style="padding-bottom:20px;">
+
+                        </div>
+                        <div class="btn-group dropdown-btn-group pull-right" style="padding-bottom:20px;">
+
+
+                        </div>
+                      </div>
+
+                      </div>
+                    </div>
+
+
+
+                </div> <!-- end card body-->
+              </div> <!-- end card -->
+            </div><!-- end col-->
+          </div>
+          <!-- end row-->
+
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+
+    <!-- Footer Start -->
+    @include('layouts.footer')
+
+    <!-- end Footer -->
+
+  </div>
+  @include('layouts.modal_and_alert')
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Sweet Alerts js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/JS/select2-develop/dist/js/select2.min.js"></script>
+
+
+  <script>
+    let dataId =  0;
+    let urlReport = '';\
+    let dataJourneySelect = $('#journeyData').selectize();
+    let datacontentLibrarySelect = $('#contentlibraryData').selectize();
+    let dataJourneyMultipleSelect = $('#journeyMultipleData').selectize();
+    let dataCourseMultipleSelect = $('#courseMultipleData').selectize();
+    let dataModuleMultipleSelect = $('#moduleMultipleData').selectize();
+    let dataLearnerSelect = $('#learner').selectize();
+    let dataCourseSelect = $('#courseData').selectize();
+    let dataDirectorateSelect = $('#directorateData').selectize();
+    let dataSubDirectorateSelect = $('#subDirectorateData').selectize();
+    let dataSubDirectorateOptions = [];
+    let dataContentLibraryOptions = [];
+    let startDateEnrol = "";
+    let endDateEnrol  = "";
+    let startDateCompletion = "";
+    let endDateCompletion  = "";
+    let directorateID = "";
+    let subDirectorateID = "";
+    let moduletypeID = "";
+    let journeyID = "";
+    let contentLibraryID = "";
+    let reportType= "";
+    let sortBy= "activeUser";
+    let pointXtraType = "usersAll";
+    let learnerId = 0;
+    let arrJourneyId = [];
+    let arrCourseId = [];
+    let arrModuleId = [];
+
+
+
+    $(document).ready(function () {
+
+      $(".mlw-li").hide()
+      $(".mlw-li-dashboard").show()
+      @if(flashMessage('notification'))
+
+        /*Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: "{{flashMessage('notification')}}",
+
+        });*/
+
+        $("#title-paragraph-alert-modal-success").html("Success!");
+        $("#content-paragraph-alert-modal-success").html("{{flashMessage('notification')}}");
+        $("#continue-alert-modal-success").html("Continue");
+        $("#info-alert-modal-success").modal('show');
+
+      @endif
+
+
+
+      @if(flashMessage('failMessage'))
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Failed!',
+          text: "{{flashMessage('failMessage')}}",
+
+        })
+      @endif
+
+      @if(flashMessage('successMessage'))
+
+        /*Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: "{{flashMessage('successMessage')}}",
+
+        })*/
+        $("#title-paragraph-alert-modal-success").html("Success!");
+        $("#content-paragraph-alert-modal-success").html("{{flashMessage('successMessage')}}");
+        $("#continue-alert-modal-success").html("Continue");
+        $("#info-alert-modal-success").modal('show');
+      @endif
+
+      const today = new Date()
+      const yesterday = new Date(today)
+      yesterday.setDate(yesterday.getDate() - 1)
+      let todaySplit = today.toLocaleString().split(',')[0].split('/');
+      let yesterdaySplit = yesterday.toLocaleString().split(',')[0].split('/');
+      $('#range-date-enrol').val(yesterdaySplit[1] + '/' + yesterdaySplit[0] + '/' + yesterdaySplit[2] + " to " + todaySplit[1] + '/' + todaySplit[0] + '/' + todaySplit[2]);
+      startDateEnrol = yesterdaySplit[2]+'-'+yesterdaySplit[0]+'-'+yesterdaySplit[1];
+      endDateEnrol  = todaySplit[2]+'-'+todaySplit[0]+'-'+todaySplit[1];
+      $('#range-date-completion').val(yesterdaySplit[1] + '/' + yesterdaySplit[0] + '/' + yesterdaySplit[2] + " to " + todaySplit[1] + '/' + todaySplit[0] + '/' + todaySplit[2]);
+      startDateCompletion = yesterdaySplit[2]+'-'+yesterdaySplit[0]+'-'+yesterdaySplit[1];
+      endDateCompletion  = todaySplit[2]+'-'+todaySplit[0]+'-'+todaySplit[1];
+      $('#range-date-enrol').flatpickr({
+        mode: "range",
+        dateFormat: "d/m/Y",
+        conjunction: " - ",
+        onChange: function (selectedDates, dateStr, instance) {
+        //console.log(selectedDates,dateStr);
+        },
+        onClose: function (selectedDates, dateStr, instance) {
+
+          startDateEnrol = dateStr.split(' to ')[0].split('/').reverse().join('-');
+          endDateEnrol = dateStr.split(' to ')[1].split('/').reverse().join('-');
+          console.log(startDateEnrol,endDateEnrol);
+        }
+      });
+
+      $('#range-date-completion').flatpickr({
+        mode: "range",
+        dateFormat: "d/m/Y",
+        conjunction: " - ",
+        onChange: function (selectedDates, dateStr, instance) {
+        //console.log(selectedDates,dateStr);
+        },
+        onClose: function (selectedDates, dateStr, instance) {
+
+          startDateCompletion = dateStr.split(' to ')[0].split('/').reverse().join('-');
+          endDateCompletion = dateStr.split(' to ')[1].split('/').reverse().join('-');
+          console.log(startDateCompletion,endDateCompletion);
+        }
+      });
+
+
+      getProgramData();
+      getDirectorateData();
+      getLearnerData();
+      getContentLibraryData();
+      $(".field-master-learner").hide();
+      $(".field-sort-by").hide();
+      $(".field-type-pointxtra").hide();
+      $(".field-date-range-completion").hide();
+      $(".field-journey-multiple").hide();
+      $(".field-course-multiple").hide();
+      $(".field-module-multiple").hide();
+      $(".field-content-library").hide();
+      $(".field-module-type").hide();
+
+
+      $(document).delegate("#reportType", "change", function () {
+        reportType = $('select[name=reportType] option').filter(':selected').val()
+        if(reportType == "registeredUsersNew"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+          $(".field-journey").show();
+          $(".field-directorate").show();
+          $(".field-subdirectorate").show();
+        }
+        if(reportType == "learningCompletionsVersionOne"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+          $(".field-date-range-completion").show();
+          $(".field-journey").show();
+          $(".field-course").show();
+          $(".field-directorate").show();
+          $(".field-subdirectorate").show();
+          $(".field-module-type").show();
+        }
+        if(reportType == "learningCompletionsVersionTwo"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+          $(".field-date-range-completion").show();
+          $(".field-journey").show();
+          $(".field-course").show();
+          $(".field-directorate").show();
+          $(".field-subdirectorate").show();
+          $(".field-module-type").show();
+        }
+        if(reportType == "learningCompletionsVersionThree"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+          $(".field-module-type").show();
+          $(".field-directorate").show();
+          $(".field-subdirectorate").show();
+          $(".field-date-range-completion").show();
+          $(".field-journey-multiple").show();
+          $(".field-course-multiple").show();
+          $(".field-module-multiple").show();
+        }
+        if(reportType == "learningCompletionsVersionThree"){
+        }
+        if(reportType == "contentLibraryCompletionsNew"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+          $(".field-content-library").show();
+          $(".field-directorate").show();
+
+        }
+        if(reportType == "ytdSummaryLearningCompletionsNew"){
+          $(".field-report").hide();
+          //$(".field-date-range-enrol").show();
+          $(".field-journey").show();
+          $(".field-directorate").show();
+          $(".field-subdirectorate").show();
+          $(".field-course").hide();
+        }
+        if(reportType == "ytmSummaryLearningCompletionsNew"){
+          $(".field-report").hide();
+          //$(".field-date-range-enrol").show();
+          $(".field-journey").show();
+          $(".field-directorate").show();
+          $(".field-subdirectorate").show();
+          $(".field-course").hide();
+        }
+        if(reportType == "mtdSummaryLearningCompletionsNew"){
+          $(".field-report").hide();
+          //$(".field-date-range-enrol").show();
+          $(".field-journey").show();
+          $(".field-directorate").show();
+          $(".field-subdirectorate").show();
+          $(".field-course").hide();
+        }
+        if(reportType == "summaryLearningCompletionsNew"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+          $(".field-journey").show();
+          $(".field-directorate").show();
+          $(".field-subdirectorate").show();
+          $(".field-course").hide();
+        }
+        if(reportType == "certificateNumber"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+          $(".field-journey").show();
+          $(".field-directorate").show();
+          $(".field-subdirectorate").show();
+        }
+        if(reportType == "usersAccessNew"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+
+        }
+
+        if(reportType == "usersAccessDetailNew"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+
+        }
+        if(reportType == "activeUsersNew"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+          $(".field-sort-by").show();
+          $(".field-directorate").show();
+          $(".field-subdirectorate").show();
+        }
+        if(reportType == "point-xtra"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+          $(".field-type-pointxtra").show();
+
+        }
+        if(reportType == "detail-point-xtra"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+          $(".field-type-pointxtra").show();
+          $(".field-journey").show();
+
+        }
+        if(reportType == "learningLogNew"){
+          $(".field-report").hide();
+
+          $(".field-master-learner").show();
+
+        }
+
+        if(reportType == "learninghoursbyprogram"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+          $(".field-sort-by").show();
+          $(".field-directorate").show();
+          $(".field-subdirectorate").show();
+          $(".field-date-range-completion").show();
+          $(".field-journey").show();
+          $(".field-course").show();
+
+        }
+
+
+
+        if(reportType == "learninghoursbymultiprogram"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+          $(".field-sort-by").show();
+          $(".field-directorate").show();
+          $(".field-subdirectorate").show();
+          $(".field-date-range-completion").show();
+          $(".field-journey-multiple").show();
+          $(".field-course-multiple").show();
+          $(".field-module-multiple").show();
+        }
+
+        if(reportType == "learninghoursdetail"){
+          $(".field-report").hide();
+          $(".field-date-range-enrol").show();
+          $(".field-sort-by").show();
+          $(".field-directorate").show();
+          $(".field-subdirectorate").show();
+          $(".field-date-range-completion").show();
+          $(".field-journey").show();
+          $(".field-course").show();
+        }
+
+
+
+      });
+
+      // $('#journeyMultipleData').select2({
+      //   theme: 'bootstrap4',
+      //   allowClear: true,
+      //   placeholder: 'Select Program',
+      //   ajax: {
+      //       dataType: 'json',
+      //       url: "{{route('dashboard.report.get-master-program-select2')}}",
+      //       delay: 800,
+      //       data: function (params) {
+      //           return {
+      //               search: params.term
+      //           }
+      //       },
+      //       processResults: function (data, page) {
+      //           return {
+      //               results: data
+      //           };
+      //       },
+      //   }
+      // })
+      $(document).delegate("#directorateData", "change", function () {
+        directorateid = $('select[name=directorateData] option').filter(':selected').val()
+        directorateID = directorateid;
+        getSubDirectorateData();
+      });
+
+       $(document).delegate("#subDirectorateData", "change", function () {
+        subDirectorateID= $('select[name=subDirectorateData] option').filter(':selected').val()
+
+      });
+      $(document).delegate("#sortBy", "change", function () {
+        sortBy= $('select[name=sortBy] option').filter(':selected').val()
+
+      });
+      $(document).delegate("#module_type_Data", "change", function () {
+        moduletypeID= $('select[name=module_type_Data] option').filter(':selected').val()
+
+      });
+
+
+      $(document).delegate("#pointXtraType", "change", function () {
+        pointXtraType= $('select[name=pointXtraType] option').filter(':selected').val()
+
+      });
+
+      $(document).delegate("#learner", "change", function () {
+        learnerId= $('select[name=learner] option').filter(':selected').val()
+
+      });
+
+      $(document).delegate("#journeyData", "change", function () {
+        journeyid = $('select[name=journeyData] option').filter(':selected').val()
+        journeyID = journeyid;
+        dataCourseSelect[0].selectize.clearOptions();
+        dataCourseSelect[0].selectize.addOption({text: "Select course", value: 0});
+        dataCourseSelect[0].selectize.setValue(0);
+        getCourseData();
+      });
+      $(document).delegate("#contentlibraryData", "change", function () {
+        let contentlibraryid = $('select[name=contentlibraryData] option').filter(':selected').val()
+        contentLibraryID = contentlibraryid;
+
+      });
+      $(document).delegate("#journeyMultipleData", "change", function () {
+
+        arrJourneyId = $("#journeyMultipleData :selected").map(function(i, el) {
+            return $(el).val();
+        }).get().sort();
+        console.log(arrJourneyId);
+        dataCourseMultipleSelect[0].selectize.clearOptions();
+        dataModuleMultipleSelect[0].selectize.clearOptions();
+
+        getMultiCourseData();
+
+      });
+
+
+      $(document).delegate("#courseData", "change", function () {
+        courseData = $('select[name=courseData] option').filter(':selected').val()
+      });
+
+      $(document).delegate("#courseMultipleData", "change", function () {
+        arrCourseId = $("#courseMultipleData :selected").map(function(i, el) {
+            return $(el).val();
+        }).get().sort();
+        console.log(arrCourseId);
+        dataModuleMultipleSelect[0].selectize.clearOptions();
+        getMultiModuleData();
+      });
+
+      $(document).delegate("#moduleMultipleData", "change", function () {
+        arrModuleId = $("#moduleMultipleData :selected").map(function(i, el) {
+            return $(el).val();
+        }).get().sort();
+        console.log(arrModuleId);
+
+      });
+
+
+
+
+
+
+
+      $(document).delegate("#download_report","click",function(){
+        reportType = $('select[name=reportType] option').filter(':selected').val();
+        if(reportType=="registeredUsersNew"){
+          urlReport = "{{route('dashboard.report.registered-learners.index')}}"+"?"+
+          "directorateid="+directorateID+"&&"+"subdirectorateid="+subDirectorateID+"&&"+
+          "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol+"&&"+"journey_id="+journeyID;
+
+        }
+        else if(reportType == "learningCompletionsVersionOne"){
+          urlReport = "{{route('dashboard.report.journey-learning-completions.index')}}"+"?"+
+          "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol+"&&"+"completion_start_date="+startDateCompletion+"&&"+"completion_end_date="+endDateCompletion+"&&"+
+          "directorateid="+directorateID+"&&"+"subdirectorateid="+subDirectorateID+"&&"+"journey_id="+journeyID+"&&"+"module_type="+moduletypeID+"&&"+"course_id="+courseData;
+        }
+        else if(reportType == "learningCompletionsVersionTwo"){
+          urlReport = "{{route('dashboard.report.course-learning-completions.index')}}"+"?"+
+          "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol+"&&"+"completion_start_date="+startDateCompletion+"&&"+"completion_end_date="+endDateCompletion+"&&"+
+          "directorateid="+directorateID+"&&"+"subdirectorateid="+subDirectorateID+"&&"+"journey_id="+journeyID+"&&"+"module_type="+moduletypeID+"&&"+"course_id="+courseData;
+        }
+        if(reportType == "learningCompletionsVersionThree"){
+          urlReport = "{{route('dashboard.report.multi-journey-learning-completions.index')}}"+"?"+
+          "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol+"&&"+"completion_start_date="+startDateCompletion+"&&"+"completion_end_date="+endDateCompletion+"&&"+
+          "directorateid="+directorateID+"&&"+"subdirectorateid="+subDirectorateID+"&&"+"multi_journey_id="+arrJourneyId.join(",")+"&&"+"multi_course_id="+arrCourseId.join(",") +"&&"+"multi_module_id="+arrModuleId.join(",")+"&&"+"module_type="+moduletypeID;
+        }
+        else if(reportType=="usersAccessNew"){
+          urlReport = "{{route('dashboard.report.learners-access.index')}}"+"?"+
+
+          "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol;
+
+        }
+        else if(reportType=="contentLibraryCompletionsNew"){
+          urlReport = "{{route('dashboard.report.content-library-completions.index')}}"+"?"+
+
+          "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol+"&&"+
+          "directorateid="+directorateID+"&&"+"content_library_id="+contentLibraryID;
+
+        }
+        else if(reportType=="usersAccessDetailNew"){
+          urlReport = "{{route('dashboard.report.learners-access.detail')}}"+"?"+
+
+          "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol;
+
+        }
+        else if(reportType=="activeUsersNew"){
+          urlReport = "{{route('dashboard.report.active-learners.index')}}"+"?"+
+          "directorateid="+directorateID+"&&"+"subdirectorateid="+subDirectorateID+"&&"+
+          "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol+"&&"+"sort_by="+sortBy;
+
+        }
+
+        if(reportType == "ytmSummaryLearningCompletionsNew"){
+           urlReport = "{{route('dashboard.report.ytm-summary-learning-completions.index')}}"+"?"+
+          "directorateid="+directorateID+"&&"+"subdirectorateid="+subDirectorateID+"&&"+"journey_id="+journeyID;
+        }
+        if(reportType == "mtdSummaryLearningCompletionsNew"){
+           urlReport = "{{route('dashboard.report.mtd-summary-learning-completions.index')}}"+"?"+
+          "directorateid="+directorateID+"&&"+"subdirectorateid="+subDirectorateID+"&&"+"journey_id="+journeyID;
+        }
+        else if(reportType=="ytdSummaryLearningCompletionsNew"){
+          urlReport = "{{route('dashboard.report.ytd-summary-learning-completions.index')}}"+"?"+
+          "directorateid="+directorateID+"&&"+"subdirectorateid="+subDirectorateID+"&&"+"journey_id="+journeyID;
+
+        }
+        if(reportType == "summaryLearningCompletionsNew"){
+          urlReport = "{{route('dashboard.report.summary-learning-completions.index')}}"+"?"+
+          "directorateid="+directorateID+"&&"+"subdirectorateid="+subDirectorateID+"&&"+
+          "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol+"&&"+"journey_id="+journeyID;
+        }
+        else if(reportType=="point-xtra"){
+          urlReport = "{{route('dashboard.report.learning-point.index')}}"+"?"+
+
+          "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol+"&&"+"type="+pointXtraType;
+
+        }
+        else if(reportType == "detail-point-xtra"){
+           urlReport = "{{route('dashboard.report.detail-learning-point.index')}}"+"?"+
+           "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol+"&&"+"type="+pointXtraType+"&&"+"journey_id="+journeyID;
+        }
+
+        else if(reportType=="certificateNumber"){
+          urlReport = "{{route('dashboard.report.certificate-number.index')}}"+"?"+
+          "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol+"&&"+
+          "directorateid="+directorateID+"&&"+"subdirectorateid="+subDirectorateID+"&&"+"journey_id="+journeyID;
+
+        }
+        else if(reportType=="learningLogNew"){
+          urlReport = "{{route('dashboard.report.learning-log.index')}}"+"?"+
+          "learnerid="+learnerId;
+
+        }
+        else if(reportType == "learninghoursbyprogram"){
+           urlReport = "{{route('dashboard.report.learning-hours-1.index')}}"+"?"+
+           "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol+"&&"+"completion_start_date="+startDateCompletion+"&&"+"completion_end_date="+endDateCompletion+"&&"+
+           "directorateid="+directorateID+"&&"+"subdirectorateid="+subDirectorateID+"&&"+"journey_id="+journeyID+"&&"+"sort_by="+sortBy+"&&"+"course_id="+courseData;
+        }
+        else if(reportType == "learninghoursbymultiprogram"){
+           urlReport = "{{route('dashboard.report.learning-hours-2.index')}}"+"?"+
+           "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol+"&&"+"completion_start_date="+startDateCompletion+"&&"+"completion_end_date="+endDateCompletion+"&&"+
+           "directorateid="+directorateID+"&&"+"subdirectorateid="+subDirectorateID+"&&"+"multi_journey_id="+arrJourneyId.join(",")+"&&"+"sort_by="+sortBy+"&&"+"multi_course_id="+arrCourseId.join(",") +"&&"+"multi_module_id="+arrModuleId.join(",");
+        }
+        else if(reportType == "learninghoursdetail"){
+           urlReport = "{{route('dashboard.report.detail-learning-hours.index')}}"+"?"+
+           "enrol_start_date="+startDateEnrol+"&&"+"enrol_end_date="+endDateEnrol+"&&"+"completion_start_date="+startDateCompletion+"&&"+"completion_end_date="+endDateCompletion+"&&"+
+           "directorateid="+directorateID+"&&"+"subdirectorateid="+subDirectorateID+"&&"+"journey_id="+journeyID+"&&"+"sort_by="+sortBy+"&&"+"course_id="+courseData;
+        }
+        window.open(urlReport, "_blank");
+      })
+
+
+
+
+    });
+
+
+
+
+
+  </script>
+  <script>
+    function getProgramData() {
+
+
+        $.ajax({
+
+          url: "{{route('dashboard.report.get-master-program')}}" + "?" ,
+          type: "GET",
+          // beforeSend:function(){
+          // $.blockUI();
+          // },
+          success: function (data) {
+            if (data.response_code == 200) {
+              console.log(data)
+              let datas = data.data;
+              if (datas.length > 0) {
+
+                for (var i in datas) {
+                  if (datas[i].id != null && datas[i].id != "" && datas[i].name != null && datas[i].name != "") {
+                    dataJourneySelect[0].selectize.addOption({text: datas[i].name, value: datas[i].id});
+                    dataJourneyMultipleSelect[0].selectize.addOption({text: datas[i].name, value: datas[i].id});
+
+                  }
+                }
+                dataJourneySelect[0].selectize.setValue(0);
+
+              }
+              //setProgram(data.data);
+
+            } else {
+            }
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+
+          }
+        });
+      //}
+
+
+  }
+
+  function getContentLibraryData() {
+
+
+    $.ajax({
+
+      url: "{{route('dashboard.report.get-content-library')}}" + "?" ,
+      type: "GET",
+      // beforeSend:function(){
+      // $.blockUI();
+      // },
+      success: function (data) {
+        if (data.response_code == 200) {
+          console.log(data)
+          let datas = data.data;
+          if (datas.length > 0) {
+
+            for (var i in datas) {
+              if (datas[i].id != null && datas[i].id != "" && datas[i].name != null && datas[i].name != "") {
+                datacontentLibrarySelect[0].selectize.addOption({text: datas[i].name, value: datas[i].id});
+
+
+              }
+            }
+            datacontentLibrarySelect[0].selectize.setValue(0);
+
+          }
+          //setProgram(data.data);
+
+        } else {
+        }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+
+      }
+    });
+
+
+
+  }
+
+  function getMultiCourseData() {
+    dataCourseMultipleSelect[0].selectize.setValue(0);
+    dataModuleMultipleSelect[0].selectize.setValue(0);
+    dataCourseMultipleSelect[0].selectize.clearOptions();
+    dataModuleMultipleSelect[0].selectize.clearOptions();
+
+
+
+    if (arrJourneyId.length == 0) {
+
+    } else {
+      $.ajax({
+        url: "{{route('dashboard.report.get-master-course-multi-program')}}" + "?" + "multijourney=" + arrJourneyId.join(","),
+        type: "GET",
+
+        success: function (data) {
+          if (data.response_code == 200) {
+
+            let datas = data.data;
+            if (datas.length > 0) {
+
+              for (var i in datas) {
+                if (datas[i].course_id != null && datas[i].course_id != "" && datas[i].course_name != null && datas[i].course_name != "") {
+                  dataCourseMultipleSelect[0].selectize.addOption({text: datas[i].course_name, value: datas[i].course_id});
+
+                }
+              }
+              //dataCourseMultipleSelect[0].selectize.setValue(0);
+
+            }
+
+          } else {
+
+            // var msg =data.value;
+            // Swal.fire(
+            //   'Warning',
+            //   msg,
+            //   'warning'
+            // );
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          // Swal.fire({
+          //   icon: 'warning',
+          //   title: 'Oops...',
+          //   text: errorThrown+' please try again!',
+          //   showOkButton: true,
+          // }).then((result) => {
+          //   if (result.value) {
+          //     $.unblockUI();
+          //     location.reload();
+          //   }
+          // })
+        }
+      });
+    }
+
+  }
+
+  function getCourseData() {
+    var journeyID = $("#journeyData").val();
+    dataCourseSelect[0].selectize.clearOptions();
+    dataCourseSelect[0].selectize.addOption({text: "Select course", value: 0});
+    dataCourseSelect[0].selectize.setValue(0);
+
+    if ("0" === journeyID) {
+
+      // var msg ='Please select Program!'
+      // Swal.fire(
+      // 	'Warning',
+      // 	msg,
+      // 	'warning'
+      // );
+
+      // $.unblockUI();
+      // return false;
+    } else {
+      $.ajax({
+        url: "{{route('dashboard.report.get-master-course')}}" + "?" + "journeyid=" + journeyID,
+        type: "GET",
+
+        success: function (data) {
+          if (data.response_code == 200) {
+
+            let datas = data.data;
+            if (datas.length > 0) {
+
+              for (var i in datas) {
+                if (datas[i].course_id != null && datas[i].course_id != "" && datas[i].course_name != null && datas[i].course_name != "") {
+                  dataCourseSelect[0].selectize.addOption({text: datas[i].course_name, value: datas[i].course_id});
+
+                }
+              }
+              dataCourseSelect[0].selectize.setValue(0);
+
+            }
+
+          } else {
+
+            // var msg =data.value;
+            // Swal.fire(
+            //   'Warning',
+            //   msg,
+            //   'warning'
+            // );
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          // Swal.fire({
+          //   icon: 'warning',
+          //   title: 'Oops...',
+          //   text: errorThrown+' please try again!',
+          //   showOkButton: true,
+          // }).then((result) => {
+          //   if (result.value) {
+          //     $.unblockUI();
+          //     location.reload();
+          //   }
+          // })
+        }
+      });
+    }
+
+  }
+
+  function getMultiModuleData() {
+    dataModuleMultipleSelect[0].selectize.setValue(0);
+    dataModuleMultipleSelect[0].selectize.clearOptions();
+
+
+
+    if (arrCourseId.length == 0) {
+
+    } else {
+      $.ajax({
+        url: "{{route('dashboard.report.get-master-module-multi-course')}}" + "?" + "multicourse=" + arrCourseId.join(","),
+        type: "GET",
+
+        success: function (data) {
+          if (data.response_code == 200) {
+
+            let datas = data.data;
+            if (datas.length > 0) {
+
+              for (var i in datas) {
+                if (datas[i].module_id != null && datas[i].module_id != "" && datas[i].module_name != null && datas[i].module_name != "") {
+                  dataModuleMultipleSelect[0].selectize.addOption({text: datas[i].module_name, value: datas[i].module_id});
+
+                }
+              }
+
+
+            }
+
+          } else {
+
+            // var msg =data.value;
+            // Swal.fire(
+            //   'Warning',
+            //   msg,
+            //   'warning'
+            // );
+          }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          // Swal.fire({
+          //   icon: 'warning',
+          //   title: 'Oops...',
+          //   text: errorThrown+' please try again!',
+          //   showOkButton: true,
+          // }).then((result) => {
+          //   if (result.value) {
+          //     $.unblockUI();
+          //     location.reload();
+          //   }
+          // })
+        }
+      });
+    }
+
+  }
+
+  function getSubDirectorateData() {
+    var directorateID = $('select[name=directorateData] option').filter(':selected').val();
+    dataSubDirectorateSelect[0].selectize.clearOptions();
+    dataSubDirectorateSelect[0].selectize.addOption({text: "Select sub directorate", value: 0});
+    dataSubDirectorateSelect[0].selectize.setValue(0);
+
+
+    if ("0" === directorateID) {
+
+      dataSubDirectorateSelect[0].selectize.clearOptions();
+      dataSubDirectorateSelect[0].selectize.addOption({text: "Select sub directorate", value: 0});
+      dataSubDirectorateSelect[0].selectize.setValue(0);
+
+
+    } else {
+
+
+      $.ajax(
+        {
+          url: "{{route('dashboard.report.get-master-division')}}" + "?" + "directorateid=" + directorateID,
+          type: "GET",
+
+          beforeSend: function () {
+            //$.blockUI();
+          },
+          success: function (data) {
+
+            if (data.response_code == 200) {
+
+
+              console.log(data.data);
+              let datas = data.data;
+              if (datas.length > 0) {
+
+                for (var i in datas) {
+                  if (datas[i].subdirectorate != null && datas[i].subdirectorate != "") {
+                    dataSubDirectorateSelect[0].selectize.addOption({
+                      text: datas[i].subdirectorate,
+                      value: datas[i].subdirectorate
+                    });
+                  }
+                }
+
+              }
+            } else {
+
+              // var msg =data.value;
+              // Swal.fire(
+              // 	'Warning',
+              // 	msg,
+              // 	'warning'
+              // );
+            }
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+
+          }
+        });
+    }
+  }
+
+  function getDirectorateData() {
+      var input_data = {};
+
+
+      $.ajax(
+        {
+          url: "{{route('dashboard.report.get-master-directorate')}}",
+          type: "GET",
+
+          success: function (data) {
+            if (data.response_code == 200) {
+
+              let datas = data.data
+              if (datas.length > 0) {
+                //dataDirectorateSelect[0].selectize.addOption({text: "- select -", value: 0});
+                for (var i in datas) {
+                  if (datas[i].data != null && datas[i].data != "") {
+                    dataDirectorateSelect[0].selectize.addOption({text: datas[i].data, value: datas[i].data});
+                  }
+                }
+                dataDirectorateSelect[0].selectize.setValue(0);
+              }
+
+
+            } else {
+
+              // var msg =data.value;
+              // Swal.fire(
+              // 	'Warning',
+              // 	msg,
+              // 	'warning'
+              // );
+            }
+
+            //$.unblockUI();
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            //alert(errorThrown);
+            // Swal.fire({
+            //   icon: 'warning',
+            //   title: 'Oops...',
+            //   text: errorThrown+' please try again!',
+            //   showOkButton: true,
+            // }).then((result) => {
+            // 	if (result.value) {
+            // 		$.unblockUI();
+            // 		location.reload();
+            // 	}
+            // })
+          }
+        });
+    }
+
+
+    function getLearnerData() {
+      var input_data = {};
+
+
+      $.ajax(
+        {
+          url: "{{route('dashboard.report.get-master-learner')}}",
+          type: "GET",
+
+          success: function (data) {
+            if (data.response_code == 200) {
+
+              let datas = data.data
+              if (datas.length > 0) {
+                //dataDirectorateSelect[0].selectize.addOption({text: "- select -", value: 0});
+                for (var i in datas) {
+
+                    dataLearnerSelect[0].selectize.addOption({text: datas[i].firstname+' '+datas[i].lastname+' ('+datas[i].username+')', value: datas[i].id});
+
+                }
+                dataLearnerSelect[0].selectize.setValue(0);
+              }
+
+
+            } else {
+
+              // var msg =data.value;
+              // Swal.fire(
+              // 	'Warning',
+              // 	msg,
+              // 	'warning'
+              // );
+            }
+
+            //$.unblockUI();
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            //alert(errorThrown);
+            // Swal.fire({
+            //   icon: 'warning',
+            //   title: 'Oops...',
+            //   text: errorThrown+' please try again!',
+            //   showOkButton: true,
+            // }).then((result) => {
+            // 	if (result.value) {
+            // 		$.unblockUI();
+            // 		location.reload();
+            // 	}
+            // })
+          }
+        });
+    }
+
+
+
+
+
+  </script>
+  <!-- third party js ends -->
+@endsection

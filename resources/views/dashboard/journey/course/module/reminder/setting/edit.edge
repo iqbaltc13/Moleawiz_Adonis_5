@@ -1,0 +1,277 @@
+@layout('layouts.appfix')
+@section('title')
+<title>Moleawiz|Dashboard|Reminder| Edit Reminder Setting</title>
+@endsection
+@section('style')
+<!-- third party css -->
+<!-- Plugins css -->
+ <!-- Plugins css -->
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/JS/summernote/summernote.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="{{ BASE_URL() }}/JS/Dual-Select-Boxes-For-Bootstrap-Bootstrap-Dual-Listbox/src/bootstrap-duallistbox.css">
+<!-- third party css end -->
+@endsection
+@section('navbar')
+@include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+@include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+
+<div class="content-page">
+
+
+  <!-- Start Content-->
+  <div class="content">
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right" >
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('home')}}">HOME</a></li>
+                  <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.journey.index')}}">Journey </a></li>
+                  <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.journey.course.index',{id : courseModule.getRelated('course').journey_id})}}">View Course </a></li>
+                  <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.journey.course.module.index',{id : courseModule.course_id})}}">View Module </a></li>
+                  <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.journey.course.module.reminder.index',{course_module_id : courseModule.id})}}">Reminder </a></li>
+                  <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.journey.course.module.reminder.setting.index',{reminder_id : data.reminder_id})}}">Reminder Setting </a></li>
+                  <li class="breadcrumb-item  breadcrumb-link active">Edit Setting</li>
+
+                </ol>
+              </div>
+              <div class="row">
+                <div class="col-lg-2">
+                  <a   href="{{route('dashboard.journey.course.module.reminder.setting.index',{reminder_id : data.reminder_id})}}" ><h4 class="page-title back-button  text-hover-color-scheme"><i class="mdi mdi-arrow-left"></i> Back</h4> </a>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="header-title" style="padding-bottom:20px;">Edit Setting</h4>
+
+
+                        <div class="row">
+
+
+                          <div class="col-lg-7"  style="padding-top:15px;">
+                                 <form id="edit_reminder_setting" action="{{route('dashboard.journey.course.module.reminder.setting.update',{id : data.id})}}" enctype="multipart/form-data" method="POST">
+                                    {{ csrfField() }}
+                                    <input type="hidden" name="reminder_id" id="reminder_id" value="{{data.reminder_id}}">
+                                    <div class="row mb-3">
+                                      <label for="notif_date" class="col-5 col-xl-2 col-form-label"  style="color:#6D757D">Notification date (days)
+                                        <!--<i class="mdi mdi-information" title="Put cursor at pie chart to view number" tabindex="0"
+                                          data-plugin="tippy" data-tippy-theme="translucent"></i>-->  </label>
+                                      <div class="col-8 col-xl-8">
+                                       <input type="number" id="notif_date" name="notif_date" class="form-control" style="color:#333333;" value="{{data.notif_date}}" required>
+                                      </div>
+                                      @if(hasErrorFor('notif_date'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                            role="alert">
+                                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                                  aria-label="Close"></button>
+                                          {{ getErrorFor('notif_date') }}
+                                        </div>
+                                      @endif
+                                    </div>
+                                    <div class="row mb-3">
+                                      <label for="notif_type" class="col-5 col-xl-2 col-form-label" style="color:#6D757D">Notification type
+                                        </label>
+                                      <div class="col-8 col-xl-8">
+                                        <select name="notif_type" class="form-select form-select-custom" style="color:#333333;" id="notif_type" >
+                                            <option value="" >Select notification type</option>
+                                            <option value="1" >Push notif</option>
+                                            <option value="2" >Email notif</option>
+                                            <option value="3" >All</option>
+
+                                        </select>
+                                      </div>
+                                      @if(hasErrorFor('notif_type'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                            role="alert">
+                                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                                  aria-label="Close"></button>
+                                          {{ getErrorFor('notif_type') }}
+                                        </div>
+                                      @endif
+                                    </div>
+
+
+                                    <div class="row mb-3">
+                                      <label for="send_spv" class="col-5 col-xl-2 col-form-label" style="color:#6D757D">  Send SPV
+                                        </label>
+                                      <div class="col-8 col-xl-8">
+                                        <select name="send_spv" class="form-select form-select-custom" style="color:#333333;" id="send_spv" required>
+                                          <option value="1">Yes</option>
+                                          <option selected value="0">No</option>
+
+                                        </select>
+                                      </div>
+                                      @if(hasErrorFor('send_spv'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                            role="alert">
+                                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                                  aria-label="Close"></button>
+                                          {{ getErrorFor('send_spv') }}
+                                        </div>
+                                      @endif
+                                    </div>
+                                    <div class="row mb-3">
+                                      <label for="send_nha" class="col-5 col-xl-2 col-form-label" style="color:#6D757D">Send NHA
+                                        </label>
+                                      <div class="col-8 col-xl-8">
+                                        <select name="send_nha" class="form-select form-select-custom" style="color:#333333;" id="send_nha" required>
+                                          <option value="1">Yes</option>
+                                          <option selected value="0">No</option>
+
+                                        </select>
+                                      </div>
+                                      @if(hasErrorFor('send_nha'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                            role="alert">
+                                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                                  aria-label="Close"></button>
+                                          {{ getErrorFor('send_nha') }}
+                                        </div>
+                                      @endif
+                                    </div>
+
+                                    <div class="row mb-3">
+                                      <label for="visible" class="col-5 col-xl-2 col-form-label" style="color:#6D757D">Visible
+                                        </label>
+                                      <div class="col-8 col-xl-8">
+                                        <select name="visible" class="form-select form-select-custom" style="color:#333333;" id="visible" required>
+                                          <option value="1">Yes</option>
+                                          <option value="0">No</option>
+
+                                        </select>
+                                      </div>
+                                      @if(hasErrorFor('visible'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                            role="alert">
+                                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                                  aria-label="Close"></button>
+                                          {{ getErrorFor('visible') }}
+                                        </div>
+                                      @endif
+                                    </div>
+
+
+                                    <div class="row mb-3">
+                                      <label class="col-5 col-xl-2 form-label"></label>
+                                      <div class="col-8 col-xl-8">
+                                        <button type="submit" id="submit_btn" class="btn btn-danger waves-effect waves-light col-12 col-xl-8" ><i class="fas fa-save"></i>&#160; Save Changes
+                                        </button>
+                                        <a  href="{{route('dashboard.journey.course.module.reminder.setting.index',{reminder_id : data.reminder_id})}}" class="btn btn-light waves-effect col-3 col-xl-3"
+                                            style="background-color:#F0F2F7; color:#6D757D; float: right; ">Cancel
+                                         </a>
+                                      </div>
+                                    </div>
+
+
+                        <!--<button id="submit_btn" type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>-->
+                      </form>
+                      </div>
+                    </div>
+                        <!-- end row-->
+
+                    </div> <!-- end card-body -->
+                </div> <!-- end card -->
+            </div><!-- end col -->
+        </div>
+        <!-- end row -->
+
+
+
+
+
+
+        <!-- RADIOS -->
+
+
+
+    </div> <!-- container -->
+
+</div> <!-- content -->
+
+
+  <!-- Footer Start -->
+
+  <!-- end Footer -->
+@include('layouts.footer')
+</div>
+@endsection
+@section('right_sidebar')
+@include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+<!-- third party js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+ <!-- Plugins js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ BASE_URL() }}/JS/summernote/summernote.js"></script>
+<script src="{{ BASE_URL() }}/JS/Dual-Select-Boxes-For-Bootstrap-Bootstrap-Dual-Listbox/src/jquery.bootstrap-duallistbox.js"></script>
+<script>
+$(document).ready(function(){
+ $(".mlw-li").hide()
+ $(".mlw-li-home").show()
+ $('#notif_type').val("{{data.notif_type}}");
+ $('#send_spv').val("{{data.send_spv}}");
+ $('#send_nha').val("{{data.send_nha}}");
+ $('#visible').val("{{data.visible}}");
+
+
+
+});
+
+</script>
+<!-- third party js ends -->
+@endsection

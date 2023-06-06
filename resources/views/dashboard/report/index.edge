@@ -1,0 +1,1669 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>Moleawiz|Dashboard | UBold - Responsive Admin Dashboard Template</title>
+@endsection
+
+@section('style')
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css"/>
+
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+    <div class="content">
+      @loggedIn
+      <input type="hidden" value="{{authUser.firstname +' '+ authUser.lastname}}" id="auth_name">
+      @else
+        <script>
+          window.location.replace("{{route('login')}}");
+        </script>
+        @endloggedIn
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box">
+                <div class="page-title-right">
+                  <!--  <form class="d-flex align-items-center mb-3">
+                      <div class="input-group input-group-sm">
+                          <input type="text" class="form-control border-0 shadow" id="dash-daterange">
+                          <span class="input-group-text bg-blue border-blue text-white">
+                              <i class="mdi mdi-calendar-range"></i>
+                          </span>
+                      </div>
+                      <a href="javascript: void(0);" class="btn btn-blue btn-sm ms-2">
+                          <i class="mdi mdi-autorenew"></i>
+                      </a>
+                      <a href="javascript: void(0);" class="btn btn-blue btn-sm ms-1">
+                          <i class="mdi mdi-filter-variant"></i>
+                      </a>
+                  </form>  -->
+                </div>
+                <h4 class="page-title">Dashboard </h4>
+              </div>
+            </div>
+          </div>
+          <!-- end page title -->
+
+
+          <!-- end row -->
+
+          <div class="row">
+            <div class="col-lg-12">
+            </div>
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="dropdown float-end">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                      <i class="mdi mdi-dots-vertical"></i>
+                    </a>
+
+                  </div>
+
+                  <h4 class="header-title mb-0">Report</h4>
+                  <h5 class="header-title mb-0" id="direcorate-name"></h5>
+                  <div class="row" style="padding-top:20px;padding-bottom:20px;">
+                    <div class="col-md-4">
+                      <div class="form-group row">
+                        <label for="reportType" class="form-label">Report Type</label>
+                        <div class="col-sm-12">
+                          <select onchange="changeFilterReportType(this.value)" class="form-select form-select-custom" style="color:#333333;" name="reportType"
+                                  id="reportType" style="">
+                            <option value="0"> - Select -</option>
+
+                            <option value="registeredUsersNew">Registered Learners</option>
+                            <option value="activeUsersNew">Active Learners</option>
+                            <option value="summaryLearningCompletionsNew">Summary Learning Completions</option>
+                            <option value="ytdSummaryLearningCompletionsNew">Year to Date of Summary Learning
+                              Completions
+                            </option>
+                            <option value="ytmSummaryLearningCompletionsNew">Year to Month of Summary Learning
+                              Completions
+                            </option>
+                            <option value="mtdSummaryLearningCompletionsNew">Month to Date of Summary Learning
+                              Completions
+                            </option>
+                            <option value="contentLibraryCompletionsNew">Content Library Completions</option>
+                            <option value="learningCompletionsVersionOne">Learning Completions - 1</option>
+                            <option value="learningCompletionsVersionTwo">Learning Completions - 2</option>
+                            <option value="learningCompletionsVersionThree">Learning Completions - 3</option>
+                            <option value="learningCompletionsVersionFour">Learning Completions - 4</option>
+                            <option value="learningCompletionsVersionFive">Learning Completions - 5</option>
+                            <option value="pointXtraNew">Poin Xtra</option>
+                            <option value="learningLogNew">Learning Logs</option>
+                            <option value="learningHoursVersionOne">Learning Hours - 1</option>
+                            <option value="learningHoursVersionTwo">Learning Hours - 2</option>
+                            <option value="learningHoursVersionOneDetail">Details of Learning Hours</option>
+                            <option value="usersAccessNew">Access Learners</option>
+                            <option value="usersAccessDetailNew">Detail of Access Learners</option>
+                            <option value="certificateNumber">Certificate Number</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4" style="text-align:center;">
+
+                      <label for="extension" class="form-label">Report Extension</label>
+                      <select class="form-select form-select-custom" style="color:#333333;" name="extension" id="extension" style="">
+                        <option value="excel" selected>Excel</option>
+                        <option value="pdf">PDF</option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-4">
+                      <h3>&nbsp;</h3>
+
+                    </div>
+
+                  </div>
+                  <div class="row" style="padding-bottom:20px;">
+                    <div class="col-md-4" id="dateRangeDIV">
+                      <div class="form-group row">
+                        <label for="range-date-enrol" class="form-label">Enrollment Range</label>
+                        <div class="col-sm-12">
+                          <div class="input-group input-group-merge">
+                            <div class="input-group-text">
+                              <i class="fas fa-calendar-alt"></i>
+
+                            </div>
+                            <input type="text" name="range-date-enrol" id="range-date-enrol" class="form-control" style="color:#333333;">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4" id="directorateDiv">
+                      <label for="directorateID" class="form-label">Directorate</label>
+                      <input type="hidden" id="directorateID" name="directorateID" value="0"/>
+                      <select class="form-select form-select-custom" style="color:#333333;" id="directorateData" name="directorateData">
+                        <option value="0"> - Select -</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4" id="subdirectorateDIV">
+                      <label for="subDirectorateData" class="form-label">Division</label>
+                      <input type="hidden" id="subDirectorateID" name="subDirectorateID" value="0"/>
+                      <select class="form-select form-select-custom" style="color:#333333;" id="subDirectorateData" name="subDirectorateData">
+                        <option value="0"> - Select -</option>
+                      </select>
+                    </div>
+                    <!--point Xtra-->
+                    <div class="col-md-4" id="pointXtraDIV">
+                      <label for="pointXtraType" class="form-label">Type</label>
+                      <select class="form-select form-select-custom" style="color:#333333;" name="pointXtraType" id="pointXtraType" style="">
+                        <option value="0"> - Select -</option>
+                        <option value="usersAll">All Users</option>
+                        <option value="users15">Highest Users (Top 15)</option>
+                      </select>
+                    </div>
+
+                  </div>
+                  <div class="row" id="procomoDIV" style="padding-bottom:20px;">
+                    <!--point Xtra-->
+                    <div class="col-md-4" id="programDIV">
+                      <label for="journeyData" class="form-label">Program</label>
+                      <input type="hidden" id="journeyID" name="journeyID" value="0"/>
+                      <select class="form-select form-select-custom" style="color:#333333;" id="journeyData" name="journeyData">
+                        <option value="0"> - Select -</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4" id="courseDIV">
+                      <label for="courseData" class="form-label">Course</label>
+                      <input type="hidden" id="courseID" name="courseID" value="0"/>
+                      <select class="form-select form-select-custom" style="color:#333333;" name="courseData" id="courseData">
+                        <option value="0"> - Select -</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4" id="moduleDIV">
+                      <label for="moduleType" class="form-label">Module Type</label>
+                      <input type="hidden" id="moduleID" name="moduleID" value="0"/>
+                      <select class="form-select form-select-custom" style="color:#333333;" name="moduleType" id="moduleType" style="">
+                        <option value="0"> - Select -</option>
+                        <option value="1">Essential</option>
+                        <option value="2">Supporting</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="row" id="sortByDIV" style="padding-bottom:20px;">
+                    <div class="form-group row">
+                      <label for="courseData" class="form-label">Sort By</label>
+                      <div class="col-sm-4">
+                        <select name="sortBy" id="sortBy" class="form-select form-select-custom" style="color:#333333;" style="">
+                          <option value="activeUser">Active</option>
+                          <option value="inactiveUser">Inactive</option>
+                          <option value="0"> - All -</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" id="contentCategoryDIV" style="padding-bottom:20px;">
+                    <div class="form-group row">
+                      <label for="courseData" class="form-label">Content Category</label>
+                      <div class="col-sm-4">
+                        <select id="contentLibraryData" class="form-select form-select-custom" style="color:#333333;" name="contentLibraryData" style="">
+                          <option value="0"> - Select -</option>
+                        </select>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row" id="learningLoGDIV" style="padding-bottom:20px;">
+                    <div class="form-group row">
+                      <label for="courseData" class="form-label">Name or NIP</label>
+                      <div class="col-sm-4">
+                        <select id="userid11" name="userid11" style="" class="form-select form-select-custom" style="color:#333333;">
+                          <option value="0">Select</option>
+                        </select>
+                      </div>
+                    </div>
+
+                  </div>
+                  <div class="row" id="procomo2DIV" style="padding-bottom:20px;">
+                    <div class="col-md-4" id="program2DIV">
+                      <label for="journeyData" class="form-label">Programs</label>
+                      <input type="hidden" id="journeyID" name="journeyID" value="0"/>
+                      <select id="journey2Data" name="journey2Data[]" style="" class="form-select form-select-custom" style="color:#333333;" multiple="multiple">
+                        <option value="0"> - Select -</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4" id="course2DIV">
+                      <label for="course2Data" class="form-label">Courses</label>
+                      <select name="course2Data[]" id="course2Data" style="" class="form-select form-select-custom" style="color:#333333;" multiple="multiple">
+                        <option value="0"> - Select -</option>
+                      </select>
+                    </div>
+                    <div class="col-md-4" id="moduleType2DIV">
+                      <label for="module2Type" class="form-label">Module Type</label>
+                      <select name="module2Type" id="module2Type" class="form-select form-select-custom" style="color:#333333;" style="">
+                        <option value="0"> - All -</option>
+                        <option value="1">Essential</option>
+                        <option value="2">Supporting</option>
+                      </select>
+                    </div>
+                    <br/>
+                    <div class="col-md-4" id="module2DIV">
+                      <label for="module2Data" class="form-label">Modules</label>
+                      <select name="module2Data[]" id="module2Data" class="form-select form-select-custom" style="color:#333333;" style="" multiple="multiple">
+                        <option value="0"> - Select -</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="row" style="padding-bottom:20px;">
+                    <div class="col-md-4" id="completionDateRangeDIV">
+                      <label for="completionDateRange" class="form-label">Completion Range</label>
+                      <div class="col-sm-12">
+                        <div class="input-group input-group-merge">
+                          <div class="input-group-text">
+                            <i class="fas fa-calendar-alt"></i>
+
+                          </div>
+                          <input type="text" name="completionDateRange" id="completionDateRange" class="form-control" style="color:#333333;">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button type="button" class="btn btn-danger" onclick="downloadData()">Download</button>
+
+
+                </div>
+              </div> <!-- end card -->
+            </div> <!-- end col-->
+
+
+          </div>
+
+
+          <!-- end row -->
+
+
+        </div>
+        <!-- Footer Start -->
+        <footer class="footer">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-6">
+                <script>document.write(new Date().getFullYear())</script> &copy; UBold theme by <a
+                  href="">Coderthemes</a>
+              </div>
+              <div class="col-md-6">
+                <div class="text-md-end footer-links d-none d-sm-block">
+                  <a href="javascript:void(0);">About Us</a>
+                  <a href="javascript:void(0);">Help</a>
+                  <a href="javascript:void(0);">Contact Us</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+        <!-- end Footer -->
+
+        @endsection
+      @section('right_sidebar')
+        @include('layouts.sidebar.sidebar_right_base')
+      @endsection
+      @section('script')
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/apexcharts/apexcharts.min.js"></script>
+        <!-- Dashboar 1 init js-->
+        <script src="https://apexcharts.com/samples/assets/irregular-data-series.js"></script>
+        <script src="https://apexcharts.com/samples/assets/ohlc.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+        <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+
+
+        <script>
+
+          let dataDirectorateSelect = $('#directorateData').selectize();
+          let dataSubDirectorateSelect = $('#subDirectorateData').selectize();
+          let dataSubDirectorateOptions = [];
+          let dataJourneySelect = $('#journeyData').selectize();
+          let dataJourney2Select = $('#journey2Data').selectize();
+          let dataCourseSelect = $('#courseData').selectize();
+          let dataCourseMultiJourneySelect = $('#course2Data').selectize();
+          let dataModuleMultiCourseSelect = $('#module2Data').selectize();
+          let dataContentLibrarySelect = $('#contentLibraryData').selectize();
+          let dataActiveUserSelect = $('#userid11').selectize();
+          let extension = $('#extension').selectize();
+          const today = new Date()
+          const yesterday = new Date(today)
+
+          yesterday.setDate(yesterday.getDate() - 1)
+          let todaySplit = today.toLocaleString().split(',')[0].split('/');
+          let yesterdaySplit = yesterday.toLocaleString().split(',')[0].split('/');
+          $('#range-date-enrol').val(yesterdaySplit[1] + '/' + yesterdaySplit[0] + '/' + yesterdaySplit[2] + " to " + todaySplit[1] + '/' + todaySplit[0] + '/' + todaySplit[2]);
+          $('#completionDateRange').val(yesterdaySplit[1] + '/' + yesterdaySplit[0] + '/' + yesterdaySplit[2] + " to " + todaySplit[1] + '/' + todaySplit[0] + '/' + todaySplit[2]);
+          //console.log(directorateSelect);
+          $(document).ready(function () {
+            let curRangeDateStart = "{{startdate}}";
+            let curRangeDateEnd = "{{enddate}}";
+
+            let sortBy = "{{sortBy}}";
+
+
+            let directorateid = "{{directorateid}}";
+
+            let subdirectorateid = "{{subdirectorateid}}";
+
+            $("#sortByDIV").hide();
+            $("#learningLoGDIV").hide();
+            $("#moduleDIV").hide();
+            $("#pointXtraDIV").hide();
+            $("#contentCategoryDIV").hide();
+            $('#pointXtraType').selectize();
+            $('#reportType').selectize();
+            $('#subDirectorateData').selectize();
+
+
+            $('#moduleData').selectize();
+            $('#sortBy').selectize();
+
+            $('#moduleType').selectize();
+
+            // learningCompletion210604
+            $("#completionDateRangeDIV").hide();
+            // learningCompletion210604
+            // learningCompletionsCustomNew210604
+            $("#program2DIV").hide();
+            $("#course2DIV").hide();
+            $("#moduleType2DIV").hide();
+            $("#module2DIV").hide();
+            $('#journey2Data').selectize();
+            //$('#course2Data').selectize();
+            $('#module2Type').selectize();
+            //$('#module2Data').selectize();
+            // $('#sortBy').val(sortBy).change();
+            $('#reportType').selectize();
+            getDirectorateData();
+            getProgram2Data();
+            getActiveUserTrueData()
+            //getContentLibraryData();
+
+
+            // $('#directorateid').val(directorateid).change();
+            // $('#directorateid').selectize();
+            // $(document).delegate( "#directorateid", "change", function() {
+            //     directorateid = $('select[name=directorateid] option').filter(':selected').val()
+            //     $('#direcorate-name').html(directorateid);
+            //     window.location.href = "{{route('dashboard.user.index-active-learners')}}"+"?startdate="+curRangeDateStart+"&"+"enddate="+curRangeDateEnd+"&"+"sortBy="+sortBy+"&directorateid="+directorateid+"&subdirectorateid="+subdirectorateid;
+            // });
+
+            // $('#subdirectorateid').val(subdirectorateid).change();
+            // $('#subdirectorateid').selectize();
+            $(document).delegate("#directorateData", "change", function () {
+              directorateid = $('select[name=directorateData] option').filter(':selected').val()
+              dataJourneySelect[0].selectize.clearOptions();
+              dataJourneySelect[0].selectize.addOption({text: "- Select -", value: 0});
+              dataJourneySelect[0].selectize.setValue(0);
+              getSubDirectorateData();
+            });
+            $(document).delegate("#subDirectorateData", "change", function () {
+              subdirectorateid = $('select[name=subDirectorateData] option').filter(':selected').val()
+              dataJourneySelect[0].selectize.clearOptions();
+              dataJourneySelect[0].selectize.addOption({text: "- Select -", value: 0});
+              dataJourneySelect[0].selectize.setValue(0);
+              getProgramData();
+            });
+            $(document).delegate("#journeyData", "change", function () {
+              journeyid = $('select[name=journeyData] option').filter(':selected').val()
+              dataCourseSelect[0].selectize.clearOptions();
+              dataCourseSelect[0].selectize.addOption({text: "- Select -", value: 0});
+              dataCourseSelect[0].selectize.setValue(0);
+              getCourseData();
+            });
+
+
+            $(document).delegate("#journey2Data", "change", function () {
+              getCourseMultiJourneyData();
+            });
+            $(document).delegate("#course2Data", "change", function () {
+              getModuleMultiCourseData();
+            });
+            $(document).delegate("#module2Type", "change", function () {
+              getModuleMultiCourseData();
+            });
+
+            // $('#range-dateenrol').val(function(){
+            //     return curRangeDateStart.replace("-", "/")+" to "+curRangeDateEnd.replace("-", "/");
+            // });
+            $('#range-date-enrol').flatpickr({
+              mode: "range",
+              dateFormat: "d/m/Y",
+              conjunction: " - ",
+              onChange: function (selectedDates, dateStr, instance) {
+                //console.log(selectedDates,dateStr);
+              },
+              onClose: function (selectedDates, dateStr, instance) {
+
+
+              }
+            });
+
+
+            $('#completionDateRange').flatpickr({
+              mode: "range",
+              dateFormat: "d/m/Y",
+              conjunction: " - ",
+              onChange: function (selectedDates, dateStr, instance) {
+                //console.log(selectedDates,dateStr);
+              },
+              onClose: function (selectedDates, dateStr, instance) {
+
+                //let arrDate=dateStr.split(" to ");
+
+              }
+            });
+
+
+
+
+
+            @if(flashMessage('error'))
+            let urllogout = "{{ route('logout')}}"
+            Swal.fire({
+              icon: 'error',
+              title: 'Access Denied!',
+              text: "{{flashMessage('error')}}",
+              confirmButtonText: 'Yes, I will logout'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = urllogout;
+              }
+            })
+            @endif
+
+
+
+            //
+          })
+
+          function changeFilterReportType(reportType) {
+            //refreshLearningLoG();
+            if ("0" === reportType) {
+              $("#dateRangeDIV").show();
+              $("#programDIV").show();
+              $("#courseDIV").show();
+              $("#moduleDIV").hide();
+              $("#sortByDIV").hide();
+              $("#pointXtraDIV").hide();
+              $("#learningLoGDIV").hide();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").hide();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604
+            } else if ("registeredUsersNew" === reportType) {
+              $("#programDIV").show();
+              $("#subdirectorateDIV").show();
+              $("#courseDIV").hide();
+              $("#moduleDIV").hide();
+              $("#sortByDIV").hide();
+              $("#pointXtraDIV").hide();
+              $("#learningLoGDIV").hide();
+              $("#dateRangeDIV").show();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").hide();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604
+            } else if ("activeUsersNew" === reportType) {
+              $("#subdirectorateDIV").show();
+              $("#programDIV").hide();
+              $("#courseDIV").hide();
+              $("#moduleDIV").hide();
+              $("#sortByDIV").show();
+              $("#pointXtraDIV").hide();
+              $("#learningLoGDIV").hide();
+              $("#dateRangeDIV").show();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").hide();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604
+            } else if ("summaryLearningCompletionsNew" === reportType) {
+              $("#dateRangeDIV").show();
+              $("#subdirectorateDIV").show();
+              $("#programDIV").show();
+              $("#courseDIV").hide();
+              $("#moduleDIV").hide();
+              $("#sortByDIV").hide();
+              $("#contentCategoryDIV").hide();
+              $("#pointXtraDIV").hide();
+              $("#learningLoGDIV").hide();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").hide();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604
+            } else if ("ytdSummaryLearningCompletionsNew" === reportType) {
+              $("#dateRangeDIV").hide();
+              $("#subdirectorateDIV").show();
+              $("#programDIV").show();
+              $("#courseDIV").hide();
+              $("#moduleDIV").hide();
+              $("#sortByDIV").hide();
+              $("#contentCategoryDIV").hide();
+              $("#pointXtraDIV").hide();
+              $("#learningLoGDIV").hide();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").hide();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604
+            } else if ("ytmSummaryLearningCompletionsNew" === reportType) {
+              $("#dateRangeDIV").hide();
+              $("#subdirectorateDIV").show();
+              $("#programDIV").show();
+              $("#courseDIV").hide();
+              $("#moduleDIV").hide();
+              $("#sortByDIV").hide();
+              $("#contentCategoryDIV").hide();
+              $("#pointXtraDIV").hide();
+              $("#learningLoGDIV").hide();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").hide();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604
+            } else if ("mtdSummaryLearningCompletionsNew" === reportType) {
+              $("#dateRangeDIV").hide();
+              $("#subdirectorateDIV").show();
+              $("#programDIV").show();
+              $("#courseDIV").hide();
+              $("#moduleDIV").hide();
+              $("#sortByDIV").hide();
+              $("#contentCategoryDIV").hide();
+              $("#pointXtraDIV").hide();
+              $("#learningLoGDIV").hide();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").hide();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604
+            } else if ("contentLibraryCompletionsNew" === reportType) {
+              getContentLibraryData();
+              $("#dateRangeDIV").show();
+              $("#contentCategoryDIV").show();
+
+              $("#subdirectorateDIV").hide();
+              $("#programDIV").hide();
+              $("#courseDIV").hide();
+              $("#moduleDIV").hide();
+              $("#sortByDIV").hide();
+              $("#pointXtraDIV").hide();
+              $("#learningLoGDIV").hide();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").hide();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604   goLearningCompletionsVersionTwo
+            } else if ("pointXtraNew" === reportType) {
+              $("#subdirectorateDIV").hide();
+              $("#directorateDiv").hide();
+              $("#programDIV").hide();
+              $("#courseDIV").hide();
+              $("#moduleDIV").hide();
+              $("#learningLoGDIV").hide();
+              $("#pointXtraDIV").show();
+              $("#dateRangeDIV").show();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").hide();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604
+            } else if ("learningLogNew" === reportType) {
+              $("#learningLoGDIV").show();
+              $("#dateRangeDIV").hide();
+              $("#subdirectorateDIV").hide();
+              $("#directorateDiv").hide();
+              $("#programDIV").hide();
+              $("#courseDIV").hide();
+              $("#moduleDIV").hide();
+              $("#pointXtraDIV").hide();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").hide();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604
+              //getActiveUserTrueData();
+
+            } else if ("usersAccessNew" === reportType || "usersAccessDetailNew" === reportType) {
+              // alert('reportType = ' + reportType);
+              $("#dateRangeDIV").show();
+              $("#directorateDiv").hide();
+              $("#subdirectorateDIV").hide();
+              $("#programDIV").hide();
+              $("#courseDIV").hide();
+              $("#sortByDIV").hide();
+              $("#moduleDIV").hide();
+              $("#pointXtraDIV").hide();
+              $("#learningLoGDIV").hide();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").hide();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604
+            } else if ("pointXtraDetailNew" === reportType) {
+              $("#subdirectorateDIV").hide();
+              $("#directorateDiv").hide();
+              $("#courseDIV").hide();
+              $("#moduleDIV").hide();
+              $("#learningLoGDIV").hide();
+              $("#programDIV").show();
+              $("#pointXtraDIV").show();
+              $("#dateRangeDIV").show();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").hide();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604
+            } else if ("learningCompletionsVersionOne" === reportType || "learningCompletionsVersionTwo" === reportType) {
+              $("#dateRangeDIV").show();
+              $("#subdirectorateDIV").show();
+              $("#directorateDiv").show();
+              $("#programDIV").show();
+              $("#courseDIV").show();
+              $("#moduleDIV").show();
+              $("#sortByDIV").hide();
+              $("#contentCategoryDIV").hide();
+              $("#pointXtraDIV").hide();
+              $("#learningLoGDIV").hide();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").show();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604
+            } else if ("learningCompletionsVersionThree" === reportType || "learningCompletionsVersionFour" === reportType || "learningCompletionsVersionFive" === reportType) {
+              $("#dateRangeDIV").show();
+              $("#subdirectorateDIV").show();
+              $("#directorateDiv").show();
+              $("#pointXtraDIV").hide();
+              $("#learningLoGDIV").hide();
+              // learningCompletion210604
+              $("#program2DIV").show();
+              $("#course2DIV").show();
+              $("#moduleType2DIV").show();
+              $("#module2DIV").show();
+              $("#completionDateRangeDIV").show();
+              $("#programDIV").hide();
+              $("#courseDIV").hide();
+              $("#moduleDIV").hide();
+              //refreshDropdownCourse2();
+              //refreshDropdownModule2();
+              //getProgramCustomData();
+              // learningCompletion210604
+            } else if ("learningHoursVersionOne" === reportType || "learningHoursVersionOneDetail" === reportType) {
+              $("#learningLoGDIV").hide();
+              $("#dateRangeDIV").show();
+              $("#subdirectorateDIV").show();
+              $("#directorateDiv").show();
+              $("#programDIV").show();
+              $("#courseDIV").show();
+              $("#moduleDIV").hide();
+              $("#pointXtraDIV").hide();
+              $("#sortByDIV").show();
+              $("#completionDateRangeDIV").show();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+            } else if ("learningHoursVersionTwo" === reportType) {
+              $("#learningLoGDIV").hide();
+              $("#dateRangeDIV").show();
+              $("#subdirectorateDIV").show();
+              $("#directorateDiv").show();
+              $("#programDIV").hide();
+              $("#courseDIV").hide();
+              $("#moduleDIV").hide();
+              $("#pointXtraDIV").hide();
+              $("#sortByDIV").show();
+              $("#completionDateRangeDIV").show();
+              $("#program2DIV").show();
+              $("#course2DIV").show();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").show();
+              //refreshDropdownCourse2();
+              //refreshDropdownModule2();
+              //getProgramCustomData();
+
+            } else {
+              $("#dateRangeDIV").show();
+              $("#programDIV").show();
+              $("#courseDIV").show();
+              $("#sortByDIV").hide();
+              $("#moduleDIV").hide();
+              $("#pointXtraDIV").hide();
+              $("#learningLoGDIV").hide();
+              // learningCompletion210604
+              $("#completionDateRangeDIV").hide();
+              $("#program2DIV").hide();
+              $("#course2DIV").hide();
+              $("#moduleType2DIV").hide();
+              $("#module2DIV").hide();
+              // learningCompletion210604
+            }
+          }
+
+
+          function myStart() {
+            $.ajax({
+              url: "<?php echo site_url('completionbylearningprogram/myStart');?>",
+              type: "POST",
+              beforeSend: function () {
+                $.blockUI();
+              },
+              success: function (result) {
+                refreshData();
+                getDirectorateData();
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+                //alert(errorThrown);
+                Swal.fire({
+                  icon: 'warning',
+                  title: 'Oops...',
+                  text: errorThrown + ' please try again!',
+                  showOkButton: true,
+                }).then((result) => {
+                  if (result.value) {
+                    $.unblockUI();
+                    location.reload();
+                  }
+                })
+              }
+            });
+          }
+
+          function getDirectorateData() {
+            var input_data = {};
+            dataJourneySelect[0].selectize.clearOptions();
+            dataJourneySelect[0].selectize.addOption({text: "- Select -", value: 0});
+            dataJourneySelect[0].selectize.setValue(0);
+            dataCourseSelect[0].selectize.clearOptions();
+            dataCourseSelect[0].selectize.addOption({text: "- Select -", value: 0});
+            dataCourseSelect[0].selectize.setValue(0);
+
+            $.ajax(
+              {
+                url: "{{route('dashboard.report.get-master-directorate')}}",
+                type: "GET",
+                //data: input_data,
+                //dataType: "json",
+                success: function (data) {
+                  if (data.response_code == 200) {
+                    setDirectorate(data.data);
+
+
+                  } else {
+
+                    // var msg =data.value;
+                    // Swal.fire(
+                    // 	'Warning',
+                    // 	msg,
+                    // 	'warning'
+                    // );
+                  }
+
+                  //$.unblockUI();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  //alert(errorThrown);
+                  // Swal.fire({
+                  //   icon: 'warning',
+                  //   title: 'Oops...',
+                  //   text: errorThrown+' please try again!',
+                  //   showOkButton: true,
+                  // }).then((result) => {
+                  // 	if (result.value) {
+                  // 		$.unblockUI();
+                  // 		location.reload();
+                  // 	}
+                  // })
+                }
+              });
+          }
+
+          function setDirectorate(datas) {
+            //let dataDirectorateSelect = $('#directorateData').selectize();
+            if (datas.length > 0) {
+              //dataDirectorateSelect[0].selectize.addOption({text: "- select -", value: 0});
+              for (var i in datas) {
+                if (datas[i].data != null && datas[i].data != "") {
+                  dataDirectorateSelect[0].selectize.addOption({text: datas[i].data, value: datas[i].data});
+                }
+              }
+              dataDirectorateSelect[0].selectize.setValue(0);
+            }
+          }
+
+          function changeFilterDirectorate(id) {
+
+            // $('#directorateID').val(id);
+            //refresh
+            // $('#directorateTitle').text('');
+            // $('#subDirectorateTitle').text('');
+            // $('#journeyTitle').text('');
+
+            // $('#subDirectorateID').val(0);
+            // $('#journeyID').val(0);
+
+            $('#subDirectorateData').val(0);
+            //$('#journeyData').val(0);
+            refreshDropdownSubDirectorate();
+            // refresh
+
+            if ("0" === id) {
+              //alert('Please select Directorate!');
+              return false;
+            } else {
+              $.blockUI();
+              //$('#directorateTitle').text(id);
+              getSubDirectorateData();
+            }
+
+          }
+
+          function changeFilterProgram(id) {
+            //var journeyTitle=$( "#journeyData option:selected" ).text();
+            //alert(text);
+            //$('#journeyID').val(id);
+
+            // refresh
+            //$('#journeyTitle').text('');
+            //$('#courseTitle').text('');
+
+            refreshDropdownCourse();
+            $('#courseData').val(0);
+            // refresh
+
+
+            if ("0" === id) {
+              //alert('Please select Program!');
+              return false;
+            } else {
+              $.blockUI();
+              //$('#journeyTitle').text(journeyTitle);
+              getCourseData();
+            }
+          }
+
+
+          function getSubDirectorateData() {
+            var directorateID = $('select[name=directorateData] option').filter(':selected').val();
+            dataSubDirectorateSelect[0].selectize.clearOptions();
+            dataSubDirectorateSelect[0].selectize.addOption({text: "- Select -", value: 0});
+            dataSubDirectorateSelect[0].selectize.setValue(0);
+            dataCourseSelect[0].selectize.clearOptions();
+            dataCourseSelect[0].selectize.addOption({text: "- Select -", value: 0});
+            dataCourseSelect[0].selectize.setValue(0);
+
+            if ("0" === directorateID) {
+
+              dataSubDirectorateSelect[0].selectize.clearOptions();
+              dataSubDirectorateSelect[0].selectize.addOption({text: "- Select -", value: 0});
+              dataSubDirectorateSelect[0].selectize.setValue(0);
+              dataJourneySelect[0].selectize.clearOptions();
+
+            } else {
+
+
+              $.ajax(
+                {
+                  url: "{{route('dashboard.report.get-master-division')}}" + "?" + "directorateid=" + directorateID,
+                  type: "GET",
+                  //data: input_data,
+                  //dataType: "json",
+                  beforeSend: function () {
+                    //$.blockUI();
+                  },
+                  success: function (data) {
+
+                    if (data.response_code == 200) {
+                      dataSubDirectorateSelect[0].selectize.clearOptions();
+
+                      console.log(data.data);
+                      dataSubDirectorateOptions = data.data;
+                      setSubDirectorate(data.data);
+                      //$.unblockUI();
+                    } else {
+
+                      // var msg =data.value;
+                      // Swal.fire(
+                      // 	'Warning',
+                      // 	msg,
+                      // 	'warning'
+                      // );
+                    }
+                  },
+                  error: function (jqXHR, textStatus, errorThrown) {
+                    Swal.fire({
+                      icon: 'warning',
+                      title: 'Oops...',
+                      text: errorThrown + ' please try again!',
+                      showOkButton: true,
+                    }).then((result) => {
+                      if (result.value) {
+                        //$.unblockUI();
+                        //location.reload();
+                      }
+                    })
+                  }
+                });
+            }
+          }
+
+          function setSubDirectorate(datas) {
+            if (datas.length > 0) {
+
+              for (var i in datas) {
+                if (datas[i].subdirectorate != null && datas[i].subdirectorate != "") {
+                  dataSubDirectorateSelect[0].selectize.addOption({
+                    text: datas[i].subdirectorate,
+                    value: datas[i].subdirectorate
+                  });
+                }
+              }
+              dataSubDirectorateSelect[0].selectize.setValue(0);
+            }
+          }
+
+          function getProgramData() {
+
+            var directorateID = $("#directorateData").val();
+            var subDirectorateID = $("#subDirectorateData").val();
+            if ("0" === directorateID || subDirectorateID === "0") {
+
+              dataJourneySelect[0].selectize.clearOptions();
+              dataJourneySelect[0].selectize.addOption({text: "- Select -", value: 0});
+              dataJourneySelect[0].selectize.setValue(0);
+              dataCourseSelect[0].selectize.clearOptions();
+              dataCourseSelect[0].selectize.addOption({text: "- Select -", value: 0});
+              dataCourseSelect[0].selectize.setValue(0);
+
+            } else {
+              $.ajax({
+                url: "{{route('dashboard.report.get-master-program')}}" + "?" + "directorateid=" + directorateID + "&" + "subdirectorateid=" + subDirectorateID,
+                type: "GET",
+                // beforeSend:function(){
+                // $.blockUI();
+                // },
+                success: function (data) {
+                  if (data.response_code == 200) {
+                    setProgram(data.data);
+
+                  } else {
+                  }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                }
+              });
+            }
+
+
+          }
+
+          function setProgram(datas) {
+
+            if (datas.length > 0) {
+
+              for (var i in datas) {
+                if (datas[i].journey_id != null && datas[i].journey_id != "" && datas[i].journey_name != null && datas[i].journey_name != "") {
+                  dataJourneySelect[0].selectize.addOption({text: datas[i].journey_name, value: datas[i].journey_id});
+
+                }
+              }
+              dataJourneySelect[0].selectize.setValue(0);
+
+            }
+          }
+
+          function getCourseData() {
+            var journeyID = $("#journeyData").val();
+            dataCourseSelect[0].selectize.clearOptions();
+            dataCourseSelect[0].selectize.addOption({text: "- Select -", value: 0});
+            dataCourseSelect[0].selectize.setValue(0);
+
+            if ("0" === journeyID) {
+
+              // var msg ='Please select Program!'
+              // Swal.fire(
+              // 	'Warning',
+              // 	msg,
+              // 	'warning'
+              // );
+
+              // $.unblockUI();
+              // return false;
+            } else {
+              $.ajax({
+                url: "{{route('dashboard.report.get-master-course')}}" + "?" + "journeyid=" + journeyID,
+                type: "GET",
+
+                success: function (data) {
+                  if (data.response_code == 200) {
+                    setCourse(data.data);
+                    //$.unblockUI();
+
+                  } else {
+
+                    // var msg =data.value;
+                    // Swal.fire(
+                    //   'Warning',
+                    //   msg,
+                    //   'warning'
+                    // );
+                  }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  // Swal.fire({
+                  //   icon: 'warning',
+                  //   title: 'Oops...',
+                  //   text: errorThrown+' please try again!',
+                  //   showOkButton: true,
+                  // }).then((result) => {
+                  //   if (result.value) {
+                  //     $.unblockUI();
+                  //     location.reload();
+                  //   }
+                  // })
+                }
+              });
+            }
+
+          }
+
+          function setCourse(datas) {
+            if (datas.length > 0) {
+
+              for (var i in datas) {
+                if (datas[i].course_id != null && datas[i].course_id != "" && datas[i].course_name != null && datas[i].course_name != "") {
+                  dataCourseSelect[0].selectize.addOption({text: datas[i].course_name, value: datas[i].course_id});
+
+                }
+              }
+              dataCourseSelect[0].selectize.setValue(0);
+
+            }
+          }
+
+          function getProgram2Data() {
+
+
+            dataJourney2Select[0].selectize.clearOptions();
+            dataJourney2Select[0].selectize.addOption({text: "- Select -", value: 0});
+            dataJourney2Select[0].selectize.setValue(0);
+            dataCourseMultiJourneySelect[0].selectize.clearOptions();
+            dataCourseMultiJourneySelect[0].selectize.addOption({text: "- Select -", value: 0});
+            dataCourseMultiJourneySelect[0].selectize.setValue(0);
+
+
+            $.ajax({
+              url: "{{route('dashboard.report.get-master-program')}}",
+              type: "GET",
+              // beforeSend:function(){
+              // $.blockUI();
+              // },
+              success: function (data) {
+                if (data.response_code == 200) {
+                  setProgram2(data.data);
+
+                } else {
+                }
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+
+              }
+            });
+
+
+          }
+
+          function setProgram2(datas) {
+
+            if (datas.length > 0) {
+
+              for (var i in datas) {
+                if (datas[i].journey_id != null && datas[i].journey_id != "" && datas[i].journey_name != null && datas[i].journey_name != "") {
+                  dataJourney2Select[0].selectize.addOption({text: datas[i].journey_name, value: datas[i].journey_id});
+                  //dataJourney2Select[0].selectize.addOption({text: datas[i].journey_name, value: datas[i].journey_id});
+                }
+              }
+              dataJourney2Select[0].selectize.setValue(0);
+              //dataJourney2Select[0].selectize.setValue(0);
+            }
+          }
+
+          function getCourseMultiJourneyData() {
+            let multiJourney = $('#journey2Data').val();
+            let sqlMultiJourney = " ";
+            for (var i in multiJourney) {
+              if (i == 0) {
+                sqlMultiJourney = sqlMultiJourney + multiJourney[i];
+
+              } else {
+                sqlMultiJourney = sqlMultiJourney + "/" + multiJourney[i];
+              }
+            }
+
+            dataCourseMultiJourneySelect[0].selectize.clearOptions();
+            dataCourseMultiJourneySelect[0].selectize.addOption({text: "- Select -", value: 0});
+            dataCourseMultiJourneySelect[0].selectize.setValue(0);
+            dataModuleMultiCourseSelect[0].selectize.clearOptions();
+            dataModuleMultiCourseSelect[0].selectize.addOption({text: "- Select -", value: 0});
+            dataModuleMultiCourseSelect[0].selectize.setValue(0);
+
+
+            $.ajax({
+              url: "{{route('dashboard.report.get-master-course-multi-program')}}" + "?multijourney=" + sqlMultiJourney,
+              type: "GET",
+              // beforeSend:function(){
+              // $.blockUI();
+              // },
+              success: function (data) {
+                if (data.response_code == 200) {
+                  setCourseMultiJourney(data.data);
+
+                } else {
+                }
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+
+              }
+            });
+
+
+          }
+
+          function setCourseMultiJourney(datas) {
+
+            if (datas.length > 0) {
+
+              for (var i in datas) {
+                if (datas[i].course_id != null && datas[i].course_id != "" && datas[i].course_name != null && datas[i].course_name != "") {
+                  dataCourseMultiJourneySelect[0].selectize.addOption({
+                    text: datas[i].course_name,
+                    value: datas[i].course_id
+                  });
+                  //dataJourney2Select[0].selectize.addOption({text: datas[i].journey_name, value: datas[i].journey_id});
+                }
+              }
+              dataCourseMultiJourneySelect[0].selectize.setValue(0);
+              //dataJourney2Select[0].selectize.setValue(0);
+            }
+          }
+
+          function getModuleMultiCourseData() {
+
+            let multiCourse = $('#course2Data').val();
+            let moduleType = $('#module2Type').val();
+            let sqlMultiCourse = "";
+            for (var i in multiCourse) {
+              if (i == 0) {
+                sqlMultiCourse = sqlMultiCourse + multiCourse[i];
+
+              } else {
+                sqlMultiCourse = sqlMultiCourse + "/" + multiCourse[i];
+              }
+            }
+
+            dataModuleMultiCourseSelect[0].selectize.clearOptions();
+            dataModuleMultiCourseSelect[0].selectize.addOption({text: "- Select -", value: 0});
+            dataModuleMultiCourseSelect[0].selectize.setValue(0);
+            $.ajax({
+              url: "{{route('dashboard.report.get-master-module-multi-course')}}" + "?" + "multicourse=" + sqlMultiCourse + "&" + "moduletype=" + moduleType,
+              type: "GET",
+              // beforeSend:function(){
+              // $.blockUI();
+              // },
+              success: function (data) {
+                if (data.response_code == 200) {
+                  setModuleMultiCourse(data.data);
+
+                } else {
+                }
+              },
+              error: function (jqXHR, textStatus, errorThrown) {
+
+              }
+            });
+
+          }
+
+          function setModuleMultiCourse(datas) {
+
+            if (datas.length > 0) {
+
+              for (var i in datas) {
+                if (datas[i].module_id != null && datas[i].module_id != "" && datas[i].module_name != null && datas[i].module_name != "") {
+                  dataModuleMultiCourseSelect[0].selectize.addOption({
+                    text: datas[i].module_name,
+                    value: datas[i].module_id
+                  });
+                  //dataJourney2Select[0].selectize.addOption({text: datas[i].journey_name, value: datas[i].journey_id});
+                }
+              }
+              dataModuleMultiCourseSelect[0].selectize.setValue(0);
+              //dataJourney2Select[0].selectize.setValue(0);
+            }
+          }
+
+
+          function refreshData() {
+            refreshDropdownSubDirectorate();
+            refreshDropdownProgram();
+            refreshDropdownCourse();
+            //refreshDropdownModule();
+          }
+
+          // refresh dropDown
+          function refreshDropdownSubDirectorate() {
+            var $el = $("#subDirectorateData");
+            $el.empty(); // remove old options
+            $("#subDirectorateData").append('<option value="0"> - select - </option>');
+          }
+
+          function refreshDropdownProgram() {
+            var $el = $("#journeyData");
+            $el.empty(); // remove old options
+            $("#journeyData").append('<option value="0"> - select - </option>');
+          }
+
+          function refreshDropdownCourse() {
+            var $el = $("#courseData");
+            $el.empty(); // remove old options
+            $("#courseData").append('<option value="0"> - select - </option>');
+          }
+
+          function getContentLibraryData() {
+
+            $.ajax(
+              {
+                url: "{{route('dashboard.report.get-content-library')}}",
+                type: "GET",
+                // data: input_data,
+                // dataType: "json",
+                // beforeSend:function(){
+                // 	$.blockUI();
+                // },
+                success: function (data) {
+
+                  if (data.response_code == 200) {
+                    setContentLibrary(data.data);
+                  } else {
+
+
+                  }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                }
+              });
+          }
+
+          function setContentLibrary(datas) {
+            if (datas.length > 0) {
+              console.log(datas);
+              for (var i in datas) {
+                if (datas[i].id != null && datas[i].id != "" && datas[i].name != null && datas[i].name != "") {
+
+                  dataContentLibrarySelect[0].selectize.addOption({text: datas[i].name, value: datas[i].id});
+                  //dataJourney2Select[0].selectize.addOption({text: datas[i].journey_name, value: datas[i].journey_id});
+                }
+              }
+              dataContentLibrarySelect[0].selectize.setValue(0);
+              //dataJourney2Select[0].selectize.setValue(0);
+            }
+          }
+
+          function refreshLearningLoG() {
+            //
+            $('#userid11').val(0);
+            $('#userid11').select2().trigger('change');
+          }
+
+          function getActiveUserTrueData() {
+
+            $.ajax(
+              {
+                url: "{{route('dashboard.report.get-master-active-user')}}",
+                type: "GET",
+                // data: input_data,
+                // beforeSend:function(){
+                // 	//$.blockUI();
+                // },
+                success: function (data) {
+                  if (data.response_code == 200) {
+                    setLearningLoG(data.data);
+                  } else {
+
+
+                  }
+
+                  //$.unblockUI();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  // Swal.fire({
+                  //   icon: 'warning',
+                  //   title: 'Oops...',
+                  //   text: errorThrown+' please try again!',
+                  //   showOkButton: true,
+                  // }).then((result) => {
+                  // 	if (result.value) {
+                  // 		$.unblockUI();
+                  // 		location.reload();
+                  // 	}
+                  // })
+                }
+              });
+
+          }
+
+          function setLearningLoG(datas) {
+
+            if (datas.length > 0) {
+              console.log(datas);
+              for (var i in datas) {
+
+                if (datas[i].id != null && datas[i].id != "") {
+
+                  dataActiveUserSelect[0].selectize.addOption({
+                    text: datas[i].firstname + ' ' + datas[i].lastname + ' (' + datas[i].username.toUpperCase() + ')',
+                    value: datas[i].id
+                  });
+                  //dataJourney2Select[0].selectize.addOption({text: datas[i].journey_name, value: datas[i].journey_id});
+                }
+              }
+              dataActiveUserSelect[0].selectize.setValue(0);
+              //dataJourney2Select[0].selectize.setValue(0);
+            }
+          }
+
+          function downloadData() {
+            var reportType = $('#reportType').val();
+
+            if ("0" === reportType) {
+              var msg = 'Please select Report Type!';
+              Swal.fire(
+                'Warning',
+                msg,
+                'warning'
+              );
+              $.unblockUI();
+              return false;
+            } else if ("registeredUsersNew" === reportType) {
+              goRegisteredUsersNew();
+            } else if ("activeUsersNew" === reportType) {
+              goActiveUsersNew();
+            } else if ("summaryLearningCompletionsNew" === reportType) {
+              goSummaryLearningCompletionsNew();
+            } else if ("ytdSummaryLearningCompletionsNew" === reportType) {
+              goYTDSummaryLearningCompletionsNew();
+            } else if ("ytmSummaryLearningCompletionsNew" === reportType) {
+              goYTMSummaryLearningCompletionsNew();
+            } else if ("mtdSummaryLearningCompletionsNew" === reportType) {
+              goMTDSummaryLearningCompletionsNew();
+            } else if ("contentLibraryCompletionsNew" === reportType) {
+              goContentLibraryCompletionsNew();
+            } else if ("pointXtraNew" === reportType) {
+              goPointXtraNew();
+            } else if ("pointXtraDetailNew" === reportType) {
+              goPointXtraDetailNew();
+            } else if ("learningLogNew" === reportType) {
+              goLearningLogNew();
+            } else if ("usersAccessNew" === reportType) {
+              // goUsersAccessNew();
+              isAdmin("usersAccessNew");
+            } else if ("usersAccessDetailNew" === reportType) {
+              // goUsersAccessDetailNew();
+              isAdmin("usersAccessDetailNew");
+            } else if ("learningCompletionsVersionOne" === reportType) {
+              goLearningCompletionsVersionOne();
+            } else if ("learningCompletionsVersionTwo" === reportType) {
+              goLearningCompletionsVersionTwo();
+            } else if ("learningCompletionsVersionThree" === reportType) {
+              goLearningCompletionsVersionThree();
+            } else if ("learningCompletionsVersionFour" === reportType) {
+              goLearningCompletionsVersionFour();
+            } else if ("learningCompletionsVersionFive" === reportType) {
+              goLearningCompletionsVersionFive();
+            } else if ("learningHoursVersionOne" === reportType) {
+              goLearningHoursVersionOne();
+            } else if ("learningHoursVersionOneDetail" === reportType) {
+              goLearningHoursVersionOneDetail();
+            } else if ("learningHoursVersionTwo" === reportType) {
+              goLearningHoursVersionTwo();
+            }
+          }
+
+          // chek admin
+          function isAdmin(reportType) {
+            var id = "<?php echo $this->session->userdata('userid');?>";
+
+            // alert('userid='+userid);
+            var input_data = {};
+
+            input_data.isAdmin = 'isAdmin';
+            input_data.id = id;
+            $.ajax(
+              {
+                url: "<?php echo site_url('dashboard/isAdmin');?>",
+                type: "POST",
+                data: input_data,
+                dataType: "json",
+                beforeSend: function () {
+                  // $("#skeleton5").show();
+                  // $("#6u-skeleton5").hide();
+                },
+                success: function (data) {
+
+                  if (data.response) {
+                    if ('usersAccessNew' === reportType)
+                      goUsersAccessNew();
+                    else if ("usersAccessDetailNew" === reportType)
+                      goUsersAccessDetailNew();
+                  } else {
+                    // alert('bukan admin?');
+                    if (restrictedRangedate()) {
+                      if ('usersAccessNew' === reportType)
+                        goUsersAccessNew();
+                      else if ("usersAccessDetailNew" === reportType)
+                        goUsersAccessDetailNew();
+
+                    }
+                  }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                  alert(errorThrown);
+                }
+              });
+
+          }
+
+          function restrictedRangedate() {
+            var today2 = new Date();
+            var str = $('#reservation').val();
+            var daterangeSplit = str.split(" - ");
+            var startdate2 = daterangeSplit[0];
+            var enddate2 = daterangeSplit[1];
+
+            // date YYYY-MM-DD
+            let today = formatDate(today2);
+            let startDate = formatDate(startdate2);
+            let endDate = formatDate(enddate2);
+            var dateBawah = new Date();
+            var dateAtas = new Date();
+            var batasBawah = dateBawah.setDate(dateBawah.getDate() - 31);
+            var formatBatasBawah = formatDate(batasBawah);
+            var batasAtas = dateAtas.setDate(dateAtas.getDate() - 1);
+            var formatBatasAtas = formatDate(batasAtas);
+
+            // unix timestamp
+            let uToday = Date.parse(today);
+            let uStartDate = Date.parse(startDate);
+            let uEndDate = Date.parse(endDate);
+            let uFormatBatasBawah = Date.parse(formatBatasBawah);
+            let uFormatBatasAtas = Date.parse(formatBatasAtas);
+            /*
+            alert(  'today = ' + today	+'\n'+
+                'startDate = ' + startDate +'\n'+
+                'endDate = ' + endDate	+'\n'+
+                'formatBatasBawah = ' + formatBatasBawah +'\n'+
+                'formatBatasAtas = ' + formatBatasAtas +'\n'+
+                '-----------unixtimestamp--------'+'\n'+
+                'uToday = ' + uToday+'\n'+
+                'uStartDate = ' + uStartDate+'\n'+
+                'uEndDate = ' + uEndDate+'\n'+
+                'uFormatBatasBawah = ' + uFormatBatasBawah+'\n'+
+                'uFormatBatasAtas = ' + uFormatBatasAtas
+            );
+            */
+            if (uStartDate > uEndDate) {
+              // alert('tanggal start ('+startDate+') tdk boleh lebih besar dari tanggal end = ' + endDate);
+              msg = "Please Select Date Range in 31 Days!";
+              Swal.fire(
+                'Warning',
+                msg,
+                'warning'
+              );
+
+              return false;
+            } else if (uStartDate < uFormatBatasBawah) {
+              // batas atas
+              // alert('tanggal awal ('+startDate+') tdk boleh lebih kecil dari tanggal minimal yg diperbolehkan = ' + formatBatasBawah);
+              msg = "Please Select Date Range in 31 Days!";
+              Swal.fire(
+                'Warning',
+                msg,
+                'warning'
+              );
+
+              return false;
+            } else if (uStartDate >= uToday) {
+              // alert('tanggal awal ('+startDate+') tdk boleh lebih besar atau sama dengan dari tanggal hari ini = ' + today);
+              msg = "Please Select Date Range in 31 Days!";
+              Swal.fire(
+                'Warning',
+                msg,
+                'warning'
+              );
+
+              return false;
+            } else if (uEndDate < uFormatBatasBawah) {
+              // alert('tanggal akhir ('+endDate+') tdk boleh lebih kecil dari = ' + formatBatasBawah);
+              msg = "Please Select Date Range in 31 Days!";
+              Swal.fire(
+                'Warning',
+                msg,
+                'warning'
+              );
+
+              return false;
+            } else if (uEndDate >= uToday) {
+              // alert('tanggal akhir ('+endDate+') tdk boleh lebih besar atau sama dengan dari = ' + today);
+              msg = "Please Select Date Range in 31 Days!";
+              Swal.fire(
+                'Warning',
+                msg,
+                'warning'
+              );
+
+              return false;
+            } else
+              return true;
+
+          }
+
+          function formatDate(myDate) {
+            var ret;
+            var date = new Date(myDate);
+
+            var dd = date.getDate();
+            var mm = date.getMonth() + 1;
+            var yyyy = date.getFullYear();
+            if (dd < 10) {
+              dd = '0' + dd;
+            }
+
+            if (mm < 10) {
+              mm = '0' + mm;
+            }
+            ret = yyyy + '-' + mm + '-' + dd;
+
+            return ret;
+          }
+
+          // chek admin
+
+        </script>
+
+@endsection

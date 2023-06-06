@@ -1,0 +1,569 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>Moleawiz|Dashboard|Reminder| Detail Monitoring Log</title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+    <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/css/icons.min.css" rel="stylesheet" type="text/css" />
+    <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css"
+        rel="stylesheet" type="text/css"/>
+  <!-- third party css end -->
+  <style>
+
+    /* .fixTableHead {
+      overflow-y: auto;
+      height: 110px;
+    } */
+    .fixTableHead thead th {
+      position: sticky;
+      top: 0;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    btn-add:hover {
+
+      background-color: #DF2333 !important;
+      color: white !important;
+    }
+    .dataTables_length_custom{
+      padding-bottom: 0px!important;
+    }
+    .dataTables_filter_custom{
+      padding-bottom: 0px !important;
+    }
+    .search-datatable {
+        border-radius: 30px!important;
+        padding-bottom: -5px!important;
+          /* background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgICB2ZXJzaW9uPSIxLjEiICAgaWQ9InN2ZzQ0ODUiICAgdmlld0JveD0iMCAwIDIxLjk5OTk5OSAyMS45OTk5OTkiICAgaGVpZ2h0PSIyMiIgICB3aWR0aD0iMjIiPiAgPGRlZnMgICAgIGlkPSJkZWZzNDQ4NyIgLz4gIDxtZXRhZGF0YSAgICAgaWQ9Im1ldGFkYXRhNDQ5MCI+ICAgIDxyZGY6UkRGPiAgICAgIDxjYzpXb3JrICAgICAgICAgcmRmOmFib3V0PSIiPiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+ICAgICAgICA8ZGM6dHlwZSAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4gICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPiAgICAgIDwvY2M6V29yaz4gICAgPC9yZGY6UkRGPiAgPC9tZXRhZGF0YT4gIDxnICAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLC0xMDMwLjM2MjIpIiAgICAgaWQ9ImxheWVyMSI+ICAgIDxnICAgICAgIHN0eWxlPSJvcGFjaXR5OjAuNSIgICAgICAgaWQ9ImcxNyIgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjAuNCw4NjYuMjQxMzQpIj4gICAgICA8cGF0aCAgICAgICAgIGlkPSJwYXRoMTkiICAgICAgICAgZD0ibSAtNTAuNSwxNzkuMSBjIC0yLjcsMCAtNC45LC0yLjIgLTQuOSwtNC45IDAsLTIuNyAyLjIsLTQuOSA0LjksLTQuOSAyLjcsMCA0LjksMi4yIDQuOSw0LjkgMCwyLjcgLTIuMiw0LjkgLTQuOSw0LjkgeiBtIDAsLTguOCBjIC0yLjIsMCAtMy45LDEuNyAtMy45LDMuOSAwLDIuMiAxLjcsMy45IDMuOSwzLjkgMi4yLDAgMy45LC0xLjcgMy45LC0zLjkgMCwtMi4yIC0xLjcsLTMuOSAtMy45LC0zLjkgeiIgICAgICAgICBjbGFzcz0ic3Q0IiAvPiAgICAgIDxyZWN0ICAgICAgICAgaWQ9InJlY3QyMSIgICAgICAgICBoZWlnaHQ9IjUiICAgICAgICAgd2lkdGg9IjAuODk5OTk5OTgiICAgICAgICAgY2xhc3M9InN0NCIgICAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgwLjY5NjQsLTAuNzE3NiwwLjcxNzYsMC42OTY0LC0xNDIuMzkzOCwyMS41MDE1KSIgICAgICAgICB5PSIxNzYuNjAwMDEiICAgICAgICAgeD0iLTQ2LjIwMDAwMSIgLz4gICAgPC9nPiAgPC9nPjwvc3ZnPg==);
+          background-repeat: no-repeat;
+          background-color: #fff;
+          background-position: 0px 3px !important; */
+
+    }
+    
+    .tr-odd{
+      border-color: transparent!important;
+      background-color: #F7F9FC!important;
+    }
+    .tr-even{
+      border-color: transparent!important;
+      background-color: #FFFFFF!important;
+    }
+    .pd-top-pagination{
+      padding-top: 16px!important;;
+    }
+    .add-button{
+      background-color: #FFFFFF!important;
+      border-color: #6D757D!important;
+    }
+    .add-button:hover {
+      border-color: #DF2333!important;
+      background-color: #DF2333!important;
+      color: white!important;
+    }
+    .page-item.active .page-link {
+        /* z-index: 3; */
+        position: relative;
+        display: block;
+        color: #fff;
+        background-color: #DF2333;
+        border-color: #DF2333;
+    }
+
+
+  .bottom-wrapper {
+      margin-top: 0.5em;
+  }
+  .top-wrapper {
+    margin-bottom: 0.5em;
+  }
+  .btndetail:hover{
+
+   color: #DF2333!important;
+   background-color:  transparent!important;
+  }
+  .total-rating:hover{
+    color: #DF2333!important;
+  }
+</style>
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+    <div class="content">
+      @loggedIn
+      <input type="hidden" value="{{authUser.firstname +' '+ authUser.lastname}}" id="auth_name">
+      @else
+        <script>
+          window.location.replace("{{route('login')}}");
+        </script>
+        @endloggedIn
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box">
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('home')}}">HOME</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link active">Reminder Monitoring</li>
+                  </ol>
+                </div>
+                <div class="row">
+                  <div class="col-lg-2">
+                     <a href="{{route('dashboard.reminder.index-monitoring-log')}}" ><h4 class="page-title back-button  text-hover-color-scheme"><i class="mdi mdi-arrow-left"></i> Back</h4> </a>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <h4 class="header-title" style="padding-bottom:10px;"><span style="color:#333333; padding-bottom :15px;"><b>Details</b></span></h4>
+                    <h4 class="header-title" style="padding-bottom:10px;"><span style="color:#6D757D">GET DATA {{requestParams.drl_start_date}}</span></h4>
+                    <div class="col-lg-5" style="padding-bottom: 15px;">
+
+
+
+
+                  </div>
+
+                  </div>
+
+
+                  <div class="responsive-table-plugin dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+
+                      <div class="col align-self-start">
+
+                      </div>
+                      <!-- <div class="col align-self-center">
+                          <div class="dt-buttons btn-group flex-wrap">
+                              <button class="btn btn-secondary buttons-copy buttons-html5 btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Copy</span></button>
+                              <button class="btn btn-secondary buttons-print btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Print</span></button>
+                              <button class="btn btn-secondary buttons-pdf buttons-html5 btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
+                           </div>
+                      </div>  -->
+                      <div class="col align-self-end">
+
+                      </div>
+
+                    </div>
+                    <div class="row">
+
+                      <div class="btn-toolbar" style="padding-bottom:10px">
+                        <div class="row mb-1">
+                          <label for="notif_send_data" class="col-md-2 form-label">Notif Send</label>
+                          <div class="col-4 col-xl-4">
+                            <select class="form-select form-select-custom" style="color:#333333;" name="notif_send_data" id="notif_send_data">
+                                <option value="0" >All</option>
+                                <option value="1" >Learner</option>
+                                <option value="2" >SPV</option>
+                                <option value="3" >NHA</option>
+                            </select>
+                            @if(hasErrorFor('notif_send_data'))
+                              <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                   role="alert">
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                {{ getErrorFor('notif_send_data') }}
+                              </div>
+                            @endif
+                          </div>
+                        </div>
+                         <div class="row mb-1" style="padding-top:20px; padding-bottom:20px;">
+                          <label for="sent_data" class="col-md-2 form-label">Sent</label>
+                          <div class="col-4 col-xl-4">
+                            <select class="form-select form-select-custom" style="color:#333333;" name="sent_data" id="sent_data">
+                              <option value="2" >All</option>
+                              <option value="1" >Yes</option>
+                              <option value="0" >No</option>
+                           </select>
+                            @if(hasErrorFor('sent_data'))
+                              <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                   role="alert">
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                {{ getErrorFor('sent_data') }}
+                              </div>
+                            @endif
+                          </div>
+                        </div>
+                        <hr style="">
+                        <div class="btn-group dropdown-btn-group pull-left" style="padding-bottom:20px;">
+
+                        </div>
+                        <div class="btn-group dropdown-btn-group pull-right" style="padding-bottom:20px;">
+
+
+                        </div>
+
+                      </div>
+                      <div class="col-sm-12 fixTableHead">
+                        <table id="datatable"
+                               class="table w-100 nowrap"
+                               role="grid" aria-describedby="datatable-buttons_info" style="width: 924px;">
+                          <thead style="color: white; background: #DF2333;">
+                          <tr>
+                            <th valign="middle" >No.</th>
+                            <th valign="middle" >Reminder Type</th>
+                            <th valign="middle" >Reminder <br> Type</th>
+                            <th valign="middle" >Notif <br> Type</th>
+                            <th valign="middle" >Learner Name</th>
+                            <th valign="middle" >Notif Sent <br> Learner</th>
+                            <th valign="middle" >SPV Name</th>
+                            <th valign="middle" >Notif Sent <br> SPV</th>
+                            <th valign="middle" >NHA Name</th>
+                            <th valign="middle" >Notif Sent <br> NHA</th>
+                            <th valign="middle" >Date</th>
+
+                          </tr>
+                          </thead>
+                          <script>
+                            let arrAssignments = [];
+                            let i = 0;
+                            let j = 0;
+
+                          </script>
+
+                          <tbody>
+
+                          @each(data in datas)
+
+                          <tr style="color:#333333">
+                            <td valign="middle">
+                              <script>
+                                i++;
+                                document.write(i)
+                              </script>
+                            </td>
+                            <td valign="middle" >
+                              {{data.getRelated('reminder_setting').getRelated('reminder').name}}
+                            </td>
+                            <td valign="middle"   >
+                                @if('1' == data.getRelated('reminder_setting').getRelated('reminder').reminder_type || 1 == data.getRelated('reminder_setting').getRelated('reminder').reminder_type )
+                                  Journey
+                                @elseif('2' == data.getRelated('reminder_setting').getRelated('reminder').reminder_type || 2 == data.getRelated('reminder_setting').getRelated('reminder').reminder_type )
+                                  Course
+                                @elseif('3' == data.getRelated('reminder_setting').getRelated('reminder').reminder_type || 3 == data.getRelated('reminder_setting').getRelated('reminder').reminder_type )
+                                  Module
+                                @else
+                                  -
+                                @endif
+
+                            </td>
+                            <td valign="middle"   >
+                              @if(data.getRelated('reminder_setting').notif_type == 2)
+                                Email
+                              @elseif(data.getRelated('reminder_setting').notif_type == 3)
+                                All
+                              @else
+                                Push
+                              @endif
+
+                            </td>
+                            <td valign="middle"   >
+                              {{ data.getRelated('user') ? data.getRelated('user').firstname.toUpperCase() +' '+ data.getRelated('user').lastname.toUpperCase() : '-' }} <br>  {{ data.getRelated('user') ? data.getRelated('user').username.toUpperCase() : '' }}
+                            </td>
+                            <td valign="middle"   >
+
+                              @if(data.getRelated('user'))
+                                {{data.send_notif == 1 || data.send_notif == '1' ?  'Yes' : 'No'}}
+                              @else
+                               -
+                              @endif
+                            </td>
+                            <td valign="middle"   >
+                              {{ data.getRelated('spv') ? data.getRelated('spv').firstname.toUpperCase() +' '+ data.getRelated('spv').lastname.toUpperCase() : '-' }} <br>  {{ data.getRelated('spv') ? data.getRelated('spv').username.toUpperCase() : '' }}
+
+                            </td>
+                            <td valign="middle" style="">
+                              @if(data.getRelated('spv_id'))
+                                {{data.send_notif_spv == 1 || data.send_notif_spv == '1' ?  'Yes' : 'No'}}
+                              @else
+                                 -
+                              @endif
+
+                            </td>
+                            <td valign="middle"   >
+                              {{ data.getRelated('nha') ? data.getRelated('nha').firstname.toUpperCase() +' '+ data.getRelated('nha').lastname.toUpperCase() : '-' }} <br>  {{ data.getRelated('nha') ? data.getRelated('nha').username.toUpperCase() : '' }}
+
+                            </td>
+                            <td valign="middle"   >
+                              @if(data.getRelated('nha_id'))
+                                 {{data.send_notif_nha == 1 || data.send_notif_nha == '1' ?  'Yes' : 'No'}}
+                              @else
+                                -
+                              @endif
+
+                            </td>
+                            <td valign="middle" style="">
+                              {{data.created_at ? data.created_at.toLocaleDateString('en-GB').split('/').reverse().join('-')+' ' : ''}}  {{data.created_at ? data.created_at.getHours()+':'+data.created_at.getMinutes()+':'+data.created_at.getSeconds(): ''}}
+                            </td>
+                          </tr>
+
+
+                          @endeach
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div> <!-- end card body-->
+              </div> <!-- end card -->
+            </div><!-- end col-->
+          </div>
+          <!-- end row-->
+
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+
+      <!-- Footer Start -->
+      @include('layouts.footer')
+      <!-- end Footer -->
+
+      @include('layouts.modal_and_alert')
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Sweet Alerts js -->
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+  <script src="{{ BASE_URL() }}/JS/jquery-freeze-table-master/dist/js/freeze-table.js"></script>
+  <script>
+
+  </script>
+  <script>
+
+    $(document).ready(function () {
+      $(".mlw-li").hide()
+      $(".mlw-li-home").show()
+      let cronName = "{{requestParams.drl_cron_name}}";
+      let startDate = "{{requestParams.drl_start_date}}";
+      let notifSendData = {{requestParams.drl_notif_type}};
+      let sendData =  {{requestParams.drl_notif_status}};
+      let urlDetail = "{{route('dashboard.reminder.detail-monitoring-log')}}";
+      $('#notif_send_data').val(notifSendData);
+      $('#sent_data').val(sendData);
+      $('#sent_data').change(function(){
+        sendData = $(this).val();
+        notifSendData = $('#notif_send_data').val();
+
+         window.location.href = urlDetail+ '?'+'drl_notif_type='+notifSendData+'&&'+'drl_notif_status='+sendData+'&&'+'drl_cron_name='+cronName+'&&'+'drl_start_date='+startDate;
+      });
+      $('#notif_send_data').change(function(){
+        notifSendData = $(this).val();
+        sendData = $('#sent_data').val();
+        window.location.href = urlDetail+'?'+'drl_notif_type='+notifSendData+'&&'+'drl_notif_status='+sendData+'&&'+'drl_cron_name='+cronName+'&&'+'drl_start_date='+startDate;
+      });
+      @if(flashMessage('notification'))
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: "{{flashMessage('notification')}}",
+
+      })
+      @endif
+
+
+
+      @if(flashMessage('failMessage'))
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed!',
+        text: "{{flashMessage('failMessage')}}",
+
+      })
+      @endif
+
+      @if(flashMessage('successMessage'))
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: "{{flashMessage('successMessage')}}",
+
+      })
+      @endif
+
+
+      $('#range_date_show').flatpickr({
+              //enableTime: true,
+              dateFormat: "d/m/Y",
+              mode: "range",
+              //time_24hr: true,
+              //maxDate: curRangeDateEnd.split(" ")[0],
+              conjunction: " - ",
+              onChange: function (selectedDates, dateStr, instance) {
+                //console.log(selectedDates,dateStr);
+              },
+              onClose: function (selectedDates, dateStr, instance) {
+
+
+                let arrDate = dateStr.split(" to ");
+
+
+                let url = "{{route('dashboard.reminder.index-monitoring-log')}}";
+                //window.location.href = url+'?start_date='+arrDate[0].split('/').reverse().join('-') + '&'+'end_date='+arrDate[1].split('/').reverse().join('-');
+
+                // curRangeDateStart = arrDate[0].split("/").reverse().join("-")
+                // curRangeDateEnd = arrDate[1].split("/").join("-");
+                // console.log(curRangeDateStart);
+
+              }
+       });
+
+
+
+
+
+
+
+      let url = "{{ BASE_URL() + route('datatable-content-rating-report') }}";
+      $("#datatable").DataTable({
+        columnDefs: [
+   				 			{ "orderable": false, "targets": [7] },
+                            { "type": "num", "width" : "18px", "targets" : 0},
+                            { "width" : "18px", "targets" : 7},
+
+  							],
+        language: {
+          search : ' ', /*Empty to remove the label*/
+        },
+        order: [
+
+        ],
+        aLengthMenu : [[25, 50, 75, -1], [25, 50, 75, "All"]],
+        iDisplayLength: 25,
+        //fixedHeader: true,
+        //responsive: true,
+
+        scrollX: !0,
+        //dom: 'Bfrltip',
+        buttons: [
+          {
+            extend: 'copy',
+            exportOptions: {
+              columns: [0, 1, 2]
+            }
+          },
+          {
+            extend: 'csv',
+            exportOptions: {
+              columns: [0, 1, 2]
+            }
+          },
+          {
+            extend: 'pdf',
+            exportOptions: {
+              columns: [0, 1, 2]
+            }
+          },
+          {
+            extend: 'print',
+            exportOptions: {
+              columns: [0, 1, 2]
+            }
+          },
+          //'colvis'
+        ],
+        pagingType:
+          "full_numbers",
+        drawCallback: function () {
+          $("thead").css("background",dataThemes.color_scheme);
+$(".dataTables_paginate > .pagination").addClass("pagination-default")
+          $(".dataTables_info").addClass("pd-top-pagination")
+          $(".dataTables_paginate").addClass("pd-top-pagination")
+          $(".odd").addClass("tr-odd")
+          $(".even").addClass("tr-even")
+          $('input[type="search"]').addClass("search-datatable")
+          $('input[type="search"]').attr("placeholder", "    Search here");
+          $('.dataTables_length').addClass('dataTables_length_custom');
+          $('.dataTables_filter').addClass('dataTables_filter_custom');
+          $(".page-item.active .page-link").css("background-color",dataThemes.color_scheme);
+          $(".page-item.active .page-link").css("border-color",dataThemes.color_scheme);
+          $('.dataTables_scrollHeadInner').freezeTable({
+            'freezeColumn': false,
+          });
+        }
+      }),
+        $(".dataTables_length select").addClass("form-select form-select-sm"),
+        $(".dataTables_length select").removeClass("custom-select custom-select-sm"),
+        $(".dataTables_length label").addClass("form-label")
+        $(".dataTables_filter label").addClass("form-label")
+
+
+
+
+    });
+
+
+  </script>
+  <!-- third party js ends -->
+@endsection

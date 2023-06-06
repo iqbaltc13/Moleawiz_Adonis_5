@@ -1,0 +1,350 @@
+@layout('layouts.appfix')
+@section('title')
+    <title>Moleawiz|User|Permission| Assign User To Role</title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <!-- Plugins css -->
+  <!-- Plugins css -->
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css"/>
+  
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/JS/Tokenize2/tokenize2.css" rel="stylesheet"/>
+  <link rel="stylesheet" type="text/css" href="{{ BASE_URL() }}/JS/Dual-Select-Boxes-For-Bootstrap-Bootstrap-Dual-Listbox/src/bootstrap-duallistbox.css">
+  <style>
+  select option {
+    margin: 0px;
+    background: transparent;
+    color: #333333;
+    text-shadow: 0 1px 0 rgb(0 0 0 / 40%);
+  }
+
+  .filter {
+    border-radius: 20px;
+    padding: 4px;
+  }
+
+  .remove {
+    border-color: #DF2333;
+    background-color: #DF2333;
+    color: #fff;
+  }
+
+  .remove:hover {
+    border-color: #DF2333;
+    background-color: #DF2333;
+    color: white!important;
+  }
+
+  .move {
+    border-color: #DF2333;
+    background-color: #DF2333;
+    color: #fff;
+  }
+
+  .move:hover {
+    border-color: #DF2333;
+    background-color: #DF2333;
+    color: white!important;
+  }
+
+
+  .label-box{
+    color:#333333;
+  }
+  </style>
+  <!-- third party css end -->
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+
+
+    <!-- Start Content-->
+    <div class="content">
+
+      <!-- Start Content-->
+      <div class="container-fluid">
+
+        <!-- start page title -->
+
+
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right" >
+                <ol class="breadcrumb m-0">
+                  <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('home')}}">HOME</a></li>
+                  <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.role-management.index-assign')}}">Assign System Roles </a></li>
+                  <li class="breadcrumb-item  breadcrumb-link active">Assign Role</li>
+                </ol>
+              </div>
+               <div class="row">
+                <div class="col-lg-2">
+                   <a href="{{route('dashboard.role-management.index-assign')}}" ><h4 class="page-title back-button  text-hover-color-scheme"><i class="mdi mdi-arrow-left"></i> Back</h4> </a>
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+        <script>
+          let idMembers = [];
+        </script>
+
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="header-title" style="color: #333333; padding-bottom:20px;"><b> Assign Role <span style="color: #6D757D">{{data.name ? data.name : data.shortname}}</span> in System </b></h4>
+
+                <br/>
+                <div class="alert alert-warning alert-block"   role="alert">
+                    <i class="mdi mdi-alert-outline mdi-18px me-2"></i> WARNING! Any roles you assign from this page will apply to the assigned users throughout the entire system, including
+                    the front page and all the courses.
+                </div>
+
+                <form id="assign_user_to_role" action="{{ route('dashboard.role-management.assign-user', { id : data.id }) }}"
+                      enctype="multipart/form-data" method="POST">
+                  {{ csrfField() }}
+
+
+                  <div class="mb-3">
+                    <label for="id_member" class="form-label"></label>
+                    <select multiple="multiple" class="" style="color:#333333;" id="id_member" name="id_member[]"
+                            data-plugin="multiselect">
+                      @each(user in users)
+                        <option value='{{user.id}}' style='padding-bottom:5px;'  >{{ user.firstname +' '+ user.lastname }}</option>
+
+                      @endeach
+                      @each(member in assignedUsers)
+                        @if(member.getRelated('user'))
+                          <option value='{{member.userid}}' style='padding-bottom:5px;' selected >{{member.getRelated('user').firstname +' '+ member.getRelated('user').lastname }}</option>
+                          <script>
+                            idMembers.push({{member.userid}});
+                          </script>
+                        @endif
+
+                      @endeach
+
+                    </select>
+
+                  </div>
+
+
+                  <!--<button id="submit_btn" type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>-->
+                </form>
+
+
+                    <div class="row mb-3"  >
+                      <label class="col-4 form-label" style="color: #6D757D" style="padding-bottom:10px;"><b>Search Option</b></label>
+                      <div class="form-check col-12 col-xl-10" style="padding-left:35px; padding-bottom:10px;">
+                        <input type="checkbox" class="form-check-input" id=""
+                                name="keep_selected" value="1">
+                        <label class="form-check-label" for="force_password_change">Keep selected users, even if they no longer match the search</label>
+                      </div>
+                      <div class="form-check col-12 col-xl-10" style="padding-left:35px; padding-bottom:10px;">
+                        <input type="checkbox" class="form-check-input" id=""
+                                name="force_password_change" value="1">
+                        <label class="one_user_match" for="force_password_change">If only one user matches the search, select them automatically</label>
+                      </div>
+                      <div class="form-check col-12 col-xl-10" style="padding-left:35px; padding-bottom:10px;  ">
+                        <input type="checkbox" class="form-check-input" id=""
+                                name="force_password_change" value="1">
+                        <label class="match_search anywhere" for="force_password_change">Match the search text anywhere in the displayed fields</label>
+                      </div>
+                    </div>
+
+
+
+
+
+                <!-- end row-->
+
+              </div> <!-- end card-body -->
+            </div> <!-- end card -->
+          </div><!-- end col -->
+        </div>
+        <!-- end row -->
+
+
+        <!-- RADIOS -->
+
+
+      </div> <!-- container -->
+
+    </div> <!-- content -->
+
+
+    <!-- Footer Start -->
+    @include('layouts.footer')
+    <!-- end Footer -->
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Plugins js -->
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+  <script src="{{ BASE_URL() }}/JS/Tokenize2/tokenize2.js"></script>
+  <script
+    src="{{ BASE_URL() }}/JS/Dual-Select-Boxes-For-Bootstrap-Bootstrap-Dual-Listbox/src/jquery.bootstrap-duallistbox_role_assign.js"></script>
+
+
+  <script>
+    $(document).ready(function () {
+      $(".mlw-li").hide()
+      $(".mlw-li-home").show()
+      $('#btn_auto_generate_password').click(function () {
+        let randomstring = Math.random().toString(36).slice(-10);
+        $('#password').val(randomstring);
+      });
+
+      $('#submit_btn').click(function () {
+
+        $('#edit_user').submit();
+      });
+
+
+      const fp = flatpickr("#joindate", {
+        dateFormat: "Y-m-d",
+      });
+
+      $('#id_member').bootstrapDualListbox({
+        nonSelectedListLabel: "Potential Learners (<span id='pot-learner'> </span>)",
+        selectedListLabel: "Current Learners (<span id='cur-learner'> </span>)",
+        preserveSelectionOnMove: 'moved',
+        moveOnSelect: false,
+        selectorMinimalHeight: 300,
+        filterPlaceHolder: ' Search here',
+        infoText: '',                                                        // text when all options are visible / false for no info text
+        infoTextFiltered: '', // when not all of the options are visible due to the filter
+        infoTextEmpty: '',
+        btnMoveText: " <i class='mdi mdi-account-plus'></i> Add Learner",                                                                // string, sets the text for the "Move" button
+        btnRemoveText: " <i class='mdi mdi-account-minus'></i> Remove Learner",
+
+      });
+
+      $(".move").css("background-color",dataThemes.color_scheme);
+      $(".move").css("border-color",dataThemes.color_scheme);
+      $(".remove").css("background-color",dataThemes.color_scheme);
+      $(".remove").css("border-color",dataThemes.color_scheme);
+      $(".moveall").css("background-color",dataThemes.color_scheme);
+      $(".moveall").css("border-color",dataThemes.color_scheme);
+      $(".removeall").css("background-color",dataThemes.color_scheme);
+      $(".removeall").css("border-color",dataThemes.color_scheme);
+      $(".set-main-admin").css("background-color",dataThemes.color_scheme);
+      $(".set-main-admin").css("border-color",dataThemes.color_scheme);
+
+      $('#cur-learner').html(idMembers.length);
+      $('#pot-learner').html({{users.length}}-idMembers.length);
+
+      $('#id_member').change(function(){
+        let val = $(this).val();
+
+        $('#cur-learner').html(val.length);
+        $('#pot-learner').html({{users.length}}-val.length);
+
+        let xcsrf = $('input[name=_csrf]').val();
+        let urlAssignSetting = "{{ route('dashboard.role-management.assign-user-json', { id : data.id }) }}";
+
+        let formData = new FormData();
+        formData.append("id_member_json", val.join('-') );
+
+
+
+
+        fetch(urlAssignSetting, {
+          method: 'POST', // or 'PUT'
+          headers: {
+            //'Content-Type': 'application/json',
+            'x-csrf-token': xcsrf
+          },
+          //body: JSON.stringify(data),
+          body: formData,
+
+
+        })
+        .then(response => response)
+        .then(data => {
+          console.log(data);
+
+        })
+        .catch((error) => {
+          console.log( error);
+        });
+
+      });
+
+
+
+    });
+
+  </script>
+  <!-- third party js ends -->
+@endsection

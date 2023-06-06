@@ -1,0 +1,883 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>MoLeaWiz | Dashboard</title>
+@endsection
+
+@section('style')
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+    <div class="content">
+      @loggedIn
+      <input type="hidden" value="{{authUser.firstname +' '+ authUser.lastname}}" id="auth_name">
+      @else
+        <script>
+          window.location.replace("{{route('login')}}");
+        </script>
+        @endloggedIn
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box">
+                <div class="page-title-right">
+
+                </div>
+                <h4 class="page-title">Dashboard </h4>
+              </div>
+            </div>
+          </div>
+          <!-- end page title -->
+
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="header-title mb-0">Register Date</h4>
+                  <div class="mb-3">
+                    <label class="form-label" style="padding-top:20px;">Start Date</label>
+                    <div class="input-group input-group-merge">
+                      <div class="input-group-text">
+                        <i class="fas fa-calendar-alt"></i>
+
+                      </div>
+                      <input type="text" name="startdate" id="startdate" class="form-control" style="color:#333333;">
+                    </div>
+
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">End Date</label>
+                    <div class="input-group input-group-merge">
+                      <div class="input-group-text">
+                        <i class="fas fa-calendar-alt"></i>
+                      </div>
+                      <input type="text" name="enddate" id="enddate" class="form-control" style="color:#333333;">
+                    </div>
+                  </div>
+                  <div class="button-list pe-xl-6 d-grid">
+                    <a href="javascript:void(0);" id="btn-change-date-range-enrol"
+                       class="btn  waves-effect waves-light btn-light" style="background-color:#FF0000;color: white">Apply</a>
+                  </div>
+                </div>
+              </div> <!-- end card -->
+
+              <div class="card">
+                <div class="card-body">
+                  <h4 class="header-a mb-0">Total Registered Learners</h4>
+                  <div class="widget-chart text-left" dir="ltr">
+                    <h2 class="text-left pt-1" id="count-enrolled-learners" style="color:#A3090F;"></h2>
+                    <h4 class="text-black-50 pt-1"> Learners </h4>
+                  </div>
+                </div>
+              </div>
+            </div> <!-- end col-->
+            <div class="col-lg-3">
+              <div class="card">
+                <div class="card-body">
+                  <div class="dropdown float-end">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                      <i class="mdi mdi-information"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+
+                    </div>
+                  </div>
+
+                  <h4 class="header-title mb-0">Active Learners</h4>
+
+                  <div class="widget-chart" dir="ltr" style="padding-bottom:25px;">
+                    <h2 id="count-active-learners" style="padding-top:20px;color:#A3090F;"></h2>
+                    <h5 class="form-label text-black-50">Learners</h5>
+
+                    <div id="total-users"></div>
+
+                  </div>
+
+                  <div class="button-list pe-xl-6 d-grid">
+                    <a href="javascript:void(0);" id="btn-detail-active-user"
+                       class="btn btn-outline-secondary waves-effect">See details</a>
+                  </div>
+                </div>
+              </div> <!-- end card -->
+            </div> <!-- end col-->
+
+            <div class="col-lg-6">
+              <div class="card">
+                <div class="card-body">
+
+                  <div class="dropdown float-end">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                      <i class="mdi mdi-information"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+
+                    </div>
+                  </div>
+
+                  <h4 class="header-title mb-0">Access Learners Logs</h4>
+
+                  <div class="widget-chart text-center" dir="ltr">
+
+                    <div id="cardCollpase3" class="collapse show pb-xl-1" dir="ltr">
+                      <div id="access-learner-logs" class="apex-charts" data-colors="#FF0000"></div>
+                    </div> <!-- collapsed end -->
+                  </div>
+
+                  <div class="button">
+                    <a href="javascript:void(0);" id="btn-detail-active-user"
+                       class="btn btn-outline-secondary waves-effect">See details</a>
+                  </div>
+                </div>
+              </div> <!-- end card -->
+            </div> <!-- end col-->
+
+          </div>
+          <!-- end row -->
+
+          <div class="row">
+            <div class="col-md-8">
+              <div class="card card-outline">
+                <div class="card-body">
+                  <div class="dropdown float-end">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                      <i class="mdi mdi-information"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+
+                    </div>
+                  </div>
+
+                  <h4 class="header-title mb-0">Completions By Learning Program</h4>
+
+                  <div class="widget-chart text-center" dir="ltr">
+
+                    <div id="cardCollpase8" class="collapse pt-3 show" dir="ltr">
+                      <div id="completions-by-learning-program" class="apex-charts" style="padding-bottom: 20px;"></div>
+                    </div>
+                    <div class="button-list pe-xl-6 d-grid">
+                      <a href="javascript:void(0);" id="btn-detail-completion-by-learning-program"
+                         class="btn  waves-effect waves-light btn-light">See Details</a>
+                    </div>
+                  </div>
+                </div>
+              </div> <!-- end card -->
+
+              <div class="card card-outline">
+                <div class="card-body">
+                  <div class="dropdown float-end">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                      <i class="mdi mdi-information"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+
+                    </div>
+                  </div>
+
+                  <h4 class="header-title mb-3">Completions By Directorate</h4>
+
+                  <div id="cardCollpase8" class="collapse pt-3 show" dir="ltr">
+                    <div id="completions-by-directorate" class="apex-charts" style="padding-bottom: 20px;"></div>
+                  </div> <!-- collapsed end -->
+                  <div class="button-list pe-xl-6 d-grid">
+                    <a href="javascript:void(0);" id="btn-detail-completion-by-directorate"
+                       class="btn  waves-effect waves-light btn-light">See Details</a>
+                  </div>
+
+
+                </div>
+              </div> <!-- end card -->
+
+              <div class="card card-outline">
+                <div class="card-body">
+                  <div class="dropdown float-end">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                      <i class="mdi mdi-information"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+
+                    </div>
+                  </div>
+
+                  <h4 class="header-title mb-0">Favorite Category in Content Library</h4>
+
+                  <div class="widget-chart text-center" dir="ltr">
+                    <div id="cardCollpase8" class="collapse pt-3 show" dir="ltr">
+                      <div id="completions-by-content-library" class="apex-charts" data-colors="#FF0000"
+                           style="padding-bottom: 20px;"></div>
+                    </div>
+                    <div class="button-list pe-xl-6 d-grid">
+                      <a href="javascript:void(0);" id="btn-completion-by-content-library"
+                         class="btn  waves-effect waves-light btn-light">See Details</a>
+                    </div>
+
+
+                  </div>
+                </div>
+              </div> <!-- end card -->
+
+
+            </div> <!-- end col-->
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <div class="dropdown float-end">
+                    <a href="#" class="dropdown-toggle arrow-none card-drop" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                      <i class="mdi mdi-information"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-end">
+
+                    </div>
+                  </div>
+
+                  <h4 class="header-title mb-0" style="padding-bottom:20px">Highest Learning Point</h4>
+                  <poinxtra>
+                  </poinxtra>
+
+
+                </div>
+              </div> <!-- end card -->
+            </div>
+
+
+          </div>
+
+
+          <!-- end row -->
+
+
+        </div> <!-- content -->
+
+        <!-- Footer Start -->
+        @include('layouts.footer')
+      <!-- end Footer -->
+
+
+        @endsection
+      @section('right_sidebar')
+        @include('layouts.sidebar.sidebar_right_base')
+      @endsection
+      @section('script')
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/apexcharts/apexcharts.min.js"></script>
+        <!-- Dashboar 1 init js-->
+        <script src="https://apexcharts.com/samples/assets/irregular-data-series.js"></script>
+        <script src="https://apexcharts.com/samples/assets/ohlc.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-sparkline/jquery.sparkline.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        <script
+          src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/admin-resources/jquery.vectormap/maps/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+
+
+        <script>
+          $(document).ready(function () {
+            $(".mlw-li").hide()
+            $(".mlw-li-dashboard").show()
+            let curRangeDateStart = "{{startdate}}";
+            let curRangeDateEnd = "{{enddate}}";
+            let urlEnrolledUser = "{{route('dashboard.get-enrolled-user')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+            let urlActiveUser = "{{route('dashboard.get-active-user')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+            let urlGetCompletionbyDirectorateTop5 = "{{route('dashboard.get-completions-by-directorate-top')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+            let urlGetCompletionbyLearningProgramTop5 = "{{route('dashboard.get-completions-by-learning-program-top')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+            let urlGetCompletionbyContentLibraryTop5 = "{{route('dashboard.get-completion-by-content-library-top')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+            let urlGetHighestUsersbyPointXtra = "{{route('dashboard.get-highest-users-by-poin-xtra')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+            let urlGoAccessUserNew = "{{route('dashboard.go-access-user-new')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+
+
+            $('#enddate').val(function () {
+              let splitDateTime = curRangeDateEnd.split(" ");
+              let returnDateTime = "";
+              if (splitDateTime.length > 1) {
+                returnDateTime = splitDateTime[0].split("-").reverse().join('/') + " " + splitDateTime[1];
+              } else {
+                returnDateTime = splitDateTime[0].split("-").reverse().join('/') + " " + "00:00";
+              }
+              return returnDateTime;
+            });
+            $('#startdate').val(function () {
+              let splitDateTime = curRangeDateStart.split(" ");
+              let returnDateTime = "";
+              if (splitDateTime.length > 1) {
+                returnDateTime = splitDateTime[0].split("-").reverse().join('/') + " " + splitDateTime[1];
+              } else {
+                returnDateTime = splitDateTime[0].split("-").reverse().join('/') + " " + "00:00";
+              }
+              return returnDateTime;
+            });
+
+            $('#startdate').flatpickr({
+              enableTime: true,
+              dateFormat: "d/m/Y H:i",
+              time_24hr: true,
+              //maxDate: curRangeDateEnd.split(" ")[0],
+              conjunction: " - ",
+              onChange: function (selectedDates, dateStr, instance) {
+                //console.log(selectedDates,dateStr);
+              },
+              onClose: function (selectedDates, dateStr, instance) {
+                console.log(dateStr);
+
+                let arrDate = dateStr.split(" ");
+
+                curRangeDateStart = arrDate[0].split("/").reverse().join("-") + " " + arrDate[1];
+                // curRangeDateEnd = arrDate[1].split("/").join("-");
+                console.log(curRangeDateStart);
+
+              }
+            });
+            $('#enddate').flatpickr({
+              enableTime: true,
+              dateFormat: "d/m/Y H:i",
+              time_24hr: true,
+              //minDate: '2021-12-01',
+              conjunction: " - ",
+              onChange: function (selectedDates, dateStr, instance) {
+                //console.log(selectedDates,dateStr);
+              },
+              onClose: function (selectedDates, dateStr, instance) {
+                console.log(dateStr);
+                let arrDate = dateStr.split(" ");
+                curRangeDateEnd = arrDate[0].split("/").reverse().join("-") + " " + arrDate[1];
+                // curRangeDateEnd = arrDate[1].split("/").join("-");
+                console.log(curRangeDateEnd);
+
+                // let arrDate=dateStr.split(" to ");
+
+                // curRangeDateStart = arrDate[0].split("/").join("-");
+                // curRangeDateEnd = arrDate[1].split("/").join("-");
+                // console.log(curRangeDateStart,curRangeDateEnd);
+
+              }
+            });
+            // $('#startdate').val(function(){
+            //     return curRangeDateStart.replace("-", "/")+" to "+curRangeDateEnd.replace("-", "/");
+            // });
+            // $('#range-dateenrol').val(function(){
+            //     return curRangeDateStart.replace("-", "/")+" to "+curRangeDateEnd.replace("-", "/");
+            // });
+            // $('#range-dateenrol').flatpickr({
+            //     mode: "range",
+            //     dateFormat: "Y/m/d",
+            //     conjunction: " - ",
+            //     onChange: function(selectedDates, dateStr, instance) {
+            //        //console.log(selectedDates,dateStr);
+            //     },
+            //     onClose: function(selectedDates, dateStr, instance){
+
+
+            //         let arrDate=dateStr.split(" to ");
+
+            //         curRangeDateStart = arrDate[0].split("/").join("-");
+            //         curRangeDateEnd = arrDate[1].split("/").join("-");
+            //         console.log(curRangeDateStart,curRangeDateEnd);
+
+            //     }
+            // });
+            $(document).delegate("#btn-change-date-range-enrol", "click", function () {
+              let dateTimeStart = new Date(curRangeDateStart);
+              let dateTimeEnd = new Date(curRangeDateEnd);
+              if (dateTimeStart > dateTimeEnd) {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error Range Date!',
+                  text: "End Date must be later than Start Date",
+                  confirmButtonText: 'Yes, I understand'
+                }).then((result) => {
+
+                })
+              } else {
+                window.location.href = "{{route('dashboard')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd;
+              }
+
+
+            });
+            $(document).delegate("#btn-detail-completion-by-directorate", "click", function () {
+              window.open("{{route('dashboard.completion.index-by-directorate')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd, "_blank");
+            });
+
+            $(document).delegate("#btn-detail-completion-by-learning-program", "click", function () {
+              window.open("{{route('dashboard.completion.index-by-learning-program')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd, "_blank");
+            });
+
+            $(document).delegate("#btn-completion-by-content-library", "click", function () {
+              window.open("{{route('dashboard.completion.index-by-content-library')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd, "_blank");
+            });
+
+            $(document).delegate("#btn-detail-active-user", "click", function () {
+              window.open("{{route('dashboard.user.index-active-learners')}}" + "?startdate=" + curRangeDateStart + "&" + "enddate=" + curRangeDateEnd, "_blank");
+            });
+
+
+
+
+
+            @if(flashMessage('error'))
+            let urllogout = "{{ route('logout')}}"
+            Swal.fire({
+              icon: 'error',
+              title: 'Access Denied!',
+              text: "{{flashMessage('error')}}",
+              confirmButtonText: 'Yes, I will logout'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = urllogout;
+              }
+            })
+
+
+
+            @endif
+            var seriesPieUser = [];
+            var labelsPieUser = ["Active", "Inactive"];
+            var totalEnrolledUser = 0;
+            var activeUser = 0;
+
+            fetch(urlEnrolledUser).then(
+              res2 => {
+                res2.json().then(
+                  data2 => {
+                    totalEnrolledUser = data2[0].total_enrolled_user;
+                    //console.log(totalEnrolledUser);
+                    $('#count-enrolled-learners').html(totalEnrolledUser);
+
+
+                    fetch(urlActiveUser).then(
+                      res => {
+                        res.json().then(
+                          data => {
+                            console.log(data[0]);
+                            activeUser = data[0].active_user;
+                            //console.log(activeUser);
+
+                            seriesPieUser.push(activeUser);
+                            seriesPieUser.push(totalEnrolledUser - activeUser);
+                            //console.log(seriesPieUser);
+                            let colors = ["#A3090F", "#FFA5A9"];
+                            $('#count-active-learners').html(activeUser);
+
+                            let optionsTotalUser = {
+                              chart: {
+                                height: 320, type: "pie"
+                              },
+                              series: seriesPieUser,
+                              labels: labelsPieUser,
+                              dataLabels: {
+                                enabled: false,
+                              },
+                              colors: colors,
+                              legend: {
+                                show: !0,
+                                position: "bottom",
+                                horizontalAlign: "center",
+                                verticalAlign: "middle",
+                                floating: !1,
+                                fontSize: "14px",
+                                offsetX: 0,
+                                offsetY: 7,
+                                foreColor: '#ffffff'
+                              }, responsive: [{breakpoint: 600, options: {chart: {height: 240}, legend: {show: !1}}}]
+                            }
+                            var chartTotalUser = new ApexCharts(document.querySelector("#total-users"), optionsTotalUser);
+
+                            chartTotalUser.render();
+                          }
+                        )
+                      }
+                    )
+
+
+                  }
+                )
+              }
+            )
+
+
+            (urlGetCompletionbyDirectorateTop5).then(
+              res => {
+                res.json().then(
+                  data => {
+
+                    //console.log(data[0]);
+
+                    var series1 = [];
+                    var series2 = [];
+                    var xAxisCategories = [];
+                    data.forEach((itemData) => {
+                      series1.push(itemData.total_sum_complete);
+                      series2.push(itemData.total_sum_incomplete);
+                      xAxisCategories.push(itemData.directorate);
+
+                    });
+
+                    var colorsCompletionsByDirectorate = ["#A3090F", "#FFA5A9"];
+                    var dataColorsCompletionsByDirectorate = $("#completions-by-directorate").data('colors');
+                    if (dataColorsCompletionsByDirectorate) {
+                      colorsCompletionsByDirectorate = dataColorsCompletionsByDirectorate.split(",");
+                    }
+
+
+                    var chartCompletionsByDirectorate = new ApexCharts(
+                      document.querySelector("#completions-by-directorate"),
+                      {
+                        chart: {
+                          height: 380,
+                          type: 'bar',
+                          toolbar: {
+                            show: false
+                          }
+                        },
+                        plotOptions: {
+                          bar: {
+                            horizontal: true,
+                          }
+                        },
+                        dataLabels: {
+                          enabled: false
+                        },
+                        series: [{
+                          name: 'Complete',
+                          data: series1
+                        }, {
+                          name: 'Incomplete',
+                          data: series2
+                        }
+                        ],
+                        colors: colorsCompletionsByDirectorate,
+                        xaxis: {
+                          categories: xAxisCategories,
+                        },
+                        states: {
+                          hover: {
+                            filter: 'none'
+                          }
+                        },
+                        grid: {
+                          borderColor: '#f1f3fa'
+                        }
+                      }
+                    ).render()
+
+                  }
+                )
+              }
+            )
+
+
+//     /* completions-by-learning-program
+//                             </div>-->
+// completions-by-content-library*/
+
+            fetch(urlGetCompletionbyLearningProgramTop5).then(
+              res => {
+                res.json().then(
+                  data => {
+                    //console.log(data);
+                    var series1 = [];
+                    var series2 = [];
+                    var xAxisCategories = [];
+                    data.forEach((itemData) => {
+                      series1.push(itemData.total_user_completed);
+                      series2.push(itemData.total_user_incomplete);
+                      xAxisCategories.push(itemData.journey_name);
+
+                    });
+                    console.log(series1, series2, xAxisCategories);
+                    var colorsCompletionsByLearningProgram = ["#A3090F", "#FFA5A9"];
+                    var dataColorsCompletionsByLearningProgram = $("#completions-by-learning-program").data('colors');
+                    if (dataColorsCompletionsByLearningProgram) {
+                      colorsCompletionsByLearningProgram = dataColorsCompletionsByLearningProgram.split(",");
+                    }
+
+
+                    var chartCompletionsByLearningProgram = new ApexCharts(
+                      document.querySelector("#completions-by-learning-program"),
+                      {
+                        chart: {
+                          height: 380,
+                          type: 'bar',
+                          toolbar: {
+                            show: false
+                          }
+                        },
+                        plotOptions: {
+                          bar: {
+                            horizontal: true,
+                          }
+                        },
+                        dataLabels: {
+                          enabled: false
+                        },
+                        series: [{
+                          name: 'Complete',
+                          data: series1
+                        }, {
+                          name: 'Incomplete',
+                          data: series2
+                        }],
+                        colors: colorsCompletionsByLearningProgram,
+                        xaxis: {
+                          categories: xAxisCategories,
+                        },
+                        states: {
+                          hover: {
+                            filter: 'none'
+                          }
+                        },
+                        grid: {
+                          borderColor: '#f1f3fa'
+                        }
+                      }
+                    ).render()
+                  }
+                )
+              }
+            )
+
+
+            fetch(urlGetCompletionbyContentLibraryTop5).then(
+              res => {
+                res.json().then(
+                  data => {
+                    var series1 = [];
+
+                    var xAxisCategories = [];
+                    data.forEach((itemData) => {
+                      series1.push(itemData.total_user_completed);
+
+                      xAxisCategories.push(itemData.category);
+
+                    });
+                    var colorsCompletionsByContentLibrary = ["#A3090F", "#FFA5A9"];
+                    var dataColorsCompletionsByContentLibrary = $("#completions-by-content-library").data('colors');
+                    if (dataColorsCompletionsByContentLibrary) {
+                      colorsCompletionsByContentLibrary = dataColorsCompletionsByContentLibrary.split(",");
+                    }
+
+
+                    var chartCompletionsByContentLibrary = new ApexCharts(
+                      document.querySelector("#completions-by-content-library"),
+                      {
+                        chart: {
+                          height: 380,
+                          type: 'bar',
+                          toolbar: {
+                            show: false
+                          }
+                        },
+                        plotOptions: {
+                          bar: {
+                            horizontal: true,
+                          }
+                        },
+                        dataLabels: {
+                          enabled: false
+                        },
+                        series: [{
+                          name: 'Complete',
+                          data: series1
+                        }],
+                        colors: colorsCompletionsByContentLibrary,
+                        xaxis: {
+                          categories: xAxisCategories,
+                        },
+                        states: {
+                          hover: {
+                            filter: 'none'
+                          }
+                        },
+                        grid: {
+                          borderColor: '#f1f3fa'
+                        }
+                      }
+                    ).render()
+                  }
+                )
+              }
+            )
+
+            fetch(urlGetHighestUsersbyPointXtra).then(
+              res => {
+                res.json().then(
+                  data => {
+                    //console.log(data);
+                    let baseUrl = "{{ BASE_URL() }}";
+                    if (data.length > 0) {
+
+                      var temp = "";
+                      data.forEach((itemData) => {
+                        let urlImage = '';
+
+
+                        let btnRow = '<div class="d-flex align-items-start" style="padding-bottom:10px;">' +
+                          //'<img class="me-3 rounded-circle" src="'+baseUrl+'" width="40" alt="">'+
+                          '<img class="me-3 rounded-circle" src="' + baseUrl + '/templates/UBold_v5.1.0/Admin/dist/assets/images/users/user-2.jpg" width="40" alt="">' +
+
+                          '<div class="w-100">' +
+
+                          '<h5 class="mt-0 mb-1">' + itemData.firstname + ' ' + itemData.lastname + '</h5>' +
+                          '<span class="font-13">' + itemData.directorate + '</span>' +
+                          '<br/><span class="font-15">Total Point</span><span class="badge badge-soft-danger float-end">' + itemData.total_point + '</span>' +
+                          '</div>' +
+                          '</div>';
+                        temp = temp + btnRow;
+                      });
+                      $('poinxtra').html(temp);
+                    }
+                  }
+                )
+              }
+            )
+
+            fetch(urlGoAccessUserNew).then(
+              res => {
+                res.json().then(
+                  data => {
+                    //chartCompletionsByDirectorate.render();
+
+                    var series1 = [];
+
+                    var xAxisCategories = [];
+                    data.forEach((itemData) => {
+                      series1.push(itemData.total_user);
+
+                      xAxisCategories.push(itemData.access_date);
+
+                    });
+                    var colorsAccessLearnerLogs = ["#A3090F", "#FFA5A9"];
+                    var dataColorsAccessLearnerLogs = $("access-learner-logs").data('colors');
+                    if (dataColorsAccessLearnerLogs) {
+                      colorsAccessLearnerLogs = dataColorsAccessLearnerLogs.split(",");
+                    }
+
+
+                    var chartAccessLearnerLogs = new ApexCharts(
+                      document.querySelector("#access-learner-logs"),
+                      {
+                        chart: {
+                          height: 380,
+                          type: 'line',
+                          shadow: {
+                            enabled: false,
+                            color: '#bbb',
+                            top: 3,
+                            left: 2,
+                            blur: 3,
+                            opacity: 1
+                          },
+                        },
+                        stroke: {
+                          width: 5,
+                          curve: 'smooth'
+                        },
+                        series: [{
+                          name: 'Users',
+                          data: series1
+                        }],
+                        xaxis: {
+                          type: 'datetime',
+                          categories: xAxisCategories,
+                        },
+                        title: {
+                          align: 'left',
+                          style: {
+                            fontSize: "14px",
+                            color: '#666'
+                          }
+                        },
+                        fill: {
+                          type: 'gradient',
+                          gradient: {
+                            shade: 'dark',
+                            gradientToColors: colorsAccessLearnerLogs,
+                            shadeIntensity: 1,
+                            type: 'horizontal',
+                            opacityFrom: 1,
+                            opacityTo: 1,
+                            stops: [0, 100, 100, 100]
+                          },
+                        },
+                        markers: {
+                          size: 4,
+                          opacity: 0.9,
+                          colors: ["#56c2d6"],
+                          strokeColor: "#fff",
+                          strokeWidth: 2,
+                          style: 'inverted', // full, hollow, inverted
+                          hover: {
+                            size: 7,
+                          }
+                        },
+                        yaxis: {
+                          min: -10,
+                          max: 40,
+                          title: {
+                            text: 'Total Unique Learners',
+                          },
+                        },
+                        grid: {
+                          row: {
+                            colors: ['transparent', 'transparent'], // takes an array which will be repeated on columns
+                            opacity: 0.2
+                          },
+                          borderColor: '#185a9d'
+                        },
+                        responsive: [{
+                          breakpoint: 600,
+                          options: {
+                            chart: {
+                              toolbar: {
+                                show: false
+                              }
+                            },
+                            legend: {
+                              show: false
+                            },
+                          }
+                        }]
+                      }).render();
+
+                  }
+                )
+              }
+            )
+
+
+            //
+          })
+        </script>
+
+@endsection

@@ -1,0 +1,349 @@
+@layout('layouts.appfix')
+@section('title')
+<title>Moleawiz|Dashboard|Module| Setting Module</title>
+@endsection
+@section('style')
+<!-- third party css -->
+<!-- Plugins css -->
+ <!-- Plugins css -->
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/JS/summernote/summernote.css" rel="stylesheet" type="text/css" />
+
+<link rel="stylesheet" type="text/css" href="{{ BASE_URL() }}/JS/Dual-Select-Boxes-For-Bootstrap-Bootstrap-Dual-Listbox/src/bootstrap-duallistbox.css">
+<!-- third party css end -->
+@endsection
+@section('navbar')
+@include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+@include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+<div class="content-page">
+
+
+  <!-- Start Content-->
+  <div class="content">
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+
+                    <h4 class="page-title">Module Setting {{data.fullname}} Form</h4>
+                </div>
+            </div>
+        </div>
+        <script>
+          let idContentLibraries = [];
+        </script>
+        @each(item in data.content_library_modules.rows)
+        <script>
+          idContentLibraries.push({{item.content_library_id}});
+        </script>
+        @endeach
+        <script>
+          console.log(idContentLibraries)
+        </script>
+
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <!--<h4 class="header-title" style="padding-bottom:20px;">General</h4>-->
+
+
+
+                                <form id="edit_course" action="{{ route('dashboard.journey.course.module.update', { id : data.id }) }}" enctype="multipart/form-data" method="POST">
+                                  {{ csrfField() }}
+                                    <div class="mb-3">
+                                      <label for="description" class="form-label">Description </label>
+                                      <textarea rows="4" id="description" class="form-control" style="color:#333333;"  name="description">{{data.description}}</textarea>
+                                      @if(hasErrorFor('description'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            {{ getErrorFor('description') }}
+                                        </div>
+                                      @endif
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="attempt" class="form-label">Max Learning Attempt</label>
+                                        <input type="number" id="attempt" name="attempt" class="form-control" style="color:#333333;" value="{{data.attempt}}" required>
+                                        @if(hasErrorFor('attempt'))
+                                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                              {{ getErrorFor('attempt') }}
+                                          </div>
+                                        @endif
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Max Point Attempt</label>
+                                        <input type="number" id="max_point_attempt" name="max_point_attempt" class="form-control" style="color:#333333;" value="{{data.name}}" required>
+                                        @if(hasErrorFor('max_point_attempt'))
+                                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                              {{ getErrorFor('max_point_attempt') }}
+                                          </div>
+                                        @endif
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="is_placement_test" class="form-label">Placement Test
+                                        </label>
+                                            <select name="is_placement_test" class="form-select form-select-custom" style="color:#333333;" id="is_placement_test" required>
+                                                <option value="1" >Yes</option>
+                                                <option value="0" >No</option>
+                                            </select>
+                                        @if(hasErrorFor('is_placement_test'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            {{ getErrorFor('is_placement_test') }}
+                                        </div>
+                                        @endif
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="unity" class="form-label">Unity
+                                        </label>
+                                            <select name="unity" class="form-select form-select-custom" style="color:#333333;" id="unity" required>
+                                             <option value="1" >Yes</option>
+                                             <option value="0" >No</option>
+                                            </select>
+                                        @if(hasErrorFor('unity'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            {{ getErrorFor('unity') }}
+                                        </div>
+                                        @endif
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="module_type" class="form-label">Type
+                                        </label>
+                                            <select name="module_type" class="form-select form-select-custom" style="color:#333333;" id="module_type" required>
+                                             <option value="1" >Esential</option>
+			                                       <option value="2" >Support</option>
+                                            </select>
+                                        @if(hasErrorFor('module_type'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            {{ getErrorFor('module_type') }}
+                                        </div>
+                                        @endif
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label for="has_rating" class="form-label">Has Rating
+                                        </label>
+                                            <select name="has_rating" class="form-select form-select-custom" style="color:#333333;" id="has_rating" required>
+                                             <option value="0" >No</option>
+			                                       <option value="1" >Yes</option>
+                                            </select>
+                                        @if(hasErrorFor('has_rating'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            {{ getErrorFor('has_rating') }}
+                                        </div>
+                                        @endif
+                                    </div>
+
+                                     <div class="mb-3">
+                                        <label for="learning_effort" class="form-label">Learning Effort (Between 0 - 5)</label>
+                                        <input type="number"   min="0" max="5" id="learning_effort" name="learning_effort" class="form-control" style="color:#333333;" value="{{data.learning_effort}}" required>
+                                        @if(hasErrorFor('learning_effort'))
+                                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                              {{ getErrorFor('learning_effort') }}
+                                          </div>
+                                        @endif
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                      <div class="form-check">
+                                        @if(data.visible == 1 || data.visible == '1')
+                                          <input type="checkbox" class="form-check-input" id="visible" name="visible" value="1"  checked  >
+                                        @else
+                                          <input type="checkbox" class="form-check-input" id="visible" name="visible" value="1"    >
+                                        @endif
+                                          <label class="form-check-label" for="visible">Visible</label>
+                                      </div>
+                                    </div>
+
+
+                                    <div class="mb-3">
+                                        <label for="module_category" class="form-label">Category
+                                        </label>
+                                            <select name="module_category" class="form-select form-select-custom" style="color:#333333;" id="module_category" required>
+                                            <option value="0" >- Select - </option>
+                                            @each( item in  contentLibraries.rows )
+                                                <option value="{{item.id}}" >{{item.name}}</option>
+                                             @endeach
+                                            </select>
+                                        @if(hasErrorFor('module_category'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            {{ getErrorFor('module_category') }}
+                                        </div>
+                                        @endif
+                                    </div>
+
+                                     <div class="mb-3">
+                                        <label for="id_content_libraries" class="form-label">Content Library</label>
+                                        <select multiple="multiple" class="form-select form-select-custom" style="color:#333333;" id="id_content_libraries" name="id_content_libraries[]"
+                                                data-plugin="multiselect">
+
+                                        @each( item in contentLibraries.rows)
+                                        <script>
+                                            if (idContentLibraries.includes({{item.id}})) {
+                                            document.write("<option value='{{item.id}}' selected >{{ item.name }}</option>")
+
+                                            } else {
+                                            document.write("<option value='{{item.id}}' >{{ item.name }}</option>")
+                                            }
+
+                                        </script>
+
+                                        @endeach
+
+                                        </select>
+
+                                    </div>
+
+
+
+
+                                    <div class="mb-3">
+                                      <label for="trailer_file" class="form-label">Trailer</label>
+
+                                    </div>
+                                    <div class="mb-3">
+                                    @if(data.trailer)
+                                      <img src="{{ BASE_URL() }}/uploads/assets/images/{{data.trailer}}" alt="" width="160" height="240">
+                                    @endif
+                                    </div>
+
+                                    <div class="mb-3">
+                                      <label for="trailer_file" class="form-label">Trailer</label>
+                                      <input type="file" name="trailer_file" class="form-control" style="color:#333333;" id="trailer_file"  />
+                                      @if(hasErrorFor('trailer_file'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            {{ getErrorFor('trailer_file') }}
+                                        </div>
+                                      @endif
+                                    </div>
+
+                        <button id="submit_btn" type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                      </form>
+                        <!-- end row-->
+
+                    </div> <!-- end card-body -->
+                </div> <!-- end card -->
+            </div><!-- end col -->
+        </div>
+        <!-- end row -->
+
+
+
+
+
+
+        <!-- RADIOS -->
+
+
+
+    </div> <!-- container -->
+
+</div> <!-- content -->
+
+
+  <!-- Footer Start -->
+
+  <!-- end Footer -->
+
+</div>
+@endsection
+@section('right_sidebar')
+@include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+<!-- third party js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+ <!-- Plugins js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ BASE_URL() }}/JS/summernote/summernote.js"></script>
+<script src="{{ BASE_URL() }}/JS/Tokenize2/tokenize2.js"></script>
+<script src="{{ BASE_URL() }}/JS/Dual-Select-Boxes-For-Bootstrap-Bootstrap-Dual-Listbox/src/jquery.bootstrap-duallistbox.js"></script>
+
+<script>
+$(document).ready(function(){
+  $(".mlw-li").hide()
+  $(".mlw-li-home").show()
+  $('#description').summernote();
+  $('#id_content_libraries').bootstrapDualListbox();
+  $(".move").css("background-color",dataThemes.color_scheme);
+  $(".move").css("border-color",dataThemes.color_scheme);
+  $(".remove").css("background-color",dataThemes.color_scheme);
+  $(".remove").css("border-color",dataThemes.color_scheme);
+  $(".moveall").css("background-color",dataThemes.color_scheme);
+  $(".moveall").css("border-color",dataThemes.color_scheme);
+  $(".removeall").css("background-color",dataThemes.color_scheme);
+  $(".removeall").css("border-color",dataThemes.color_scheme);
+  $(".set-main-admin").css("background-color",dataThemes.color_scheme);
+  $(".set-main-admin").css("border-color",dataThemes.color_scheme);
+
+  $('#is_placement_test').val("{{data.is_placement_test}}");
+  $('#unity').val("{{data.unity}}");
+  $('#module_type').val("{{data.module_type}}");
+  $('#has_rating').val("{{data.has_rating}}");
+  $('#module_category').val("{{data.module_category}}");
+
+
+
+
+});
+
+</script>
+<!-- third party js ends -->
+@endsection

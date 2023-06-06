@@ -1,0 +1,41 @@
+<html>
+    <body>
+        <div style="background-color:#008C8C;height: 50px;"></div>
+        <div>
+            <p style="color:#646464">
+            YTH. Bapak/Ibu, {{ messages }}<br><br>
+            Terdapat program pembelajaran di e-Smart yang belum diselesaikan.<br>
+            Lihat daftar module yang harus Bapak/Ibu selesaikan di <i>My Learning Journey</i>.<br><br>
+            Berikut ini adalah perkembangan belajar Bapak/Ibu:<br>
+                <table border = 1 style = "border-spacing: 0px;border-collapse: collapse;">
+                    <tr style="text-align:center">
+                        <th>Program</th>
+                        <th>Progress %</th>
+                        <th>Batas Waktu</th>
+                    </tr>
+                    @each(item in journey_id)
+                    <tr>
+                        @if(item.journey_name != "")
+                            <td>{{ item.journey_name }}</td>
+                        @else
+                            <td style="text-align:center"> - </td>
+                        @endif
+                        <td style="text-align:center">{{ item.progress }} %</td>
+                        <td>{{ item.expired_date }}</td>
+                    </tr>
+                    @endeach
+                </table>
+            </p>
+        </div>
+        <br>
+        <div>
+            <p style="color:#646464">
+                Terima kasih,<br><br>{{team}}
+            </p>
+            <br>
+			
+        </div>
+        <br>
+        <div style="background-color:#008C8C;height: 50px;"></div>
+    </body>
+</html>

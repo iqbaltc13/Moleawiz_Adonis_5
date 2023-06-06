@@ -1,0 +1,528 @@
+@layout('layouts.appfix')
+@section('title')
+<title>Moleawiz|Dashboard|Program| List Certificate</title>
+@endsection
+@section('style')
+<!-- third party css -->
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<!-- third party css end -->
+<style>
+    btn-add:hover {
+
+      background-color: #DF2333 !important;
+      color: white !important;
+    }
+    .page-item.active .page-link {
+        /* z-index: 3; */
+        position: relative;
+        display: block;
+        color: #fff;
+        background-color: #DF2333;
+        border-color: #DF2333;
+    }
+</style>
+@endsection
+@section('navbar')
+@include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+@include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+<div class="content-page">
+  <div class="content">
+      @loggedIn
+    <input type="hidden" value="{{authUser.firstname +' '+ authUser.lastname}}"  id="auth_name">
+@else
+   <script>
+      window.location.replace("{{route('login')}}");
+   </script>
+@endloggedIn
+
+      <!-- Start Content-->
+      <div class="container-fluid">
+
+          <!-- start page title -->
+
+
+          <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+                        <h4 class="header-title" style="padding-bottom:20px;"> Certificate For {{journey.name}}</h4>
+                        <div class="btn-toolbar">
+
+                          <div class="btn-group dropdown-btn-group pull-right">
+                              <a href="{{ route('dashboard.journey.certificate.create',{daa_journey_id: journey.id}) }}" class="btn  btn-success">Add New</a>
+
+                          </div>
+                        </div>
+
+
+
+                        <div  class="dataTables_wrapper dt-bootstrap4 no-footer">
+
+                            <div class="row">
+                                <div class="col align-self-start">
+
+                                </div>
+                                <!-- <div class="col align-self-center">
+                                    <div class="dt-buttons btn-group flex-wrap">
+                                        <button class="btn btn-secondary buttons-copy buttons-html5 btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Copy</span></button>
+                                        <button class="btn btn-secondary buttons-print btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Print</span></button>
+                                        <button class="btn btn-secondary buttons-pdf buttons-html5 btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
+                                     </div>
+                                </div>  -->
+                                <div class="col align-self-end">
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <table id="datatable" class="table w-100 nowrap" role="grid" aria-describedby="datatable-buttons_info" style="width: 924px;">
+                             <thead style="color: white; background: #DF2333;">
+                              <tr>
+                                <th valign="middle" >No.</th>
+                                <th valign="middle" >Name</th>
+                                <th valign="middle" >Code</th>
+
+                                <th valign="middle" >Expired Date</th>
+
+                                <th valign="middle" >Status</th>
+                                <th valign="middle" >Create Date</th>
+                                <th valign="middle" >Actions</th>
+                                <th valign="middle" >Note</th>
+                                <th valign="middle" >Modules</th>
+                                <th valign="middle" >Template</th>
+                             </tr>
+                            </thead>
+                            <script>
+                              let arrAssignments = [];
+                              let i = 0;
+                              let k = 0;
+                              var monthNames = [ "January", "February", "March", "April", "May", "June",
+                                "July", "August", "September", "October", "November", "December" ];
+                            </script>
+
+                            <tbody>
+
+                            @each(data in datas)
+
+                             <tr>
+                              <td valign="middle" style=""><script>
+                                i++;
+                                document.write(i)
+                              </script></td>
+                              <td valign="middle" style="max-width: 200px;
+                              text-overflow: ellipsis;
+                              white-space: nowrap;
+                              overflow: hidden;">{{ data.name  }} </td>
+                              <td valign="middle" style="">{{data.kode}}</td>
+
+                              <td valign="middle">{{data.expired_date ? data.expired_date.toLocaleDateString('en-GB').split('/').reverse().join('-'): ''}}</td>
+
+                              <td valign="middle" style="">
+                                {{data.visible > 0 ? "Active" : "Not Active" }}
+                              </td>
+                               <td valign="middle">
+                                {{data.created_at ? data.created_at.toLocaleDateString('en-GB').split('/').reverse().join('-') +' '+data.created_at.getHours()+':'+data.created_at.getMinutes()+':'+data.created_at.getSeconds(): ''}}
+                               </td>
+
+                              <td valign="middle">
+                                <div class="tabledit-toolbar btn-toolbar btntoolbar-{{data.id}}" style="text-align: left;" dataid="{{data.id}}">
+                                  <div class="btn-group btn-group-sm btngroup-{{data.id}}" style="" dataid="{{data.id}}">
+                                    <a  href="{{ route('dashboard.journey.certificate.edit', { id : data.id }) }}" class="tabledit-edit-button btn btn-success btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;"><span class="mdi mdi-pencil"></span></a>
+                                    <a  href="javascript:void(0);" class=" btn btn-danger btndelete" fullname="{{ data.name  }}" dataid="{{data.id}}" style="float: none;"><span class="mdi mdi-delete"></span></a>
+                                    <a  href="{{ route('dashboard.journey.certificate.detail', { id : data.id }) }}" class="btn btn-success btndetail-{{data.id}}"  dataid="{{data.id}}" target="_blank" style="float: none;"><i class="fas fa-info-circle"></i></a>
+                                  </div>
+                                </div>
+                                <div class="tabledit-toolbar btn-toolbar btntoolbar-{{data.id}}" style="text-align: left;" dataid="{{data.id}}">
+                                  <div class="btn-group btn-group-sm btngroup-{{data.id}}" style="" dataid="{{data.id}}">
+
+
+
+
+                                  </div>
+                                </div>
+                              </td>
+                              <td valign="middle">{{data.note}}</td>
+                              <script> k=0; </script>
+                              <td valign="middle">
+                                <br/>
+                                @each(module in data.modules[0])
+
+                                 {{'- '+module.fullname}}
+                                 <br/>
+                                @endeach
+                              </td>
+                              <td valign="middle"> <img src="{{ BASE_URL() }}/uploads/assets/images/{{data.certificate}}" alt="" width="180" height="120"><br/><br/>
+                                    {{data.getRelated('certificate_user').rows.length}} Recipients
+                              </td>
+                            </tr>
+
+
+
+
+                            @endeach
+                            </tbody>
+                        </table></div></div>
+
+                      </div>
+
+                    </div> <!-- end card body-->
+                </div> <!-- end card -->
+            </div><!-- end col-->
+        </div>
+        <!-- end row-->
+
+      </div> <!-- container -->
+
+  </div> <!-- content -->
+
+  <!-- Footer Start -->
+
+  <!-- end Footer -->
+
+</div>
+@endsection
+@section('right_sidebar')
+@include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+<!-- third party js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<!-- Sweet Alerts js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+<script>
+  function datatableinit(){
+    let url = "{{ BASE_URL() + route('dashboard.role-management.datatable') }}";
+    fetch(url).then(
+      res => {
+        res.json().then(
+          data => {
+            console.log(data);
+            if (data.length > 0) {
+
+              var temp = "";
+              data.forEach((itemData) => {
+                let country = "-";
+                if(itemData.country){
+                  country = itemData.country.name;
+                }
+
+                let btnAction = '<div class="tabledit-toolbar btn-toolbar btntoolbar-'+itemData.id+'" style="text-align: left;" dataid="'+itemData.id+'">'+
+                                      '<div class="btn-group btn-group-sm btngroup-'+itemData.id+'" style="float: none;" dataid="'+itemData.id+'">'+
+                                        '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-success btnedit-'+itemData.id+'"  dataid="'+itemData.id+'" style="float: none;"><span class="mdi mdi-pencil"></span></a>' +
+                                        '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-danger btndelete-'+itemData.id+'" dataid="'+itemData.id+'" style="float: none;"><span class="mdi mdi-delete"></span></a>' +
+                                        '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-warning btnsuspend-'+itemData.id+'" dataid="'+itemData.id+'" style="float: none;"><span class="mdi mdi-eye-outline"></span></a>' +
+                                      '</div>'+
+                                '</div>';
+                temp += "<tr>";
+                temp += "<td valign="middle">" + itemData.firstname +' '+ itemData.lastname + "</td>";
+                temp += "<td valign="middle">" + itemData.email + "</td>";
+                temp += "<td valign="middle">" + itemData.city + "</td>";
+                temp += "<td valign="middle">" + itemData.country + "</td>";
+                temp += "<td valign="middle">" + itemData.lastaccess + "</td>";
+                temp += "<td valign="middle">" + btnAction + "</td></tr>";
+              });
+              //document.querySelector('#datatable tbody').append(temp);
+            }
+          }
+        )
+      }
+    )
+  }
+
+
+
+</script>
+<script>
+$(document).ready(function(){
+   $(".mlw-li").hide()
+   $(".mlw-li-home").show()
+   @if(flashMessage('notification'))
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: "{{flashMessage('notification')}}",
+
+    })
+   @endif
+
+
+
+   @if(flashMessage('failMessage'))
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Failed!',
+      text: "{{flashMessage('failMessage')}}",
+
+    })
+   @endif
+
+   @if(flashMessage('successMessage'))
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: "{{flashMessage('successMessage')}}",
+
+    })
+   @endif
+
+
+
+
+
+
+
+   let url = "{{ BASE_URL() + route('dashboard.role-management.datatable') }}";
+   $("#datatable").DataTable({
+     columnDefs: [
+   				 			//{ "orderable": false, "targets": 0 },
+                { "type": "num", "width" : "18px", "targets" : 0},
+
+  							],
+		 order: [
+
+      ],
+    //  ordering: true,
+    //  destroy: true,
+    //  processing: true,
+    //  serverSide: true,
+    //  ajax: url,
+    //  columns: [
+		// 		      {
+    //             data:'firstname',
+    //             render: function(data){
+		// 							var element=data.firstname+' '+data.lastname;
+		// 							return element;
+		// 						}
+		// 					},
+		// 					{
+		// 						data:'email',
+		// 					},
+		// 					{
+		// 						data:'city',
+		// 					},
+
+		// 					{
+		// 						data:'country.name',
+
+
+		// 					},
+		// 					{
+		// 						data:'lastaccess',
+		// 					},
+
+		// 					{
+		// 						data:null,
+		// 						searchable: false,
+		// 						render: function(data){
+		// 							let temp = "";
+    //               let btnAction = '<div class="tabledit-toolbar btn-toolbar btntoolbar-'+data.id+'" style="text-align: left;" dataid="'+data.id+'">'+
+    //                                   '<div class="btn-group btn-group-sm btngroup-'+data.id+'" style="float: none;" dataid="'+data.id+'">'+
+    //                                     '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-success btnedit-'+data.id+'"  dataid="'+data.id+'" style="float: none;"><span class="mdi mdi-pencil"></span></a>' +
+    //                                     '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-danger btndelete-'+data.id+'" dataid="'+data.id+'" style="float: none;"><span class="mdi mdi-delete"></span></a>' +
+    //                                     '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-warning btnsuspend-'+data.id+'" dataid="'+data.id+'" style="float: none;"><span class="mdi mdi-eye-outline"></span></a>' +
+    //                                   '</div>'+
+    //                             '</div>';
+		// 							return let+btnAction;
+		// 						}
+
+		// 					},
+
+
+    //      ],
+     scrollX:!0,
+     //dom: 'Bfrltip',
+     buttons: [
+        {
+            extend: 'copy',
+            exportOptions: {
+                columns: [  0,1 ,2,3,4,5,7,8 ]
+            }
+        },
+        {
+            extend: 'csv',
+            exportOptions: {
+                columns: [  0,1 ,2,3,4,5,7,8 ]
+            }
+        },
+        {
+            extend: 'pdf',
+            exportOptions: {
+                columns: [  0,1 ,2,3,4,5,7,8 ]
+            }
+        },
+        {
+            extend: 'print',
+            exportOptions: {
+                columns: [  0,1 ,2,3,4,5,7,8]
+            }
+        },
+        //'colvis'
+      ],
+     pagingType:
+      "full_numbers",
+      drawCallback:function(){
+      $("thead").css("background",dataThemes.color_scheme);
+$(".dataTables_paginate > .pagination").addClass("pagination-default")
+    }}),
+        $(".dataTables_length select").addClass("form-select form-select-sm"),
+        $(".dataTables_length select").removeClass("custom-select custom-select-sm"),
+        $(".dataTables_length label").addClass("form-label")
+        $(".dataTables_filter label").addClass("form-label")
+
+
+
+});
+  $('#end_date').flatpickr({
+
+        dateFormat: "d/m/Y",
+
+
+        onChange: function(selectedDates, dateStr, instance) {
+
+        },
+        onClose: function(selectedDates, dateStr, instance){
+            console.log(dateStr);
+
+
+        }
+  });
+  $('.btnsetting').on('click', function() {
+    let is_simulator = $(this).attr("is_simulator");
+    let is_reward = $(this).attr("is_reward");
+    let is_leaderboard = $(this).attr("is_leaderboard");
+    let end_date = $(this).attr("end_date");
+
+    let dataid   = $(this).attr("dataid");
+
+    $('#end_date').val(null);
+    if(end_date != null && end_date != 'null' ){
+
+      $('#end_date').val(end_date)
+
+    }
+
+    $("#dataid").val(dataid);
+    $("#is_simulator").val(is_simulator);
+    $("#is_reward").val(is_reward);
+    $("#is_leaderboard").val(is_leaderboard);
+  });
+
+  $(document).delegate( "#change-setting-submit", "click", function() {
+      $('#setting-modal').modal('hide');
+      let dataid =  $('input[name=dataid]').val();
+
+      let xcsrf = $('input[name=_csrf]').val();
+      let urlChangeSetting = "{{ route('dashboard.journey.change-setting',{ id : 'data.id' })}}";
+      urlChangeSetting = urlChangeSetting.replace('data.id', dataid);
+      let formData = new FormData();
+      formData.append('is_simulator',$("#is_simulator").val() );
+      formData.append('is_reward',$("#is_reward").val() );
+      formData.append('is_leaderboard',$("#is_leaderboard").val() );
+      formData.append('end_date',$("#end_date").val() != null ? $("#end_date").val().split('/').reverse().join('/') : null  );
+
+      console.log(dataid);
+
+      fetch(urlChangeSetting, {
+        method: 'POST', // or 'PUT'
+        headers: {
+          //'Content-Type': 'application/json',
+          'x-csrf-token': xcsrf
+        },
+        //body: JSON.stringify(data),
+        body: formData,
+
+      })
+      .then(response => response)
+      .then(data => {
+        console.log(data);
+        Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: "Success change setting program!",
+
+        })
+        location.reload();
+      })
+      .catch((error) => {
+        console.log( error);
+      });
+
+    });
+
+   $('.btndelete').on('click', function() {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urldelete = "{{ route('dashboard.journey.certificate.soft-delete',{ id : 'data.id' })}}";
+
+      urldelete = urldelete.replace('data.id', dataid);
+      //console.log(urldelete);
+      Swal.fire({
+        title: 'Are you sure want to delete '+ fullname +' ?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+              window.location.href = urldelete;
+          }
+        })
+
+   })
+
+   $('.btndelete-restrict').on('click', function() {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urldelete = "{{ route('dashboard.journey.soft-delete-restrict',{ id : 'data.id' })}}";
+
+      urldelete = urldelete.replace('data.id', dataid);
+      //console.log(urldelete);
+      Swal.fire({
+        title: 'Are you sure want to delete '+ fullname +' ?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+              window.location.href = urldelete;
+          }
+        })
+
+   })
+
+
+   console.log( arrAssignments);
+</script>
+<!-- third party js ends -->
+@endsection

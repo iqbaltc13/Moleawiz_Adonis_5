@@ -1,0 +1,55 @@
+<html>
+    <body>
+        <div style="background-color:#008C8C;height: 50px;"></div>
+        <div>
+            <p style="color:#646464">
+            YTH Bapak/Ibu,<br><br>
+            {{ messages }}
+            <br><br>
+            Berikut ringkasan pencapaian pembelajaran tim Bapak/Ibu:<br>
+           
+            <table border = 1 style = "border-spacing: 0px;border-collapse: collapse;">
+                <tr style="text-align:center">
+                    <th>NIK</th>
+                    <th>Nama</th>
+                    <th>Program</th>
+                    <th>Progress %</th>
+                    <th>Batas Waktu</th>
+                </tr>
+                @each(item in data)
+                <tr>
+                  @if(item.username != "")
+                      <td>{{ item.username }}</td>
+                  @else
+                      <td style="text-align:center"> - </td>
+                  @endif
+                  @each(detail in item.detail)
+                    <td style="text-align:center">{{ detail.name }} %</td>
+                    <td>{{ detail.journey_name }}</td>
+                    <td>{{ detail.progress }} %</td>
+                    <td>{{ detail.expired_date }}</td>
+                  @endeach
+                </tr>
+                @endeach
+            </table>
+            <br><br>
+            Untuk melihat perkembangan pembelajaran tim Bapak/Ibu secara berkala, dapat diakses melalui e-Smart dengan langkah sebagai berikut:<br>
+                <ol>
+                    <li>Masuk e-Smart</li>
+                    <li>Sentuh <i>icon</i> “More”</li>
+                    <li>Sentuh <i>icon Team Monitoring</i></li>
+                </ol>
+            </p>
+        </div>
+        <br>
+        <div>
+            <p style="color:#646464">
+                Terima kasih,<br><br>{{ team }}
+            </p>
+            <br>
+            
+        </div>
+        <br>
+        <div style="background-color:#008C8C;height: 50px;"></div>
+    </body>
+</html>

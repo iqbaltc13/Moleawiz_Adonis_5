@@ -1,0 +1,311 @@
+@layout('layouts.appfix')
+@section('title')
+<title>Moleawiz|Dashboard|Reminder| Edit Reminder</title>
+@endsection
+@section('style')
+<!-- third party css -->
+<!-- Plugins css -->
+ <!-- Plugins css -->
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css" rel="stylesheet" type="text/css" />
+
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/JS/summernote/summernote.css" rel="stylesheet" type="text/css" />
+<!-- third party css end -->
+@endsection
+@section('navbar')
+@include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+@include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+<div class="content-page">
+
+
+  <!-- Start Content-->
+  <div class="content">
+
+    <!-- Start Content-->
+    <div class="container-fluid">
+
+        <!-- start page title -->
+        <div class="row">
+            <div class="col-12">
+                <div class="page-title-box">
+
+                    <h4 class="page-title">Edit Reminder Form</h4>
+                </div>
+            </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+
+
+                                <form id="edit_reminder" action="{{ route('dashboard.reminder.update', { id : data.id }) }}" enctype="multipart/form-data" method="POST">
+                                  {{ csrfField() }}
+                                    <div class="mb-3">
+                                        <label for="name" class="form-label">Reminder Name</label>
+                                        <input type="text" id="name" name="name" class="form-control" style="color:#333333;" value="{{data.name}}" required>
+                                        @if(hasErrorFor('name'))
+                                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                              {{ getErrorFor('name') }}
+                                          </div>
+                                        @endif
+                                    </div>
+
+                                    <div class="mb-3">
+                                      <label for="start_date" class="form-label">Start Date
+                                      </label>
+                                        <select name="start_date" class="form-select form-select-custom" style="color:#333333;" id="start_date" required>
+                                          <option value="1" >Enrolment Date</option>
+                                          <option value="2" >Join Date</option>
+                                          <option value="3" >Expired Date</option>
+                                          <option value="4" >General</option>
+                                        </select>
+                                      @if(hasErrorFor('start_date'))
+                                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                          {{ getErrorFor('start_date') }}
+                                      </div>
+                                      @endif
+
+                                    </div>
+
+                                    <div class="mb-3">
+                                      <label for="expired_date" class="form-label">Expired Date</label>
+                                      <input type="number" id="expired_date" name="expired_date" class="form-control" style="color:#333333;" value="{{data.expired_date}}" required>
+                                      @if(hasErrorFor('expired_date'))
+                                        <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            {{ getErrorFor('expired_date') }}
+                                        </div>
+                                      @endif
+                                  </div>
+
+                                  <div class="mb-3" id="mb-general-date">
+                                    <label for="general_date_show" class="form-label">General Date</label>
+                                    <input type="text" id="general_date_show" name="general_date_show" class="form-control" style="color:#333333;" value="{{data.general_date ? data.general_date.toLocaleDateString('en-GB') : ''}}" >
+                                    <input type="hidden" id="general_date" name="general_date" value="{{data.general_date ? data.general_date.toLocaleDateString('en-GB').split('/').reverse().join('-') : ''}}">
+                                    @if(hasErrorFor('general_date_show'))
+                                      <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                          {{ getErrorFor('general_date_show') }}
+                                      </div>
+                                    @endif
+                                </div>
+
+                                <div class="mb-3">
+                                  <label for="reminder_type" class="form-label">Reminder Type
+                                  </label>
+                                    <select name="reminder_type" class="form-select form-select-custom" style="color:#333333;" id="reminder_type" disabled="true" >
+                                      <option value="1"
+                                      @if(data.journey_id != null && data.course_id == null && data.module_id == null )
+                                        selected
+                                       @endif
+                                      >Journey</option>
+                                      <option value="2"
+                                       @if(data.journey_id != null && data.course_id != null && data.module_id == null )
+                                        selected
+                                       @endif
+                                      >Course</option>
+                                      <option value="3"
+                                       @if(data.journey_id != null && data.course_id != null && data.module_id != null )
+                                        selected
+                                       @endif
+                                      >Module</option>
+                                    </select>
+                                  @if(hasErrorFor('reminder_type'))
+                                  <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                      {{ getErrorFor('reminder_type') }}
+                                  </div>
+                                  @endif
+
+                                </div>
+
+                                <div class="mb-3">
+                                  <label for="journey_id" class="form-label">Journey
+                                  </label>
+                                    <select name="journey_id" class="form-select form-select-custom" style="color:#333333;" id="journey_id" disabled="true">
+                                      @if(data.journey_id)
+                                        <option selected value="{{data.journey_id}}"> {{data.getRelated('journey').name}} </option>
+                                      @else
+                                        <option selected value="0"> Select </option>
+                                      @endif
+                                    </select>
+                                  @if(hasErrorFor('journey_id'))
+                                  <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                      {{ getErrorFor('journey_id') }}
+                                  </div>
+                                  @endif
+
+                                </div>
+
+                                <div class="mb-3">
+                                  <label for="course_id" class="form-label">Course
+                                  </label>
+                                    <select name="course_id" class="form-select form-select-custom" style="color:#333333;" id="course_id" disabled="true">
+                                      @if(data.course_id)
+                                        <option selected value="{{data.course_id}}"> {{data.getRelated('course').name}} </option>
+                                      @else
+                                        <option selected value="0"> Select </option>
+                                      @endif
+                                    </select>
+                                  @if(hasErrorFor('course_id'))
+                                  <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                      {{ getErrorFor('course_id') }}
+                                  </div>
+                                  @endif
+
+                                </div>
+
+                                <div class="mb-3">
+                                  <label for="module_id" class="form-label">Module
+                                  </label>
+                                    <select name="module_id" class="form-select form-select-custom" style="color:#333333;" id="module_id" disabled="true">
+                                      @if(data.module_id)
+                                        <option selected value="{{data.module_id}}"> {{data.getRelated('module').name}} </option>
+                                      @else
+                                        <option selected value="0"> Select </option>
+                                      @endif
+                                    </select>
+                                  @if(hasErrorFor('module_id'))
+                                  <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show" role="alert">
+                                      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                                      {{ getErrorFor('module_id') }}
+                                  </div>
+                                  @endif
+
+                                </div>
+
+
+
+                                    <div class="mb-3">
+                                      <div class="form-check">
+                                        @if(data.visible == 1 || data.visible == '1')
+                                          <input type="checkbox" class="form-check-input" id="visible" name="visible" value="1"  checked  >
+                                        @else
+                                          <input type="checkbox" class="form-check-input" id="visible" name="visible" value="1"    >
+                                        @endif
+                                          <label class="form-check-label" for="visible">Visible</label>
+                                      </div>
+                                    </div>
+
+                        <button id="submit_btn" type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                      </form>
+                        <!-- end row-->
+
+                    </div> <!-- end card-body -->
+                </div> <!-- end card -->
+            </div><!-- end col -->
+        </div>
+        <!-- end row -->
+
+        <!-- RADIOS -->
+
+
+
+    </div> <!-- container -->
+
+</div> <!-- content -->
+
+
+  <!-- Footer Start -->
+
+  <!-- end Footer -->
+
+</div>
+@endsection
+@section('right_sidebar')
+@include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+<!-- third party js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+ <!-- Plugins js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script src="{{ BASE_URL() }}/JS/summernote/summernote.js"></script>
+
+<script>
+$(document).ready(function(){
+  $(".mlw-li").hide()
+  $(".mlw-li-home").show()
+  $('#mb-general-date').hide();
+
+  $('#start_date').val("{{data.start_date}}")
+  @if(data.start_date == 4 || data.start_date == '4' )
+    $('#mb-general-date').show();
+  @endif
+
+  $(document).delegate( "#start_date", "change", function() {
+    $('#mb-general-date').hide();
+    let value = $(this).val();
+    if(value == 4 || value == '4'){
+      $('#mb-general-date').show();
+    }
+
+
+  });
+
+  $('#general_date_show').flatpickr({
+
+    dateFormat: "d/m/Y",
+
+
+    onChange: function(selectedDates, dateStr, instance) {
+
+    },
+    onClose: function(selectedDates, dateStr, instance){
+      $('#general_date').val(dateStr.split("/").reverse().join("-"));
+
+
+    }
+  });
+
+});
+
+</script>
+<!-- third party js ends -->
+@endsection

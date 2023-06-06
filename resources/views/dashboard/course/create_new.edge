@@ -1,0 +1,880 @@
+@layout('layouts.appfix')
+@section('title')
+<title>Moleawiz|Course|Course| Create Module </title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <!-- Plugins css -->
+  <!-- Plugins css -->
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/css/bootstrap-datepicker.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/css/dropify.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/css/multi-select.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/css/select2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/css/selectize.bootstrap3.css" rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css"
+        href="{{ BASE_URL() }}/JS/Dual-Select-Boxes-For-Bootstrap-Bootstrap-Dual-Listbox/src/bootstrap-duallistbox.css">
+  <!-- third party css end -->
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+
+
+    <!-- Start Content-->
+    <div class="content">
+
+      <!-- Start Content-->
+      <div class="container-fluid">
+        <!-- start page title -->
+        <div class="row">
+          <div class="col-12">
+            <div class="page-title-box">
+              <div class="page-title-right">
+                <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('home')}}">HOME</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.course-category.index-collapse-expand')}}">Manage Content and Categories</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.course.index-by-category',{ category_id : category.id })}}">Course</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link active">Add New Course</li>
+                </ol>
+              </div>
+              <div class="row">
+                <div class="col-lg-2">
+                  <a href="{{route('dashboard.course.index-by-category',{ category_id : category.id })}}" ><h4 class="page-title back-button  text-hover-color-scheme"><i class="mdi mdi-arrow-left"></i> Back</h4> </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end page title -->
+
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-body">
+                <h4 class="header-title" style="padding-bottom:100px;"><b>Add New Course</b></h4>
+                <br>  
+
+                <div class="row">
+                  <div class="col-lg-7">
+                    <div class="card-widgets">
+                      <a data-bs-toggle="collapse" href="#cardCollpaseGeneral" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                    </div>
+                    <h4 class="header-title pb-3">General</h4>
+                    <hr>
+                  </div>
+                </div>
+                <div id="cardCollpaseGeneral" class="collapse pt-3 show">
+                <p class="text-black-50 mt-n3" style="font-style: italic;">There are required fields in this form marked <span
+                    class="text-danger">*</span></p>
+
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <form id="add_course" action="{{ route('dashboard.course.store') }}" enctype="multipart/form-data"
+                                method="POST">
+                            {{ csrfField() }}
+                            <div class="row mb-3">
+                                <label for="fullname" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                Course full name <span class="text-danger">*</span> <i
+                                class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="The full name of the course is displayed at the top of each page in the course and in the list of courses." tabindex="0"
+                                data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                    <input type="text" id="fullname" name="fullname" class="form-control" style="color:#333333;" required>
+                                </div>
+                                @if(hasErrorFor('fullname'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('fullname') }}
+                                </div>
+                                @endif
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="shortname" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                Course short name <span class="text-danger">*</span> <i
+                                class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="The short name of the course is displayed in the navigation and is used in the subject line of course email messages." tabindex="0"
+                                data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                    <input type="text" id="shortname" name="shortname" class="form-control" style="color:#333333;" required>
+                                </div>
+                                @if(hasErrorFor('shortname'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('shortname') }}
+                                </div>
+                                @endif
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="category" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                Course category
+                                <i
+                                class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="The short name of the course is displayed in the navigation and is used in the subject line of course email messages." tabindex="0"
+                                data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                    <select name="category" class="" style="color:#333333;" id="category" >
+                                        @each(courseCategory in courseCategories)
+                                        <option value="{{courseCategory.id}}">{{courseCategory.name}}</option>
+                                        @endeach
+                                      </select>
+                                </div>
+                                @if(hasErrorFor('category'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('category') }}
+                                </div>
+                                @endif
+                            </div>
+                            <div class="row mb-3">
+                                <label for="visible" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                Course visibility
+                                <i
+                                class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="This setting determines whether the course appears in the list of courses and whether students can access it. If set to Hide, then access is restricted to users with the capability to view hidden courses (such as teachers)." tabindex="0"
+                                data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                    <select name="visible" class="form-select form-select-custom" style="color:#333333;" id="visible" >
+                                        <option value="0">Hide</option>
+                                        <option value="1" selected="selected">Show</option>
+                                    </select>
+
+                                </div>
+                                @if(hasErrorFor('visible'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('visible') }}
+                                </div>
+                                @endif
+                            </div>
+
+
+                            <div class="row mb-3">
+                                <label for="startdate" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                Course start date
+                                <i
+                                class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="This setting determines the start of the first week for a course in weekly format. It also determines the earliest date that logs of course activities are available for. If the course is reset and the course start date changed, all dates in the course will be moved in relation to the new start date." tabindex="0"
+                                data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                    <input type="text" id="startdate" name="startdate" class="form-control" style="color:#333333;" >
+                                </div>
+                                @if(hasErrorFor('startdate'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('startdate') }}
+                                </div>
+                                @endif
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="enddate" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                Course end date
+                                <i
+                                class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="The course end date is used for determining whether a course should be included in a user's list of courses. When the end date is past, the course is no longer listed in the navigation and is listed as past in the course overview. The course end date may also be used by custom reports. Users can still enter the course after the end date; in other words the date does not restrict access." tabindex="0"
+                                data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                    <input type="text" id="enddate" name="enddate" class="form-control" style="color:#333333;" >
+                                </div>
+                                @if(hasErrorFor('enddate'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('enddate') }}
+                                </div>
+                                @endif
+                            </div>
+                            <div class="row mb-1">
+                                <label class="col-4 form-label"></label>
+                                <div class="form-check col-8 col-xl-7" style="margin-left: 15px">
+                                <input type="checkbox" class="form-check-input" id="enable_enddate" name="enable_enddate" value="1">
+                                <label class="form-check-label" for="enable_enddate">Enable </label>
+                                </div>
+                            </div>
+                            <br>
+                            <div class="row mb-3">
+                                <label for="idnumber" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                Course ID number
+                                <i
+                                class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="The ID number of a course is only used when matching the course against external systems and is not displayed anywhere on the site. If the course has an official code name it may be entered, otherwise the field can be left blank." tabindex="0"
+                                data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                    <input type="text" id="idnumber" name="idnumber" class="form-control" style="color:#333333;" >
+                                </div>
+                                @if(hasErrorFor('idnumber'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('idnumber') }}
+                                </div>
+                                @endif
+                            </div>
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <div class="col-lg-7">
+                      <div class="card-widgets">
+                        <a data-bs-toggle="collapse" href="#cardCollpase" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                      </div>
+                      <h4 class="header-title pb-3"></h4>
+                      <hr>
+                    </div>
+                </div>
+                <div id="cardCollpase" class="collapse pt-3 show">
+
+
+                    <div class="row">
+                        <div class="col-lg-7">
+                        </div>
+                    </div>
+                </div>-->
+                <div class="row">
+                    <div class="col-lg-7">
+                      <div class="card-widgets">
+                        <a data-bs-toggle="collapse" href="#cardCollpaseDescription" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                      </div>
+                      <h4 class="header-title pb-3">Description</h4>
+                      <hr>
+                    </div>
+                </div>
+                <div id="cardCollpaseDescription" class="collapse pt-3 show">
+
+
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="row mb-3">
+                                <label for="summary" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                  Course summary <i
+                                  class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="The course summary is displayed in the list of courses. A course search searches course summary text in addition to course names." tabindex="0"
+                                  data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                  <textarea id="summary" rows="4" class="form-control"  style="color:#333333;" name="summary" placeholder="Write description here"></textarea>
+                                </div>
+                                @if(hasErrorFor('summary'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('summary') }}
+                                </div>
+                                @endif
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="profile_pic" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                  Course summary files
+                                  <i
+                                  class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="Course summary files, such as images, are displayed in the list of courses together with the summary." tabindex="0"
+                                  data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                  <input type="file" name="profile_pic" class="form-control" style="color:#333333;" id="profile_pic"/>
+                                </div>
+                                @if(hasErrorFor('profile_pic'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('profile_pic') }}
+                                </div>
+                                @endif
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7">
+                      <div class="card-widgets">
+                        <a data-bs-toggle="collapse" href="#cardCollpaseCourseFormat" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                      </div>
+                      <h4 class="header-title pb-3">Course format</h4>
+                      <hr>
+                    </div>
+                </div>
+                <div id="cardCollpaseCourseFormat" class="collapse pt-3 show">
+
+
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="row mb-3">
+                                <label for="format" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                  Format <i
+                                  class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="The course format determines the layout of the course page. <br>
+                                  * Single activity format - For displaying a single activity or resource (such as a Quiz or SCORM package) on the course page <br>
+                                  * Social format - A forum is displayed on the course page <br>
+                                  * Topics format - The course page is organised into topic sections <br>
+                                  * Weekly format - The course page is organised into weekly sections, with the first week starting on the course start date <br>" tabindex="0"
+                                  data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                  <select name="format" class="form-select form-select-custom" style="color:#333333;" id="format" required>
+                                    <option value="singleactivity" selected="selected">Single activity format</option>
+                                  </select>
+                                </div>
+                                @if(hasErrorFor('format'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('format') }}
+                                </div>
+                                @endif
+                            </div>
+
+                            <div class="row mb-3">
+                                <label for="activitytype" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                  Type of activity
+                                  <i
+                                  class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="Choose the type of activity or resource to use in this course" tabindex="0"
+                                  data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                  <select name="activitytype" class="form-select form-select-custom" style="color:#333333;" id="activitytype" required>
+                                    <option value="data">Database</option>
+                                    <option value="forum">Forum</option>
+                                    <option value="scorm" selected="selected">SCORM
+                                  </select>
+                                </div>
+                                @if(hasErrorFor('activitytype'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('activitytype') }}
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7">
+                      <div class="card-widgets">
+                        <a data-bs-toggle="collapse" href="#cardCollpaseAppearance" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                      </div>
+                      <h4 class="header-title pb-3">Appearance</h4>
+                      <hr>
+                    </div>
+                </div>
+                <div id="cardCollpaseAppearance" class="collapse pt-3 show">
+
+
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="row mb-3">
+                                <label for="lang" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                  Force language
+
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                    <select name="lang" class="form-select form-select-custom" style="color:#333333;" id="lang" >
+                                        <option value="" selected="selected">Do not force</option>
+                                        <option value="en">English &lrm;(en)&lrm;</option>
+                                    </select>
+
+                                </div>
+                                @if(hasErrorFor('lang'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('lang') }}
+                                </div>
+                                @endif
+                            </div>
+                            <div class="row mb-3">
+                              <label for="showgrades" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                Show gradebook to students
+                              <i
+                              class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="Many activities in the course allow grades to be set. This setting determines whether a student can view a list of all their grades for the course via a grades link in the course administration block." tabindex="0"
+                              data-plugin="tippy" data-tippy-theme="translucent"></i>
+                              </label>
+                              <div class="col-8 col-xl-8">
+                                  <select name="showgrades" class="form-select form-select-custom" style="color:#333333;" id="showgrades" >
+                                    <option value="0">No</option>
+                                    <option value="1" selected="selected">Yes</option>
+                                  </select>
+
+                              </div>
+                              @if(hasErrorFor('showgrades'))
+                              <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                  role="alert">
+                                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                          aria-label="Close"></button>
+                                  {{ getErrorFor('showgrades') }}
+                              </div>
+                              @endif
+                            </div>
+                            <div class="row mb-3">
+                              <label for="showreports" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                Show gradebook to students
+                              <i
+                              class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="Activity reports are available for each participant that show their activity in the course. As well as listings of their contributions, such as forum posts or assignment submissions, these reports also include access logs. This setting determines whether a student can view their own activity reports via their profile page." tabindex="0"
+                              data-plugin="tippy" data-tippy-theme="translucent"></i>
+                              </label>
+                              <div class="col-8 col-xl-8">
+                                  <select name="showreports" class="form-select form-select-custom" style="color:#333333;" id="showreports" >
+                                    <option value="0" selected="selected" >No</option>
+                                    <option value="1" >Yes</option>
+                                  </select>
+
+                              </div>
+                              @if(hasErrorFor('showreports'))
+                              <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                  role="alert">
+                                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                          aria-label="Close"></button>
+                                  {{ getErrorFor('showreports') }}
+                              </div>
+                              @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7">
+                      <div class="card-widgets">
+                        <a data-bs-toggle="collapse" href="#cardCollpaseFilesAndUploads" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                      </div>
+                      <h4 class="header-title pb-3">Files and uploads</h4>
+                      <hr>
+                    </div>
+                </div>
+                <div id="cardCollpaseFilesAndUploads" class="collapse pt-3 show">
+
+
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="row mb-3">
+                                <label for="maxbytes" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                  Maximum upload size
+                                  <i
+                                  class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="This setting determines the largest size of file that can be uploaded to the course, limited by the site-wide setting set by an administrator. Activity modules also include a maximum upload size setting for further restricting the file size." tabindex="0"
+                                  data-plugin="tippy" data-tippy-theme="translucent"></i>
+
+                                </label>
+                                <div class="col-8 col-xl-8">
+                                  <select name="maxbytes" class="form-select form-select-custom" style="color:#333333;" id="maxbytes" >
+                                    <option value="0" selected="selected">Site upload limit (1GB)</option>
+                                    <option value="1098907648">1GB</option>
+                                    <option value="1073741824">1GB</option>
+                                    <option value="786432000">750MB</option>
+                                    <option value="524288000">500MB</option>
+                                    <option value="262144000">250MB</option>
+                                    <option value="104857600">100MB</option>
+                                    <option value="52428800">50MB</option>
+                                    <option value="20971520">20MB</option>
+                                    <option value="10485760">10MB</option>
+                                    <option value="5242880">5MB</option>
+                                    <option value="2097152">2MB</option>
+                                    <option value="1048576">1MB</option>
+                                    <option value="512000">500KB</option>
+                                    <option value="102400">100KB</option>
+                                    <option value="51200">50KB</option>
+                                    <option value="10240">10KB</option>
+                                  </select>
+
+                                </div>
+                                @if(hasErrorFor('maxbytes'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('maxbytes') }}
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7">
+                      <div class="card-widgets">
+                        <a data-bs-toggle="collapse" href="#cardCollpaseCompletionTracking" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                      </div>
+                      <h4 class="header-title pb-3">Completion tracking</h4>
+                      <hr>
+                    </div>
+                </div>
+                <div id="cardCollpaseCompletionTracking" class="collapse pt-3 show">
+
+
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="row mb-3">
+                                <label for="enablecompletion" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                  Enable completion tracking
+                                  <i
+                                  class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="If enabled, activity completion conditions may be set in the activity settings and/or course completion conditions may be set. It is recommended to have this enabled so that meaningful data is displayed in the course overview on the Dashboard." tabindex="0"
+                                  data-plugin="tippy" data-tippy-theme="translucent"></i>
+                                </label>
+                                <div class="col-8 col-xl-8">
+
+                                  <select name="enablecompletion" class="form-select form-select-custom" style="color:#333333;" id="enablecompletion" required>
+                                    <option value="0">No</option>
+                                    <option value="1" selected="selected">Yes</option>
+                                  </select>
+                                </div>
+                                @if(hasErrorFor('enablecompletion'))
+                                <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                    role="alert">
+                                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    {{ getErrorFor('enablecompletion') }}
+                                </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-7">
+                      <div class="card-widgets">
+                        <a data-bs-toggle="collapse" href="#cardCollpaseGroups" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                      </div>
+                      <h4 class="header-title pb-3">Groups</h4>
+                      <hr>
+                    </div>
+                </div>
+                <div id="cardCollpaseGroups" class="collapse pt-3 show">
+
+
+                    <div class="row">
+                        <div class="col-lg-7">
+                          <div class="row mb-3">
+                            <label for="groupmode" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                              Group mode
+
+                            </label>
+                            <div class="col-8 col-xl-8">
+                                <select name="groupmode" class="form-select form-select-custom" style="color:#333333;" id="groupmode" >
+                                  <option value="0" selected="selected">No groups</option>
+                                  <option value="1">Separate groups</option>
+                                  <option value="2">Visible groups</option>
+                                </select>
+
+                            </div>
+                            @if(hasErrorFor('groupmode'))
+                            <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                role="alert">
+                                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                        aria-label="Close"></button>
+                                {{ getErrorFor('groupmode') }}
+                            </div>
+                            @endif
+                        </div>
+                        <div class="row mb-3">
+                          <label for="groupmodeforce" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                            Force group mode
+                          <i
+                          class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="If group mode is forced, then the course group mode is applied to every activity in the course. Group mode settings in each activity are then ignored." tabindex="0"
+                          data-plugin="tippy" data-tippy-theme="translucent"></i>
+                          </label>
+                          <div class="col-8 col-xl-8">
+                              <select name="groupmodeforce" class="form-select form-select-custom" style="color:#333333;" id="groupmodeforce" >
+                                <option value="0" selected="selected">No</option>
+	                              <option value="1">Yes</option>
+                              </select>
+
+                          </div>
+                          @if(hasErrorFor('groupmodeforce'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                              role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('groupmodeforce') }}
+                          </div>
+                          @endif
+                        </div>
+                        <div class="row mb-3">
+                          <label for="defaultgroupingid" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                            Default grouping
+
+                          </label>
+                          <div class="col-8 col-xl-8">
+                              <select name="defaultgroupingid" class="form-select form-select-custom" style="color:#333333;" id="defaultgroupingid" >
+                                <option value="0">None</option>
+                              </select>
+
+                          </div>
+                          @if(hasErrorFor('defaultgroupingid'))
+                          <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                              role="alert">
+                              <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                      aria-label="Close"></button>
+                              {{ getErrorFor('defaultgroupingid') }}
+                          </div>
+                          @endif
+                        </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-8">
+                      <div class="card-widgets">
+                        <a data-bs-toggle="collapse" href="#cardCollpaseRoleRenaming" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                      </div>
+                      <h4 class="header-title pb-3">Role renaming <i
+                      class="mdi mdi-information" style="color: #99A6AD; font-size: 18px;" title="This setting allows the displayed names for roles used in the course to be changed. Only the displayed name is changed - role permissions are not affected. New role names will appear on the course participants page and elsewhere within the course. If the renamed role is one that the administrator has selected as a course manager role, then the new role name will also appear as part of the course listings." tabindex="0"
+                      data-plugin="tippy" data-tippy-theme="translucent"></i></h4>
+                      
+
+                      <hr>
+                    </div>
+                </div>
+                <div id="cardCollpaseRoleRenaming" class="collapse pt-3 show">
+
+
+                    <div class="row">
+                        <div class="col-lg-7">
+                          @each(item in datasRole.rows)
+                        <div class="row mb-3">
+                            <label for="role_{{item.id}}" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                              Your word for ‘{{item.name}}’
+                            </label>
+                            <div class="col-8 col-xl-8">
+                              <input type="text" id="role_{{item.id}}" name="role_{{item.id}}" class="form-control" style="color:#333333;" >
+                            </div>
+
+                        </div>
+                        @endeach
+
+
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-7">
+
+                    <div class="card-widgets">
+
+                      <a data-bs-toggle="collapse" href="#cardCollpaseTags" role="button" aria-expanded="false" aria-controls="cardCollpase4"><i class="mdi mdi-minus"></i></a>
+                    </div>
+                    <h4 class="header-title pb-3 ">Tags</h4>
+                    <hr style="margin-bottom: 5px">
+                    <div id="cardCollpaseTags" class="collapse pt-3 show">
+                        
+                                <div class="row mb-3">
+                                    <label for="tags" class="col-5 col-xl-4 col-form-label" style="color:#6D757D">
+                                      Tags
+                                    </label>
+                                    <div class="col-8 col-xl-8">
+                                      <input type="text" id="tags" name="tags" class="form-control" style="color:#333333;" >
+                                    </div>
+                                    @if(hasErrorFor('tags'))
+                                    <div class="alert alert-danger alert-dismissible bg-danger text-white border-0 fade show"
+                                        role="alert">
+                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        {{ getErrorFor('tags') }}
+                                    </div>
+                                    @endif
+                                </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-5 col-xl-4 form-label"></label>
+                      <div class="col-12 col-xl-8 btn-gropup">
+                        <button type="submit" class="btn btn-danger waves-effect waves-light  col-xl-8"><i class="fas fa-plus-square"></i>&#160;  Add New Course
+                        </button>
+
+                        <a href="{{route('dashboard.course.index-by-category',{ category_id : category.id })}}" class="btn btn-light waves-effect  col-xl-3"  style="background-color:#F0F2F7; color:#6D757D; float: right; margin-left: px;">Cancel
+                        </a>
+                      </div>
+                    </div>
+
+                  </div>
+                    </form>
+                  </div>
+
+              </div> <!-- end card-body -->
+            </div> <!-- end card -->
+          </div><!-- end col -->
+        </div>
+        <!-- end row -->
+
+        <!-- RADIOS -->
+
+
+      </div> <!-- container -->
+
+    </div> <!-- content -->
+
+
+    <!-- Footer Start -->
+  @include('layouts.footer')
+  <!-- end Footer -->
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/js/standalone/selectize.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/mohithg-switchery/switchery.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/multiselect/js/jquery.multi-select.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/select2/js/select2.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/jquery-mockjax/jquery.mockjax.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/devbridge-autocomplete/jquery.autocomplete.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-touchspin/jquery.bootstrap-touchspin.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-maxlength/bootstrap-maxlength.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Plugins js -->
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropzone/min/dropzone.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/dropify/js/dropify.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/flatpickr/flatpickr.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+
+  <script>
+    $(document).ready(function () {
+      $(".mlw-li").hide()
+      $(".mlw-li-home").show()
+      $('#btn_auto_generate_password').click(function () {
+        let randomstring = Math.random().toString(36).slice(-10);
+        $('#password').val(randomstring);
+      });
+      $('#category').val("{{category.id}}").change();
+      $('#category').selectize();
+
+      $('#submit_btn').click(function () {
+
+        $('#add_user').submit();
+      });
+
+      var drEvent = $('#profpic').dropify({
+        messages: {
+          default: 'Drag atau drop untuk memilih gambar',
+          replace: 'Ganti',
+          remove: 'Hapus',
+          error: 'error'
+        }
+      });
+
+
+      drEvent.on('dropify.beforeClear', function (event, element) {
+        return confirm('Do you really want to delete ' + element.file.name + ' ?');
+      });
+
+      drEvent.on('dropify.afterClear', function (event, element) {
+        alert('File deleted');
+      });
+
+      drEvent.on('dropify.errors', function (event, element) {
+        console.log('Has Errors');
+      });
+
+      flatpickr("#startdate", {
+        dateFormat: "Y-m-d",
+      });
+
+      flatpickr("#enddate", {
+        dateFormat: "Y-m-d",
+      });
+      document.getElementById("enddate").disabled = true;
+      $("#enable_enddate").change(function(){
+        if($(this).is(':checked')){
+          document.getElementById("enddate").disabled = false;
+        }
+        else{
+          document.getElementById("enddate").disabled = true;
+        }
+        
+        
+      });
+
+
+    });
+
+  </script>
+  <!-- third party js ends -->
+@endsection

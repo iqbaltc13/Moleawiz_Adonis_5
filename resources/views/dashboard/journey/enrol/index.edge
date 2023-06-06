@@ -1,0 +1,392 @@
+@layout('layouts.appfix')
+@section('title')
+  <title>Moleawiz|Dashboard|Program| List Enrollments</title>
+@endsection
+@section('style')
+  <!-- third party css -->
+  <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.min.css"
+        rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+  <link
+    href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css"
+    rel="stylesheet" type="text/css"/>
+    <link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/selectize/css/selectize.bootstrap4.css" rel="stylesheet" type="text/css"/>
+  <!-- third party css end -->
+  <style>
+    btn-add:hover {
+
+      background-color: #DF2333 !important;
+      color: white !important;
+    }
+    .page-item.active .page-link {
+        /* z-index: 3; */
+        position: relative;
+        display: block;
+        color: #fff;
+        background-color: #DF2333;
+        border-color: #DF2333;
+    }
+  </style>
+@endsection
+@section('navbar')
+  @include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+  @include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+  <div class="content-page">
+    <div class="content">
+      @loggedIn
+      <input type="hidden" value="{{authUser.firstname +' '+ authUser.lastname}}" id="auth_name">
+      @else
+        <script>
+          window.location.replace("{{route('login')}}");
+        </script>
+        @endloggedIn
+
+        <!-- Start Content-->
+        <div class="container-fluid">
+
+          <!-- start page title -->
+
+
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+
+                  <h4 class="header-title" style="padding-bottom:20px;">  {{journey.name}} Enrollments</h4>
+
+
+                  <div class="dataTables_wrapper dt-bootstrap4 no-footer">
+                    <div class="row">
+                      <div class="col align-self-start">
+
+                      </div>
+                      <!-- <div class="col align-self-center">
+                          <div class="dt-buttons btn-group flex-wrap">
+                              <button class="btn btn-secondary buttons-copy buttons-html5 btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Copy</span></button>
+                              <button class="btn btn-secondary buttons-print btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Print</span></button>
+                              <button class="btn btn-secondary buttons-pdf buttons-html5 btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
+                           </div>
+                      </div>  -->
+                      <div class="col align-self-end">
+
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <table id="datatable"
+                               class="table w-100 nowrap"
+                               role="grid" aria-describedby="datatable-buttons_info" style="width: 924px;">
+                          <thead style="color: white; background: #DF2333;">
+                          <tr>
+                            <th valign="middle" >No.</th>
+                            <th valign="middle" >Name</th>
+                            <th valign="middle" >Enrol Date</th>
+                            <th valign="middle" style="text-align: right;" >Enrolled User</th>
+                            <th valign="middle" >Action</th>
+                          </tr>
+                          </thead>
+                          <script>
+                            let arrAssignments = [];
+                            let i = 0;
+                            let j = 0;
+                            var monthNames = ["January", "February", "March", "April", "May", "June",
+                              "July", "August", "September", "October", "November", "December"];
+                          </script>
+
+                          <tbody>
+
+                          @each(data in datas)
+
+                          <tr>
+                            <td valign="middle" style="">
+                              <script>
+                                i++;
+                                document.write(i)
+                              </script>
+                            </td>
+                            <td valign="middle" style="">{{data.name}} </td>
+                            <td valign="middle" style="">
+                              @if(data.getRelated('cohort_enrols').rows.length > 0)
+                                <script>
+                                  document.write("{{data.getRelated('cohort_enrols').rows[0].created_at.getDate()+' '}}");
+                                  document.write(monthNames[{{data.getRelated('cohort_enrols').rows[0].created_at.getMonth()}}].substring(0, 3));
+                                  document.write("{{" "+data.getRelated('cohort_enrols').rows[0].created_at.getFullYear()+" "+data.getRelated('cohort_enrols').rows[0].created_at.getHours() + ":" + data.getRelated('cohort_enrols').rows[0].created_at.getMinutes() + ":" + data.getRelated('cohort_enrols').rows[0].created_at.getSeconds()}}")
+                                </script>
+                              @endif
+                            </td>
+                            <td valign="middle" style="text-align: right;"> {{data.getRelated('members').rows.length}}</td>
+                            <td valign="middle">
+                              <div class="tabledit-toolbar btn-toolbar btntoolbar-{{data.id}}" style="text-align: left;"
+                                   dataid="{{data.id}}">
+                                <div class="btn-group btn-group-sm btngroup-{{data.id}}" style="float: none;"
+                                     dataid="{{data.id}}">
+
+                                  <a href="javascript:void(0);" class=" btn btn-danger btndelete"
+                                     fullname="{{ data.name}}" dataid="{{data.id}}" style="float: none;"><span
+                                      class="mdi mdi-delete"></span></a>
+
+
+                                </div>
+                              </div>
+                            </td>
+
+                          </tr>
+
+
+                          @endeach
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div> <!-- end card body-->
+              </div> <!-- end card -->
+            </div><!-- end col-->
+          </div>
+          <!-- end row-->
+
+        </div> <!-- container -->
+
+    </div> <!-- content -->
+
+    <!-- Footer Start -->
+    <footer class="footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-6">
+            <script>document.write(new Date().getFullYear())</script> &copy; UBold theme by <a href="">Coderthemes</a> <
+          </div>
+          <div class="col-md-6">
+            <div class="text-md-end footer-links d-none d-sm-block">
+              <a href="javascript:void(0);">About Us</a>
+              <a href="javascript:void(0);">Help</a>
+              <a href="javascript:void(0);">Contact Us</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- end Footer -->
+
+  </div>
+@endsection
+@section('right_sidebar')
+  @include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+  <!-- third party js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+  <script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+  <!-- Sweet Alerts js -->
+  <script
+    src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $(".mlw-li").hide()
+      $(".mlw-li-home").show()
+      @if(flashMessage('notification'))
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: "{{flashMessage('notification')}}",
+
+      })
+      @endif
+
+
+
+      @if(flashMessage('failMessage'))
+
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed!',
+        text: "{{flashMessage('failMessage')}}",
+
+      })
+      @endif
+
+      @if(flashMessage('successMessage'))
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Success!',
+        text: "{{flashMessage('successMessage')}}",
+
+      })
+      @endif
+
+
+
+
+
+
+
+
+      $("#datatable").DataTable({
+        columnDefs: [
+          //{ "orderable": false, "targets": 0 },
+
+            { "type": "num", "width" : "18px", "targets" : 0},
+        ],
+        order: [
+
+        ],
+        //  ordering: true,
+        //  destroy: true,
+        //  processing: true,
+        //  serverSide: true,
+        //  ajax: url,
+        //  columns: [
+        // 		      {
+        //             data:'firstname',
+        //             render: function(data){
+        // 							var element=data.firstname+' '+data.lastname;
+        // 							return element;
+        // 						}
+        // 					},
+        // 					{
+        // 						data:'email',
+        // 					},
+        // 					{
+        // 						data:'city',
+        // 					},
+
+        // 					{
+        // 						data:'country.name',
+
+
+        // 					},
+        // 					{
+        // 						data:'lastaccess',
+        // 					},
+
+        // 					{
+        // 						data:null,
+        // 						searchable: false,
+        // 						render: function(data){
+        // 							let temp = "";
+        //               let btnAction = '<div class="tabledit-toolbar btn-toolbar btntoolbar-'+data.id+'" style="text-align: left;" dataid="'+data.id+'">'+
+        //                                   '<div class="btn-group btn-group-sm btngroup-'+data.id+'" style="float: none;" dataid="'+data.id+'">'+
+        //                                     '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-success btnedit-'+data.id+'"  dataid="'+data.id+'" style="float: none;"><span class="mdi mdi-pencil"></span></a>' +
+        //                                     '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-danger btndelete-'+data.id+'" dataid="'+data.id+'" style="float: none;"><span class="mdi mdi-delete"></span></a>' +
+        //                                     '<a  href="javascript:void(0);" class="tabledit-edit-button btn btn-warning btnsuspend-'+data.id+'" dataid="'+data.id+'" style="float: none;"><span class="mdi mdi-eye-outline"></span></a>' +
+        //                                   '</div>'+
+        //                             '</div>';
+        // 							return let+btnAction;
+        // 						}
+
+        // 					},
+
+
+        //      ],
+        scrollX: !0,
+        //dom: 'Bfrltip',
+        buttons: [
+          {
+            extend: 'copy',
+            exportOptions: {
+              columns: [0, 1, 2, 3]
+            }
+          },
+          {
+            extend: 'csv',
+            exportOptions: {
+              columns: [0, 1, 2, 3]
+            }
+          },
+          {
+            extend: 'pdf',
+            exportOptions: {
+              columns: [0, 1, 2, 3]
+            }
+          },
+          {
+            extend: 'print',
+            exportOptions: {
+              columns: [0, 1, 2, 3]
+            }
+          },
+          //'colvis'
+        ],
+        pagingType:
+          "full_numbers",
+        drawCallback: function () {
+          $("thead").css("background",dataThemes.color_scheme);
+$(".dataTables_paginate > .pagination").addClass("pagination-default")
+        }
+      }),
+        $(".dataTables_length select").addClass("form-select form-select-sm"),
+        $(".dataTables_length select").removeClass("custom-select custom-select-sm"),
+        $(".dataTables_length label").addClass("form-label")
+        $(".dataTables_filter label").addClass("form-label")
+
+    });
+
+    $('.btndelete').on('click', function () {
+      let dataid = $(this).attr("dataid");
+      let fullname = $(this).attr("fullname");
+      let urldelete = "{{ route('dashboard.journey.enrol.soft-delete',{ cohort_id : 'data.id' , journey_id : 'journeyid' })}}";
+
+      urldelete = urldelete.replace('data.id', dataid);
+      urldelete = urldelete.replace('journeyid', {{journey.id}});
+      //console.log(urldelete);
+      Swal.fire({
+        title: 'Are you sure want to delete ' + fullname + ' Enrollments' + ' ?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = urldelete;
+        }
+      })
+
+    });
+
+
+  </script>
+  <!-- third party js ends -->
+@endsection

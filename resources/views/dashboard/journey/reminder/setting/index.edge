@@ -1,0 +1,473 @@
+@layout('layouts.appfix')
+@section('title')
+<title>Moleawiz|Dashboard|Reminder| List Reminder Setting Program  </title>
+@endsection
+@section('style')
+<!-- third party css -->
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/css/responsive.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/css/buttons.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select-bs4/css/select.bootstrap4.min.css" rel="stylesheet" type="text/css" />
+<!-- third party css end -->
+<style>
+.dataTables_length_custom{
+  padding-bottom: 0px!important;
+}
+.dataTables_filter_custom{
+  padding-bottom: 0px !important;
+}
+.search-datatable {
+    border-radius: 30px!important;
+    padding-bottom: -5px!important;
+      /* background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiIHN0YW5kYWxvbmU9Im5vIj8+PHN2ZyAgIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgICB4bWxuczpjYz0iaHR0cDovL2NyZWF0aXZlY29tbW9ucy5vcmcvbnMjIiAgIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyIgICB4bWxuczpzdmc9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiAgIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgICB2ZXJzaW9uPSIxLjEiICAgaWQ9InN2ZzQ0ODUiICAgdmlld0JveD0iMCAwIDIxLjk5OTk5OSAyMS45OTk5OTkiICAgaGVpZ2h0PSIyMiIgICB3aWR0aD0iMjIiPiAgPGRlZnMgICAgIGlkPSJkZWZzNDQ4NyIgLz4gIDxtZXRhZGF0YSAgICAgaWQ9Im1ldGFkYXRhNDQ5MCI+ICAgIDxyZGY6UkRGPiAgICAgIDxjYzpXb3JrICAgICAgICAgcmRmOmFib3V0PSIiPiAgICAgICAgPGRjOmZvcm1hdD5pbWFnZS9zdmcreG1sPC9kYzpmb3JtYXQ+ICAgICAgICA8ZGM6dHlwZSAgICAgICAgICAgcmRmOnJlc291cmNlPSJodHRwOi8vcHVybC5vcmcvZGMvZGNtaXR5cGUvU3RpbGxJbWFnZSIgLz4gICAgICAgIDxkYzp0aXRsZT48L2RjOnRpdGxlPiAgICAgIDwvY2M6V29yaz4gICAgPC9yZGY6UkRGPiAgPC9tZXRhZGF0YT4gIDxnICAgICB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwLC0xMDMwLjM2MjIpIiAgICAgaWQ9ImxheWVyMSI+ICAgIDxnICAgICAgIHN0eWxlPSJvcGFjaXR5OjAuNSIgICAgICAgaWQ9ImcxNyIgICAgICAgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoNjAuNCw4NjYuMjQxMzQpIj4gICAgICA8cGF0aCAgICAgICAgIGlkPSJwYXRoMTkiICAgICAgICAgZD0ibSAtNTAuNSwxNzkuMSBjIC0yLjcsMCAtNC45LC0yLjIgLTQuOSwtNC45IDAsLTIuNyAyLjIsLTQuOSA0LjksLTQuOSAyLjcsMCA0LjksMi4yIDQuOSw0LjkgMCwyLjcgLTIuMiw0LjkgLTQuOSw0LjkgeiBtIDAsLTguOCBjIC0yLjIsMCAtMy45LDEuNyAtMy45LDMuOSAwLDIuMiAxLjcsMy45IDMuOSwzLjkgMi4yLDAgMy45LC0xLjcgMy45LC0zLjkgMCwtMi4yIC0xLjcsLTMuOSAtMy45LC0zLjkgeiIgICAgICAgICBjbGFzcz0ic3Q0IiAvPiAgICAgIDxyZWN0ICAgICAgICAgaWQ9InJlY3QyMSIgICAgICAgICBoZWlnaHQ9IjUiICAgICAgICAgd2lkdGg9IjAuODk5OTk5OTgiICAgICAgICAgY2xhc3M9InN0NCIgICAgICAgICB0cmFuc2Zvcm09Im1hdHJpeCgwLjY5NjQsLTAuNzE3NiwwLjcxNzYsMC42OTY0LC0xNDIuMzkzOCwyMS41MDE1KSIgICAgICAgICB5PSIxNzYuNjAwMDEiICAgICAgICAgeD0iLTQ2LjIwMDAwMSIgLz4gICAgPC9nPiAgPC9nPjwvc3ZnPg==);
+      background-repeat: no-repeat;
+      background-color: #fff;
+      background-position: 0px 3px !important; */
+
+}
+
+.tr-odd{
+  border-color: transparent!important;
+  background-color: #F7F9FC!important;
+}
+.tr-even{
+  border-color: transparent!important;
+  background-color: #FFFFFF!important;
+}
+.pd-top-pagination{
+  padding-top: 16px!important;;
+}
+.add-button{
+   background-color: #FFFFFF!important;
+   border-color: #6D757D!important;
+}
+.add-button:hover {
+  border-color: #DF2333!important;
+  background-color: #DF2333!important;
+  color: white!important;
+}
+.page-item.active .page-link {
+    /* z-index: 3; */
+    position: relative;
+    display: block;
+    color: #fff;
+    background-color: #DF2333;
+    border-color: #DF2333;
+}
+
+
+.bottom-wrapper {
+    margin-top: 0.5em;
+}
+.top-wrapper {
+  margin-bottom: 0.5em;
+}
+/* .card-drop:hover{
+      color: #DF2333!important;
+} */
+</style>
+@endsection
+@section('navbar')
+@include('layouts.navbar.navbar_custom')
+@endsection
+
+@section('left_sidebar')
+@include('layouts.sidebar.sidebar_left_base')
+@endsection
+@section('content')
+<div class="content-page">
+  <div class="content">
+      @loggedIn
+    <input type="hidden" value="{{authUser.firstname +' '+ authUser.lastname}}"  id="auth_name">
+@else
+   <script>
+      window.location.replace("{{route('login')}}");
+   </script>
+@endloggedIn
+
+      <!-- Start Content-->
+      <div class="container-fluid">
+
+          <!-- start page title -->
+          <div class="row">
+            <div class="col-12">
+              <div class="page-title-box">
+                <div class="page-title-right">
+                  <ol class="breadcrumb m-0">
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('home')}}">HOME</a></li>
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.journey.index')}}">Journey </a></li>
+                    <li class="breadcrumb-item  breadcrumb-link"><a class="breadcrumb-link text-hover-color-scheme"  href="{{route('dashboard.journey.reminder.index',{journey_id : reminder.journey_id})}}">Reminder </a></li>
+                    <li class="breadcrumb-item  breadcrumb-link active">Reminder Setting</li>
+
+                  </ol>
+                </div>
+                <div class="row">
+                  <div class="col-lg-2">
+                    <a href="{{route('dashboard.journey.reminder.index',{journey_id : reminder.journey_id})}}" ><h4 class="page-title back-button  text-hover-color-scheme"><i class="mdi mdi-arrow-left"></i> Back</h4> </a>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+
+
+                        <div class="btn-toolbar">
+
+
+                        </div>
+
+
+
+                        <div  class="responsive-table-plugin dataTables_wrapper dt-bootstrap4 no-footer">
+
+                            <div class="row">
+                                <div class="col align-self-start">
+
+                                </div>
+                                <!-- <div class="col align-self-center">
+                                    <div class="dt-buttons btn-group flex-wrap">
+                                        <button class="btn btn-secondary buttons-copy buttons-html5 btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Copy</span></button>
+                                        <button class="btn btn-secondary buttons-print btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>Print</span></button>
+                                        <button class="btn btn-secondary buttons-pdf buttons-html5 btn-light" tabindex="0" aria-controls="datatable-buttons" type="button"><span>PDF</span></button>
+                                     </div>
+                                </div>  -->
+                                <div class="col align-self-end">
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                              <div  class="btn-toolbar" style="padding-bottom:8px">
+                                <div class="btn-group dropdown-btn-group pull-left" style="padding-bottom:20px;">
+                                  <h4 class="header-title" style="font-size: 1.25rem;"> <b>Reminder Setting</b>  <br/> {{reminder.name}} ({{reminder.expired_date}} days)</h4>
+                                  </div>
+                                  <div class="btn-group dropdown-btn-group pull-right" style="padding-bottom:20px;">
+                                    <a href="{{route('dashboard.journey.reminder.setting.import-form', {reminder_id :  reminder.id})}}" style="" target="_blank" id="backup-.dat" class="btn toolbar-right-button button-hover-color-scheme mb-3 me-2 "><span> <i class="mdi mdi-file-upload"></i>   Import Data </span></a>
+                                    <span></span>
+                                    
+                                    <a href="{{ route('dashboard.journey.reminder.setting.create',{reminder_id : reminder.id})}}" style="float:right" class="btn toolbar-right-button button-hover-color-scheme mb-3"><span><i class="fas fa-cog"></i>  Add New Setting</span></a>
+
+                                  </div>    
+                                </div>
+                                <div class="col-sm-12">
+                                  <table id="datatable" class="table w-100 nowrap" role="grid" aria-describedby="datatable-buttons_info" style="width: 924px;">
+                                    <thead style="color: white;  background: #DF2333;">
+                                     <tr>
+                                       <th valign="middle" >No.</th>
+                                       <th valign="middle" >Notificaion Date <br> (in days)</th>
+                                       <th valign="middle" >Noification <br> Type</th>
+                                       <th valign="middle" >Send SPV</th>
+                                       <th valign="middle" >Send NHA</th>
+                                       <th valign="middle" style="text-align: right;" >Recipients</th>
+                                       <th valign="middle" ></th>
+                                    </tr>
+                                   </thead>
+                                   <script>
+                                     let arrAssignments = [];
+                                     let i = 0;
+                                     let j = 0;
+                                   </script>
+
+                                   <tbody>
+
+                                   @each(data in datas.rows)
+
+                                    <tr style="color:#333333; ">
+                                     @if(data.visible==1 || data.visible=='1')
+                                     <td valign="middle" style="opacity : 1">
+                                    @else
+                                     <td valign="middle" style="opacity : 0.4">
+                                    @endif
+                                       <script>
+                                       i++;
+                                       document.write(i)
+                                     </script></td>
+                                     @if(data.visible==1 || data.visible=='1')
+                                     <td valign="middle" style="opacity : 1">
+                                     @else
+                                     <td valign="middle" style="opacity : 0.4">
+                                     @endif
+                                     {{ data.notif_date  }}
+
+                                     </td>
+                                     @if(data.visible==1 || data.visible=='1')
+                                     <td valign="middle" style="opacity : 1">
+                                     @else
+                                     <td valign="middle" style="opacity : 0.4">
+                                     @endif
+                                        @if(data.notif_type == 1 || data.notif_type == '1')
+                                        Push notif
+                                        @elseif(data.notif_type == 2 || data.notif_type == '2')
+                                        Email notif
+                                        @elseif(data.notif_type == 3 || data.notif_type == '3')
+                                        All
+                                        @endif
+                                      </td>
+                                      @if(data.visible==1 || data.visible=='1')
+                                        <td valign="middle" style="opacity : 1">
+                                      @else
+                                         <td valign="middle" style="opacity : 0.4">
+                                      @endif
+                                        @if(data.send_spv == 0 || data.send_spv == '0')
+                                        No
+                                        @elseif(data.send_spv == 1 || data.send_spv == '1')
+                                        Yes
+                                        @endif
+                                      </td>
+                                      @if(data.visible==1 || data.visible=='1')
+                                        <td valign="middle" style="opacity : 1">
+                                      @else
+                                       <td valign="middle" style="opacity : 0.4">
+                                      @endif
+                                        @if(data.send_nha == 0 || data.send_nha == '0')
+                                        No
+                                        @elseif(data.send_nha == 1 || data.send_nha == '1')
+                                        Yes
+                                        @endif
+                                      </td>
+                                     
+                                    @if(data.visible==1 || data.visible=='1')
+                                     <td valign="middle" style="opacity : 1; text-align: right;">
+                                    @else
+                                     <td valign="middle" style="opacity : 0.4; text-align: right;">
+                                    @endif
+                                       {{data.getRelated('reminder_logs').rows.length}}
+                                     </td>
+
+                                     <td valign="middle">
+                                        <div class="dropdown float-end">
+                                         <a href="#" class="dropdown-toggle arrow-none card-drop text-hover-color-scheme" data-bs-toggle="dropdown" aria-expanded="false">
+                                             <i class="mdi mdi-dots-horizontal"></i>
+                                         </a>
+                                         <div class="dropdown-menu dropdown-menu-end">
+
+                                             <a  href="{{ route('dashboard.journey.reminder.setting.edit', { id : data.id }) }}" class="tabledit-edit-button dropdown-item btnedit-{{data.id}}"  dataid="{{data.id}}" style="float: none;">Edit</a>
+
+                                             @if(data.visible==1 || data.visible=='1')
+                                             <a href="{{ route('dashboard.journey.reminder.setting.switch-visible', { id : data.id }) }}" class="dropdown-item"> Hide </a>
+                                             @else
+                                             <a href="{{ route('dashboard.journey.reminder.setting.switch-visible', { id : data.id }) }}" class="dropdown-item"> Show</a>
+                                             @endif
+                                             @if(data.getRelated('reminder_logs').rows.length < 1)
+                                             <div class="dropdown-divider"></div>
+                                             <a  href="javascript:void(0);" class="dropdown-item btndelete" fullname="{{ data.name}}" dataid="{{data.id}}" style="float: none;"> Delete</a>
+                                             @endif
+                                         </div>
+                                       </div>
+                                     </td>
+                                   </tr>
+
+
+
+
+                                   @endeach
+                                   </tbody>
+                               </table>
+                                 </div></div>
+
+                      </div>
+
+                    </div> <!-- end card body-->
+                </div> <!-- end card -->
+            </div><!-- end col-->
+        </div>
+        <!-- end row-->
+
+      </div> <!-- container -->
+
+  </div> <!-- content -->
+
+   <!-- Footer Start -->
+   @include('layouts.footer')
+   <!-- end Footer -->
+
+   @include('layouts.modal_and_alert')
+
+</div>
+@endsection
+@section('right_sidebar')
+@include('layouts.sidebar.sidebar_right_base')
+@endsection
+@section('script')
+<!-- third party js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/dataTables.buttons.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.html5.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.flash.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-buttons/js/buttons.print.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-keytable/js/dataTables.keyTable.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/datatables.net-select/js/dataTables.select.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/pdfmake.min.js"></script>
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/pdfmake/build/vfs_fonts.js"></script>
+<!-- Sweet Alerts js -->
+<script src="{{ BASE_URL() }}/templates/UBold_v5.1.0/Admin/dist/assets/libs/sweetalert2/sweetalert2.all.min.js"></script>
+
+<script>
+let dataId =  0;
+let urlDelete = '';
+$(document).ready(function(){
+  $(".mlw-li").hide()
+  $(".mlw-li-home").show()
+  @if(flashMessage('notification'))
+
+    /*Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: "{{flashMessage('notification')}}",
+
+    });*/
+
+    $("#title-paragraph-alert-modal-success").html("Success!");
+    $("#content-paragraph-alert-modal-success").html("{{flashMessage('notification')}}");
+    $("#continue-alert-modal-success").html("Continue");
+    $("#info-alert-modal-success").modal('show');
+
+  @endif
+
+
+
+  @if(flashMessage('failMessage'))
+
+    Swal.fire({
+      icon: 'error',
+      title: 'Failed!',
+      text: "{{flashMessage('failMessage')}}",
+
+    })
+  @endif
+
+  @if(flashMessage('successMessage'))
+
+    /*Swal.fire({
+      icon: 'success',
+      title: 'Success!',
+      text: "{{flashMessage('successMessage')}}",
+
+    })*/
+    $("#title-paragraph-alert-modal-success").html("Success!");
+    $("#content-paragraph-alert-modal-success").html("{{flashMessage('successMessage')}}");
+    $("#continue-alert-modal-success").html("Continue");
+    $("#info-alert-modal-success").modal('show');
+  @endif
+
+
+
+
+
+
+
+   let url = "{{ BASE_URL() + route('dashboard.role-management.datatable') }}";
+   $("#datatable").DataTable({
+    columnDefs: [
+   				 			{ "orderable": false, "targets": [6] },
+                { "type": "num", "width" : "18px", "targets" : 0},
+
+  							],
+		 order: [
+
+      ],
+     language: {
+        search : ' ', /*Empty to remove the label*/
+      },
+    aLengthMenu : [[25, 50, 75, -1], [25, 50, 75, "All"]],
+    iDisplayLength: 25,
+
+     scrollX:!0,
+     //dom: 'Bfrltip',
+     buttons: [
+        {
+            extend: 'copy',
+            exportOptions: {
+                columns: [  0,1 ,2,3,5 ]
+            }
+        },
+        {
+            extend: 'csv',
+            exportOptions: {
+                columns: [  0,1 ,2,3,5 ]
+            }
+        },
+        {
+            extend: 'pdf',
+            exportOptions: {
+                columns: [  0,1 ,2,3,5 ]
+            }
+        },
+        {
+            extend: 'print',
+            exportOptions: {
+                columns: [  0,1 ,2,3,5]
+            }
+        },
+        //'colvis'
+      ],
+     pagingType:
+      "full_numbers",
+      drawCallback:function(){
+        $("thead").css("background",dataThemes.color_scheme);
+        $(".dataTables_paginate > .pagination").addClass("pagination-default")
+        $(".dataTables_info").addClass("pd-top-pagination")
+        $(".dataTables_paginate").addClass("pd-top-pagination")
+        $(".odd").addClass("tr-odd")
+        $(".even").addClass("tr-even")
+        $('input[type="search"]').addClass("search-datatable")
+        $('input[type="search"]').attr("placeholder", "    Search here");
+        $('.dataTables_length').addClass('dataTables_length_custom');
+        $('.dataTables_filter').addClass('dataTables_filter_custom');
+        $(".page-item.active .page-link").css("background-color",dataThemes.color_scheme);
+        $(".page-item.active .page-link").css("border-color",dataThemes.color_scheme);
+    }}),
+        $(".dataTables_length select").addClass("form-select form-select-sm"),
+        $(".dataTables_length select").removeClass("custom-select custom-select-sm"),
+        $(".dataTables_length label").addClass("form-label")
+        $(".dataTables_filter label").addClass("form-label")
+
+
+
+});
+ 
+
+  
+    $('.btndelete').on('click', function() {
+          let dataid = $(this).attr("dataid");
+          let fullname = $(this).attr("fullname");
+          let urldelete = "{{ route('dashboard.journey.reminder.setting.soft-delete',{ id : 'data.id' })}}";
+
+          urldelete = urldelete.replace('data.id', dataid);
+
+          $('#top-modal-delete').modal('show');
+          dataId =  dataid;
+          urlDelete = urldelete;
+          let labelDelete = 'Delete Reminder Setting';
+          let contentParagraphDelete = "Do you really want to delete this reminder setting" +"?";
+          let yesDelete = "Delete Reminder Setting";
+          let noDelete  = "Never Mind, Keep the Reminder Setting";
+          $('#topModalLabelDelete').html(labelDelete);
+          $('#content-paragraph-delete').html(contentParagraphDelete);
+          $('#yes-delete').html(yesDelete);
+          $('#no-delete').html(noDelete);
+
+
+    })
+
+   
+
+   $('#yes-delete').on('click', function() {
+      window.location.href = urlDelete;
+   });
+
+</script>
+<!-- third party js ends -->
+@endsection
